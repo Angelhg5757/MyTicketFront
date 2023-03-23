@@ -1,0 +1,48 @@
+.slidebar1 {
+	min-height: 1000px;
+	float: left;
+	border-right: 1px solid rgb(59, 107, 227);
+	background-color: #7cb2c3;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 15px ;
+	font-weight: normal;
+	font-variant: normal;
+}
+
+.slidebar1 ul {
+	padding: 0;
+	margin: 0;
+}
+
+.slidebar1 li {
+	list-style-type: none;
+	margin: 0;
+	position: relative;
+}
+
+.slidebar1 li:before {
+	content: "";
+	font-family: 'icomoon';
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	position: absolute;
+	display: block;
+	line-height: 40px;
+	color: rgb(255, 110, 110);
+	right: 20px;
+	-webkit-font-smoothing: antialiased;
+}
+ul {
+    list-style: none;
+    padding: 1rem 2rem;
+}
+
+li {
+    margin-bottom: 1rem;
+}
+
+a {
+    text-decoration: none;
+}
+

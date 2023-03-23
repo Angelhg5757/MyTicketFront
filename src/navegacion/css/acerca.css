@@ -1,0 +1,137 @@
+.seccion {
+  height: 100%;
+  width: 100%;
+  /* margin-bottom: 570px; */
+}
+
+.row1{
+  height: 70vh;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.imag{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.title2{
+  padding: 30px;
+  text-align: center;
+  background-color: #0B121B;
+  color: white;
+  margin-bottom: 50px;
+}
+
+.column {
+  float: left;
+  /* width: 33.3%; */
+  width: 25%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 6px;
+  height: 450px;
+}
+
+.about-section {
+  padding: 50px;
+  text-align: center;
+  color: white;
+  height: 280px;
+  background-image: url(https://d2lcsjo4hzzyvz.cloudfront.net/blog/wp-content/uploads/2021/06/11125531/Requisitos-para-donar-sangre.jpg);
+  background-position: center;
+  background-size:cover;
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after,
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.button1 {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button1:hover {
+  background-color: #555;
+}
+
+@media screen and (max-width: 620px) {
+  .column {
+    width: 100%;
+    display: flex;
+  }
+
+  .row1{
+    height: 320vh;
+    position: relative;
+    display: block;
+  }
+}
+
+@media (max-width: 1100px) {
+  .column {
+    width: 100%;
+    display: flex;
+  }
+
+  .row1{
+    height: 320vh;
+    position: relative;
+    display: block;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0B121B;
+  /* border-radius: 4px; */
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: #646464;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1a223c;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(86, 86, 86);
+  border-radius: 4px;
+  display: none;
+}
+
+::-webkit-scrollbar-track:hover, 
+::-webkit-scrollbar-track:active {
+  background: #424242;
+  display: none;
+}
