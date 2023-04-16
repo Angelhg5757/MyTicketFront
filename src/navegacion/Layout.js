@@ -3,21 +3,16 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import Figure from "react-bootstrap/Figure";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHandHoldingHeart } from "@fortawesome/free-solid-svg-icons";
-import { margin } from "@mui/system";
-
+import { FaTicketAlt } from 'react-icons/fa';
+import './css/navbar.css';
+import {ImTicket} from "react-icons/im";
 
 
 function CollapsibleExample() {
   return (
-    <>
+/*     <>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
-          {/* <FontAwesomeIcon icon="fa-thin fa-hand-holding-heart" /> */}
-
           <Navbar.Brand href="/inicio">
             <FontAwesomeIcon
               icon={faHandHoldingHeart}
@@ -25,31 +20,11 @@ function CollapsibleExample() {
               className="icono"
             />
           </Navbar.Brand>
-          {/* <Figure>
-          <Figure.Image
-            width={171}
-            height={180}
-            src="holder.js/171x180"
-          />
-        </Figure> */}
           <Navbar.Brand href="/Inicio">BloodBook</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="/acerca">Acerca de nosotros</Nav.Link>
-              {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown> */}
             </Nav>
             <Nav>
               <Button variant="outline-light" href="/login">Iniciar Sesión</Button>{" "}
@@ -60,7 +35,31 @@ function CollapsibleExample() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    </>
+    </> */
+    <Navbar className="navbar-dark custom-navbar bg-dark" expand="lg">
+      <ImTicket className="logo"/>
+      <Navbar.Brand className="_logo" href="#">TicketBook</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link href="#">Conciertos</Nav.Link>
+          <Nav.Link href="#">Festivales</Nav.Link>
+          <Nav.Link href="#">Deportes</Nav.Link>
+          <Nav.Link href="#">Teatro</Nav.Link>
+          <Nav.Link href="#">Familiares</Nav.Link>
+          <Nav.Link href="#">Cultura</Nav.Link>
+        </Nav>
+        <Nav className="inicio-sesion justify-content-between">
+        <form class="d-flex">
+          <input class="form-control form-busca mr-sm-2" type="search" placeholder="Buscar por evento, artista..." aria-label="Search"/>
+            <button class="btn btn-outline-danger my-2 my-sm-0 boton-buscar" type="submit">Buscar</button>
+        </form>
+          <Nav.Link href="/login">
+            <FaTicketAlt /> Iniciar sesión
+          </Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 }
 

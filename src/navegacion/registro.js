@@ -5,7 +5,7 @@ import UsuarioServicio from "../servicios/UsuarioServicios";
 import { encryptStorage } from "../utils/Storage";
 
 import Layout from "./Layout";
-import Styles from "./css/registro.css";
+import "./css/registro.css";
 import { RadioGroup } from "@mui/material";
 import { FormControlLabel } from "@mui/material";
 import { Radio } from "@mui/material";
@@ -155,44 +155,6 @@ const Registro = () => {
                     max={maxDate}
                     onChange={(e) => setFecha(e.target.value)}
                   />
-                </div>
-                <div className="input-box">
-                  <span className="details">Tipo Sanguíneo</span>
-
-                  <select
-                    name="sangre"
-                    id="sangre"
-                    required
-                    onChange={(e) => setSangre(e.target.value)}
-                  >
-                    <option selected="true" disabled="disabled">
-                      Seleccione
-                    </option>
-                    <option value="1">A+</option>
-                    <option value="2">A-</option>
-                    <option value="3">B+</option>
-                    <option value="4">B-</option>
-                    <option value="5">AB+</option>
-                    <option value="6">AB-</option>
-                    <option value="7">O+</option>
-                    <option value="8">O-</option>
-                  </select>
-                </div>
-                <div className="input-box">
-                  <span className="details">¿Qué quieres ser?</span>
-
-                  <select
-                    name="rol"
-                    id="rol"
-                    required
-                    onChange={(e) => setRol(e.target.value)}
-                  >
-                    <option selected="true" disabled="disabled">
-                      Seleccione
-                    </option>
-                    <option value="1">Donador</option>
-                    <option value="2">Paciente</option>
-                  </select>
                 </div>
               </div>
 

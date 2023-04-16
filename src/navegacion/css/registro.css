@@ -8,7 +8,7 @@
   justify-content: center;
   align-items: center;
   padding: 10px;
-  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  background: linear-gradient(135deg, #e67171, #b65959);
   position: relative;
 
 }
@@ -119,7 +119,10 @@
   justify-content: center;
   align-items: center;
   padding: 10px;
-  background: linear-gradient(100deg, #1b47a0, #59b5b6);
+ /* background: linear-gradient(100deg, #eababa, #ffabab);*/
+ background: #fffbd5;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #b20a2c, #fffbd5);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #b20a2c, #fffbd5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .container2 {

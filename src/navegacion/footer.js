@@ -1,3 +1,4 @@
+import {BsFacebook, BsTwitter, BsInstagram, BsYoutube } from "react-icons/bs";
 function Footer() {
   return (
     <>
@@ -5,11 +6,12 @@ function Footer() {
         <div class="container p-4 pb-0">
           <section class="mb-4">
             <a
-              class="btn btn-outline-light btn-floating m-1"
+              class="btn btn-outline-light btn-floating "
               href="#!"
               role="button"
             >
-              <i class="fa fa-facebook" aria-hidden="true"></i>
+              {/* <i className="fa fa-facebook fa-large" aria-hidden="true"></i> */}
+              <BsFacebook/>
             </a>
 
             <a
@@ -17,7 +19,7 @@ function Footer() {
               href="#!"
               role="button"
             >
-              <i class="fa fa-twitter" aria-hidden="true"></i>
+              <BsInstagram/>
             </a>
 
             <a
@@ -25,7 +27,7 @@ function Footer() {
               href="#!"
               role="button"
             >
-              <i class="fa fa-youtube-play" aria-hidden="true"></i>
+              <BsTwitter/>
             </a>
 
             <a
@@ -33,12 +35,12 @@ function Footer() {
               href="#!"
               role="button"
             >
-              <i class="fa fa-instagram"></i>
+              <BsYoutube/>
             </a>
           </section>
         </div>
 
-        <div class="text-center p-3">© 2023 BloodBook</div>
+        <div class="text-center p-3">© 2023 TicketBook</div>
       </footer>
     </>
   );

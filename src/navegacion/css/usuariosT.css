@@ -1,0 +1,21 @@
+.Usuarios{
+    width: calc(100vw - 20rem);
+    float:right;
+    position: relative;
+}
+.btnUsu{
+    position:relative;
+    background: #fff;
+    color: #242424;
+    border: none;
+}
+.btn1Usu{
+    border: none;
+    width: 60px;
+    background-color: transparent;
+}
+.btnUsu:hover, .btn1Usu:hover{
+    border: 3px solid rgb(71, 72, 71);
+    background-color: rgb(204, 212, 204);
+    transition: all 0.3s ease-out;
+}

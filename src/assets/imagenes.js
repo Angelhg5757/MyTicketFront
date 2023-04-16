@@ -26,7 +26,7 @@ import imgCarousel from './img/Carousel1.jpg';
 import imgCarousel1 from './img/Carousel3.jpg';
 import imgCarousel2 from './img/Carousel2.jpg';
 import avatar from './img/avatar.gif';
-
+import ticket from './img/tickets.png';
 export default {
     "logo":logoMenu,
     "icono1":about,
@@ -55,5 +55,6 @@ export default {
     "imgCarousel":imgCarousel,
     "imgCarousel1":imgCarousel1,
     "imgCarousel2":imgCarousel2,
-    "avatar": avatar
+    "avatar": avatar,
+    "ticket":ticket
 };

@@ -1,0 +1,30 @@
+.custom-navbar {
+    /*background-color: #001e6989 !important;
+  background: rgb(159,13,13);
+background: linear-gradient(90deg, rgba(159,13,13,1) 0%, rgba(132,23,27,0.9921218487394958) 52%, rgba(103,71,71,1) 84%);
+*/background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(90,92,106,1) 0%, rgba(32,45,58,1) 81.3% );
+}
+.logo{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.custom-navbar {
+    color:whitesmoke;
+}
+.inicio-sesion{
+    position: absolute;
+    right: 0;
+}
+.form-busca:focus{
+    margin: 2px solid rgb(255, 224, 224);
+
+}
+.boton-buscar{
+    margin-left: 5%;
+    width: 30%;
+    background-color: whitesmoke;
+}
+._logo{
+    font-size: 30px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
