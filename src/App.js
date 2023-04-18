@@ -17,6 +17,7 @@ import Comunidad from './navegacion/comunidad';
 import Terminos from './navegacion/terminos';
 import Perfil from './navegacion/Profile';
 
+//José estuvo acá
 function App() {
   return (
     <>
