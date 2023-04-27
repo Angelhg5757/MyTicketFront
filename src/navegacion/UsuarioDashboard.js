@@ -11,7 +11,7 @@ const UsuarioDashboard = () => {
         </span>
     return (
         <div>
-            <Navbar variant="dark" bg="dark" expand="lg">
+            <Navbar variant="white" bg="dark" expand="lg">
                 <Navbar.Toggle aria-controls="navbar-dark-example" />
                 <Navbar.Collapse id="navbar-dark-example">
                     <Nav>

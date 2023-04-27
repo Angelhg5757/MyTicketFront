@@ -12,9 +12,8 @@ import {
   MDBRow,
   MDBInput,
   MDBCheckbox,
-  MDBIcon
-}
-from 'mdb-react-ui-kit';
+  MDBIcon,
+} from "mdb-react-ui-kit";
 
 const Login = () => {
   let navigate = useNavigate();
@@ -128,9 +127,9 @@ const Login = () => {
         </form>
       </div>
     </div> */}
-      <MDBContainer  className="my-4">
+      <MDBContainer className="my-4">
         <MDBRow className="g-0 align-items-center">
-        <MDBCol col="8" >
+          <MDBCol col="8">
             <img
               src="https://images.pexels.com/photos/1644616/pexels-photo-1644616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               className="w-100 rounded-6 shadow-4 imgLogin"
@@ -139,20 +138,18 @@ const Login = () => {
             />
           </MDBCol>
           <MDBCol col="3">
-            <MDBCard
-              className="my-5 cascading-right mr-4"
-            >
+            <MDBCard className="my-5 cascading-right mr-4">
               <MDBCardBody className="p-5 shadow-5 text-center">
                 <h2 className="fw-bold mb-5">¡Inicia Sesión!</h2>
 
                 <MDBInput
-                  wrapperClass="mb-4"
+                  wrapperClass="w-50 mx-auto mb-4"
                   label="Email"
                   id="form3"
                   type="email"
                 />
                 <MDBInput
-                  wrapperClass="mb-4"
+                  wrapperClass="w-50 mx-auto mb-4"
                   label="Password"
                   id="form4"
                   type="password"
@@ -167,21 +164,20 @@ const Login = () => {
                   />
                 </div>
 
-                <MDBBtn className="w-100 mb-4 btn-danger" size="md">
+                <MDBBtn className="w-50 mb-4 btn-danger" size="md">
                   Ingresar
                 </MDBBtn>
 
                 <div className="text-center">
-                  <p>¿No tienes cuenta? <a href="/registro"> Registrate</a></p>
+                  <p>
+                    ¿No tienes cuenta? <a href="/registro"> Registrate</a>
+                  </p>
                 </div>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
-
-          
         </MDBRow>
-      </MDBContainer> 
-     
+      </MDBContainer>
     </>
   );
 };

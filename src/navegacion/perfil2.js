@@ -101,7 +101,12 @@ const Perfil2 = () => {
                       src={images.avatar}
                     />
                     <span className="font-weight-bold">{nombre}</span>
-                    <span className="text-black-50" style={{fontSize: '10px'}}>{correo}</span>
+                    <span
+                      className="text-black-50"
+                      style={{ fontSize: "10px" }}
+                    >
+                      {correo}
+                    </span>
                     <span> </span>
                   </div>
                 </div>
@@ -189,9 +194,8 @@ const Perfil2 = () => {
                         type="text"
                         className="form-control"
                         required
-                        onChange={e => SetTelefono(e.target.value)}
+                        onChange={(e) => SetTelefono(e.target.value)}
                       />
-                      
                     </div>
                     <div className="form-group">
                       <label>Correo electrónico público:</label>
@@ -199,11 +203,15 @@ const Perfil2 = () => {
                         type="email"
                         className="form-control"
                         required
-                        onChange={e => SetEmail(e.target.value)}
+                        onChange={(e) => SetEmail(e.target.value)}
                       />
                     </div>
                     <div className="mt-4 text-center">
-                      <input className="btn btn-primary profile-button1" type="submit" value="Crear" />
+                      <input
+                        className="btn btn-primary profile-button1"
+                        type="submit"
+                        value="Crear"
+                      />
                     </div>
                   </form>
                 </div>

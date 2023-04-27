@@ -1,6 +1,6 @@
 body{
-  /*  background: #fffbd5;  /* fallback for old browsers */
-/*background: -webkit-linear-gradient(to right, #b20a2c, #fffbd5);  /* Chrome 10-25, Safari 5.1-6 */
-/*background: linear-gradient(to right, #b20a2c, #fffbd5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(69, 86, 102, 0.588) 0%, rgba(34, 34, 34, 0.566) 90% );
+  /* background: #fffbd5;  fallback for old browsers */
+/* background: -webkit-linear-gradient(to right, #b20a2c, #fffbd5);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #b20a2c, #fffbd5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+/* background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(69, 86, 102, 0.588) 0%, rgba(34, 34, 34, 0.566) 90% ); */
 }

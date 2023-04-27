@@ -39,6 +39,7 @@ function CollapsibleExample() {
     <Navbar className="navbar-dark custom-navbar bg-dark" expand="lg">
       <ImTicket className="logo"/>
       <Navbar.Brand className="_logo" href="#">TicketBook</Navbar.Brand>
+      
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
