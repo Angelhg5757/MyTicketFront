@@ -151,7 +151,6 @@ const Usuarios = () => {
                     <TableHead>
                       <TableRow>
                         <TableCell>ID</TableCell>
-                        <TableCell>Correo</TableCell>
                         <TableCell>Fecha de registro</TableCell>
                         <TableCell>Fecha de vigencia</TableCell>
                         <TableCell>Rol</TableCell>
