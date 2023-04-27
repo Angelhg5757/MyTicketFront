@@ -8,3 +8,9 @@
     -webkit-text-stroke: 1px #630505; /* contorno de 1px de ancho en color negro */
   text-stroke: 1px #5d0505;
 }
+/* Aumenta el tamaño de los dots */
+.slick-next:before, .slick-prev:before {
+  font-size: 30px;
+  color: black;
+}
+  
