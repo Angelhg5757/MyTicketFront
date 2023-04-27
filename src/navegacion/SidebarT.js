@@ -33,7 +33,7 @@ const Sidebar = () => {
         <CDBSidebarFooter style={{ textAlign: 'center' }}>
           <div
             style={{
-              padding: '20px 5px',
+              padding: '20px 5px', backgroundColor: 'rgb(12%, 12%, 12%)'
             }}
           >
             <NavLink exact to="/" activeClassName="activeClicked">
