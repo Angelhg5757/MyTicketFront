@@ -16,6 +16,8 @@ import Publicaciones from './navegacion/Publicaciones';
 import Comunidad from './navegacion/comunidad';
 import Terminos from './navegacion/terminos';
 import Perfil from './navegacion/Profile';
+import MisEventos from './navegacion/misEventos';
+import MisBoletos from './navegacion/misBoletos';
 
 //José estuvo acá
 function App() {
@@ -42,6 +44,8 @@ function App() {
           <Route path='/update' element={<Update />} />
           <Route path='/updateUser' element={<UpdateUsuarios />} />
           <Route path='/usuario/:usuarioId' element={<UsuarioDetalle />} />
+          <Route path='/misEventos' element={<MisEventos/>} />
+          <Route path='/misBoletos' element={<MisBoletos/>} />
           <Route path='*' element={<RutaNoEncontrada />} />
       </Routes>
     </>
