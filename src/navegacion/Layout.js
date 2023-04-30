@@ -1,45 +1,21 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { FaTicketAlt } from 'react-icons/fa';
 import './css/navbar.css';
-import {ImTicket} from "react-icons/im";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTicket } from "@fortawesome/free-solid-svg-icons";
 
 
 function CollapsibleExample() {
   return (
-/*     <>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand href="/inicio">
-            <FontAwesomeIcon
-              icon={faHandHoldingHeart}
-              color="white"
-              className="icono"
-            />
-          </Navbar.Brand>
-          <Navbar.Brand href="/Inicio">BloodBook</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="/acerca">Acerca de nosotros</Nav.Link>
-            </Nav>
-            <Nav>
-              <Button variant="outline-light" href="/login">Iniciar Sesión</Button>{" "}
-              <Nav.Link eventKey={2} href="/registro">
-                Registrarse
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </> */
+
     <Navbar className="navbar-dark custom-navbar bg-dark" expand="lg">
-      <ImTicket className="logo"/>
+      <Navbar.Brand className="logo" href="/inicio">
+        <FontAwesomeIcon icon={faTicket} beat color="white" className="icono" />
+      </Navbar.Brand>
       <Navbar.Brand className="_logo" href="#">TicketBook</Navbar.Brand>
-      
+
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
