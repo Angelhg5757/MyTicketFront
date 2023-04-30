@@ -25,7 +25,7 @@ const Registro = () => {
   const [sexo, setSexo] = useState();
 
   const today = new Date();
-  const maxDate = today.toISOString().split('T')[0];
+  const maxDate = today.toISOString().split("T")[0];
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -148,8 +148,8 @@ const Registro = () => {
                   />
                 </div>
                 <div className="input-box">
-                  <span className="details" >Fecha de nacimiento</span>
-                  <input 
+                  <span className="details">Fecha de nacimiento</span>
+                  <input
                     type="date"
                     required
                     max={maxDate}
@@ -184,7 +184,17 @@ const Registro = () => {
                 </RadioGroup>
               </div>
               <div className="input-box">
-                <a href="/terminos" target={"_blank"} style={{fontSize: '18px', color: '#1E4CA1', fontWeight: '500'}}>Términos y Condiciones</a>
+                <a
+                  href="/terminos"
+                  target={"_blank"}
+                  style={{
+                    fontSize: "18px",
+                    color: "#1E4CA1",
+                    fontWeight: "500",
+                  }}
+                >
+                  Términos y Condiciones
+                </a>
               </div>
               <FormControlLabel
                 control={<Checkbox />}

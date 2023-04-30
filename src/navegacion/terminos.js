@@ -48,7 +48,6 @@ const Terminos = () => {
           <Divider>
             <Chip label="Estipulaciones particulares" />
           </Divider>
-          {/* <h4></h4> */}
           <br></br>
           <p>
             El usuario reconoce que este sitio web y sus contenidos, salvo que
@@ -207,7 +206,7 @@ const Terminos = () => {
           <br></br>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

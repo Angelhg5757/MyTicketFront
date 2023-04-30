@@ -49,7 +49,7 @@ const misBoletos = () => {
     <>
       <Layout />
       <Sidebar />
-      <Container fluid >
+      <Container fluid>
         <Row>
           <Col sm={2}></Col>
           <Col sm={9}>

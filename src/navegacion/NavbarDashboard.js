@@ -9,7 +9,7 @@ import { FaTicketAlt } from "react-icons/fa";
 const NavbarDashboard = () => {
   return (
     <>
-      <Navbar className="navbar-dark custom-navbar bg-dark" >
+      <Navbar className="navbar-dark custom-navbar bg-dark">
         <ImTicket className="logo" />
         <Navbar.Brand className="_logo" href="#">
           TicketBook
