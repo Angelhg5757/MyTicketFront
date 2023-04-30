@@ -143,7 +143,7 @@ const Usuarios = () => {
             <h3 className="head">
               <FaIcons.FaHouseUser className="me-2" /> Usuarios
             </h3>
-            <div className="usuarios">
+            <div className="container">
               <br></br>
               <div className="tab2">
                 <TableContainer>
@@ -151,6 +151,7 @@ const Usuarios = () => {
                     <TableHead>
                       <TableRow>
                         <TableCell>ID</TableCell>
+                        <TableCell>Correo</TableCell>
                         <TableCell>Fecha de registro</TableCell>
                         <TableCell>Fecha de vigencia</TableCell>
                         <TableCell>Rol</TableCell>
@@ -199,24 +200,24 @@ const Usuarios = () => {
                   </Table>
                 </TableContainer>
               </div>
+              <Button
+                className="btnUsu"
+                onClick={handleOpen}
+                style={{
+                  float: "right",
+                  margin: "40px",
+                  marginTop: "20px",
+                  fontSize: "20px",
+                  fontFamily: "Verdana",
+                  backgroundColor: "#00ff00",
+                }}
+              >
+                Agregar
+              </Button>
             </div>
           </div>
         </div>
         <br />
-        <Button
-  className="btnUsu"
-  onClick={handleOpen}
-  style={{
-    float: "right",
-    margin: "40px",
-    marginTop: "20px",
-    fontSize: "20px",
-    fontFamily: "Verdana",
-    backgroundColor: "#00ff00",
-  }}
->
-  Agregar
-</Button>
 
         <Modal
           open={open}
