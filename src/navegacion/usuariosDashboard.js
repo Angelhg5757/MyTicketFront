@@ -137,8 +137,8 @@ const Usuarios = () => {
 
   return (
     <>
-      <div className="Usuarios">
-        <div className="main2">
+      <div className="Usuarios" >
+        <div className="main2" style={{ width: "100%" }}>
           <div id="media">
             <h3 className="head">
               <FaIcons.FaHouseUser className="me-2" /> Usuarios
@@ -200,24 +200,25 @@ const Usuarios = () => {
                   </Table>
                 </TableContainer>
               </div>
-              <Button
-                className="btnUsu"
-                onClick={handleOpen}
-                style={{
-                  float: "right",
-                  margin: "40px",
-                  marginTop: "20px",
-                  fontSize: "20px",
-                  fontFamily: "Verdana",
-                  backgroundColor: "#00ff00",
-                }}
-              >
-                Agregar
-              </Button>
             </div>
+            <br />
           </div>
         </div>
-        <br />
+        <Button
+          className="btnUsu"
+          onClick={handleOpen}
+          style={{
+            float: "right",
+            margin: "40px",
+            marginTop: "20px",
+            fontSize: "20px",
+            fontFamily: "Verdana",
+            backgroundColor: "#3CB371",
+            borderRadius: "5px",
+          }}
+        >
+          Agregar
+        </Button>
 
         <Modal
           open={open}

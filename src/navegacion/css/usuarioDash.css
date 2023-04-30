@@ -1,8 +1,10 @@
-.main2 {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
+body{
+  margin: 0;
+}
+
+.Usuarios {
+    width: 100%;  
+}
   
 .head{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -39,4 +41,6 @@ table {
     display: flex;
     flex-direction: column;
   }
+  
+
   
