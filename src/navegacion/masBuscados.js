@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./css/proxEventos.css";
 
 const settings = {
+  centerMode: true,
   dots: true,
   infinite: true,
   speed: 500,
