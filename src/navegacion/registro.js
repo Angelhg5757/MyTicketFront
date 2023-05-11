@@ -17,12 +17,10 @@ const Registro = () => {
   const [nombre, setNombre] = useState();
   const [apePat, setApepat] = useState();
   const [apeMat, setApemat] = useState();
+  const [telefono, setTelefono] = useState();
   const [correo, setCorreo] = useState();
   const [password, setPassword] = useState();
   const [fecha, setFecha] = useState();
-  const [idRol, setRol] = useState();
-  const [idSangre, setSangre] = useState();
-  const [sexo, setSexo] = useState();
 
   const today = new Date();
   const maxDate = today.toISOString().split("T")[0];
@@ -44,17 +42,9 @@ const Registro = () => {
         button: "Aceptar",
       });
       return;
-    }
-    if (idRol === undefined || idSangre === undefined) {
-      swal({
-        title: "Ups, parece que no haz completado todos los campos",
-        text: "Por favor, ingrese todos los datos",
-        icon: "warning",
-        button: "Aceptar",
-      });
     } else {
       try {
-        let res = await fetch("http://localhost:4000/usuario/crear", {
+        let res = await fetch("https://ticketback.herokuapp.com/usuario/crear", {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -64,16 +54,14 @@ const Registro = () => {
             nombre: nombre,
             apePat: apePat,
             apeMat: apeMat,
+            telefono: telefono,
             correo: correo,
             password: password,
             fechaNac: fecha,
-            idRoles: idRol,
-            idSangre: idSangre,
-            sexo: sexo,
+            idRoles: 2,
           }),
         });
-        console.log(idRol);
-        console.log(idSangre);
+
         if (res.status === 500) {
           swal({
             title: "El correo electrónico ya está registrado",
@@ -131,6 +119,14 @@ const Registro = () => {
                   />
                 </div>
                 <div className="input-box">
+                  <span className="details">Teléfono</span>
+                  <input
+                    type="text"
+                    required
+                    onChange={(e) => setTelefono(e.target.value)}
+                  />
+                </div>
+                <div className="input-box">
                   <span className="details">Email</span>
                   <input
                     type="email"
@@ -156,32 +152,6 @@ const Registro = () => {
                     onChange={(e) => setFecha(e.target.value)}
                   />
                 </div>
-              </div>
-
-              <div className="input-box">
-                <span className="details">Género</span>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
-                  onChange={(e) => setSexo(e.target.value)}
-                >
-                  <FormControlLabel
-                    value="F"
-                    control={<Radio />}
-                    label="Femenino"
-                  />
-                  <FormControlLabel
-                    value="M"
-                    control={<Radio />}
-                    label="Masculino"
-                  />
-                  <FormControlLabel
-                    value="O"
-                    control={<Radio />}
-                    label="Otro"
-                  />
-                </RadioGroup>
               </div>
               <div className="input-box">
                 <a

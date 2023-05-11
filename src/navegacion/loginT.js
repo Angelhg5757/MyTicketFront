@@ -31,7 +31,7 @@ const Login = () => {
   let inSesion = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch("http://localhost:4000/usuario/log", {
+      let res = await fetch("https://ticketback.herokuapp.com/usuario/log", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -50,7 +50,7 @@ const Login = () => {
         localStorage.setItem("apeMat", data.apeMat);
         localStorage.setItem("correo", data.correo);
         localStorage.setItem("fechaNac", data.fechaNac);
-        localStorage.setItem("sangre", data.sangre);
+
         console.log(id);
         console.log(res.status);
 
@@ -62,13 +62,13 @@ const Login = () => {
         localStorage.setItem("apeMat", data.apeMat);
         localStorage.setItem("correo", data.correo);
         localStorage.setItem("fechaNac", data.fechaNac);
-        localStorage.setItem("sangre", data.sangre);
+
         console.log(id);
 
         console.log(res.status);
 
         navigate("/perfil");
-      } else if (correo == "admin@gmail.com" && password == "admin") {
+      } else if (correo === "admin@gmail.com" && password === "admin") {
         localStorage.setItem("nombre", "admin");
 
         navigate("/admin");
@@ -84,6 +84,7 @@ const Login = () => {
       console.log(error);
     }
   };
+
   return (
     <>
       <MDBContainer className="my-4">
@@ -100,38 +101,41 @@ const Login = () => {
             <MDBCard className="my-5 cascading-right mr-4">
               <MDBCardBody className="p-5 shadow-5 text-center">
                 <h2 className="fw-bold mb-5">¡Inicia Sesión!</h2>
-
-                <MDBInput
-                  wrapperClass="w-50 mx-auto mb-4"
-                  label="Email"
-                  id="form3"
-                  type="email"
-                />
-                <MDBInput
-                  wrapperClass="w-50 mx-auto mb-4"
-                  label="Password"
-                  id="form4"
-                  type="password"
-                />
-
-                <div className="d-flex justify-content-center mb-4">
-                  <MDBCheckbox
-                    name="flexCheck"
-                    value=""
-                    id="flexCheckDefault"
-                    label="Recuérdame!"
+                <form method="POST" onSubmit={inSesion} className="form">
+                  <MDBInput
+                    wrapperClass="w-50 mx-auto mb-4"
+                    label="Email"
+                    id="form3"
+                    type="email"
+                    onChange={(e) => setCorreo(e.target.value)}
                   />
-                </div>
+                  <MDBInput
+                    wrapperClass="w-50 mx-auto mb-4"
+                    label="Password"
+                    id="form4"
+                    type="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
 
-                <MDBBtn className="w-50 mb-4 btn-danger" size="md">
-                  Ingresar
-                </MDBBtn>
+                  <div className="d-flex justify-content-center mb-4">
+                    <MDBCheckbox
+                      name="flexCheck"
+                      value=""
+                      id="flexCheckDefault"
+                      label="Recuérdame!"
+                    />
+                  </div>
 
-                <div className="text-center">
-                  <p>
-                    ¿No tienes cuenta? <a href="/registro"> Registrate</a>
-                  </p>
-                </div>
+                  <MDBBtn className="w-50 mb-4 btn-danger" size="md" type="submit">
+                    Ingresar
+                  </MDBBtn>
+
+                  <div className="text-center">
+                    <p>
+                      ¿No tienes cuenta? <a href="/registro"> Registrate</a>
+                    </p>
+                  </div>
+                </form>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
