@@ -54,7 +54,7 @@ const Login = () => {
         console.log(id);
         console.log(res.status);
 
-        navigate("/comunidad");
+        navigate("/dashboard");
       } else if (res.status === 201) {
         const id = localStorage.setItem("idUsuario", data.idUsuario);
         localStorage.setItem("nombre", data.nombre);
@@ -67,7 +67,7 @@ const Login = () => {
 
         console.log(res.status);
 
-        navigate("/perfil");
+        navigate("/profile");
       } else if (correo === "admin@gmail.com" && password === "admin") {
         localStorage.setItem("nombre", "admin");
 
