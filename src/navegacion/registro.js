@@ -58,7 +58,7 @@ const Registro = () => {
             correo: correo,
             password: password,
             fechaNac: fecha,
-            idRoles: 2,
+            idRol: 2,
           }),
         });
 
