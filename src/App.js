@@ -12,9 +12,6 @@ import RutaNoEncontrada from './navegacion/RutaNoEncontrada';
 import UsuarioDetalle from './navegacion/UsuarioDetalle';
 import Update from './navegacion/Dashboard/update';
 import UpdateUsuarios from './navegacion/Dashboard/updateUsuarios';
-import Publicaciones from './navegacion/Publicaciones';
-import Comunidad from './navegacion/comunidad';
-import Terminos from './navegacion/terminos';
 import Perfil from './navegacion/Profile';
 import MisEventos from './navegacion/misEventos';
 import MisBoletos from './navegacion/misBoletos';
@@ -31,9 +28,6 @@ function App() {
           <Route path='/profile' element={<Perfil/>} />
           <Route path='/login' element={<InicioSesion />} />
           <Route path='/registro' element={<Registro />} />
-          <Route path='/terminos' element={<Terminos />} />
-          <Route path='/comunidad' element={<Comunidad />} />
-          <Route path='/publicaciones' element={<Publicaciones/>} />
           {/* <Route path='/admin' element={<Dashboard />} /> */}
           <Route path='/user' element={<Inicio />} />
           <Route path='/CRUDUsuarios' element={<Usuarios />} />
