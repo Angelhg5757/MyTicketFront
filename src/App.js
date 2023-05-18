@@ -27,10 +27,6 @@ function App() {
         <Route element={<Layout />} />
           <Route index element={<Inicio />} />
           <Route path='/inicio' element={<Inicio />} />
-          {/* <Route path='/acerca' element={<Acerca />} />
-          <Route path='/donador' element={<Donador />} />
-          <Route path='/perfil' element={<Perfil />} />
-          <Route path='/perfilDonador' element={<Perfil2 />} /> */}
           <Route path='/dashboard' element={<DashboardUsuarios />} />
           <Route path='/profile' element={<Perfil/>} />
           <Route path='/login' element={<InicioSesion />} />

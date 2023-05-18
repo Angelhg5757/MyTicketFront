@@ -138,7 +138,7 @@ const Usuarios = () => {
   return (
     <>
       <div className="Usuarios">
-        <div className="main2" style={{ width: "100%" }}>
+        <div className="main2" style={{ width: "90%" }}>
           <div id="media">
             <h3 className="head">
               <FaIcons.FaHouseUser className="me-2" /> Usuarios

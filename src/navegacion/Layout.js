@@ -14,7 +14,7 @@ function CollapsibleExample() {
       <Navbar.Brand className="logo" href="/inicio">
         <FontAwesomeIcon icon={faTicket} beat color="white" className="icono" />
       </Navbar.Brand>
-      <Navbar.Brand className="_logo" href="#">TicketBook</Navbar.Brand>
+      <Navbar.Brand className="_logo" href="">TicketBook</Navbar.Brand>
 
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
