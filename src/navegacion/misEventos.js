@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -10,6 +11,9 @@ import Sidebar from "./SidebarT";
 import Layout from "./Layout";
 
 const EventsPanel = () => {
+  const [data, setApiData] = useState([]);
+  const idUser = localStorage.getItem('idUsuario');
+
   const events = [
     { name: "Evento 1", date: "12/05/2023", location: "Ciudad 1" },
     { name: "Evento 2", date: "15/06/2023", location: "Ciudad 2" },
@@ -17,6 +21,14 @@ const EventsPanel = () => {
     { name: "Evento 4", date: "10/08/2023", location: "Ciudad 4" },
     { name: "Evento 5", date: "18/09/2023", location: "Ciudad 5" },
   ];
+
+  const getData = () => {
+    axios
+      .get(`https://ticketback.herokuapp.com/eventos/usuario/${idUser}`)
+      .then((getData) => {
+        setApiData(getData.data);
+      });
+  };
 
   return (
     <>
@@ -26,11 +38,12 @@ const EventsPanel = () => {
         <Row>
           <Col sm={2}></Col>
           <Col sm={9}>
-            <br/>
+            <br />
             <Typography variant="h3" gutterBottom>
               Mis eventos
             </Typography>
             <Row>
+              {/* data.map */}
               {events.map((event, index) => (
                 <Col key={index} lg={4} md={6} sm={12} className="mb-4">
                   <Card>
@@ -41,9 +54,7 @@ const EventsPanel = () => {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size="small">
-                        Ver detalles
-                      </Button>
+                      <Button size="small">Ver detalles</Button>
                     </CardActions>
                   </Card>
                 </Col>

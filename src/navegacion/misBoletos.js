@@ -1,5 +1,10 @@
 import "../navegacion/css/misBoletos.scss";
 import { Container, Row, Col } from "react-bootstrap";
+
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -9,7 +14,29 @@ import Typography from "@mui/material/Typography";
 import Sidebar from "./SidebarT";
 import Layout from "./Layout";
 
-const misBoletos = () => {
+const MisBoletos = () => {
+  let navigate = useNavigate();
+  const [id, setId] = useState("");
+  const [apiData, setApiData] = useState([]);
+
+
+  useEffect(() => {
+    // Obtener el idUsuario del localStorage
+    const idUsuario = localStorage.getItem('idUsuario');
+
+    // Verificar si el idUsuario existe antes de hacer la solicitud
+    if (idUsuario) {
+      axios
+        .get(`https://ticketback.herokuapp.com/miseventos/${idUsuario}`)
+        .then((response) => {
+          setApiData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
+
   const events = [
     {
       numero: "1",
@@ -92,8 +119,18 @@ const misBoletos = () => {
           </Col>
         </Row>
       </Container>
+
+      <div>
+      {/* Renderizar los boletos obtenidos */}
+      {apiData.map((data) => (
+        <div key={data.idBoletos}>
+          <p>Boleto ID: {data.idBoletos}</p>
+          
+        </div>
+      ))}
+    </div>
     </>
   );
 };
 
-export default misBoletos;
+export default MisBoletos;

@@ -1,9 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import Layout from "./Layout";
 import "./css/profile.css";
 import Sidebar from "./SidebarT";
 
 const Profile = () => {
+  const [data, setApiData] = useState([]);
+  let navigate = useNavigate();
+
+  const [id, setId] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [apePat, setApePat] = useState("");
+  const [apeMat, setApeMat] = useState("");
+  const [correo, setCorreo] = useState("");
+  const [fechaNac, SetfechaNac] = useState("");
+
+  useEffect(() => {
+    setId(localStorage.getItem("idUsuario"));
+    setNombre(localStorage.getItem("nombre"));
+    setApePat(localStorage.getItem("apePat"));
+    setApeMat(localStorage.getItem("apeMat"));
+    setCorreo(localStorage.getItem("correo"));
+    SetfechaNac(localStorage.getItem("fechaNac"));
+  }, []);
+
+  const fecha = new Date(fechaNac);
+
+  if (
+    nombre == null ||
+    apePat == null ||
+    apeMat == null ||
+    correo == null ||
+    fechaNac == null
+  ) {
+    navigate("*");
+  }
+
   return (
     <>
       <Layout />
@@ -23,10 +55,10 @@ const Profile = () => {
                   width="150"
                 />
                 <div className="mt-3">
-                  <h4>John Doe</h4>
-                  <p className="text-secondary mb-1">Full Stack Developer</p>
+                  <h4>{nombre}{" "}{apePat}{" "}{apeMat}</h4>
+                  <p className="text-secondary mb-1">{correo}</p>
                   <p className="text-muted font-size-sm">
-                    Bay Area, San Francisco, CA
+                    {fechaNac}
                   </p>
                   <button className="btn btn-primary">Follow</button>
                   <button className="btn btn-outline-primary">Message</button>
