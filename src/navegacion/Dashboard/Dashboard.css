@@ -582,10 +582,11 @@ select {
 } */
 
 .formula33{
-	border-radius: 5px;
-	background-color: #f2f2f2;
+	border-radius: 20px;
+	background-color: #f2f2f27a;
 	padding: 15px;
-	width: 35%;
+	text-align: center;
+	/*width: 35%;*/
 }
 
 

@@ -15,14 +15,14 @@ const UsuarioDashboard = () => {
   );
   return (
     <div>
-      <Navbar variant="white" bg="dark" expand="lg">
+      <Navbar variant="danger" bg="transparent" expand="lg">
         <Navbar.Toggle aria-controls="navbar-dark-example" />
         <Navbar.Collapse id="navbar-dark-example">
           <Nav>
             <NavDropdown
               id="nav-dropdown-dark-example"
               title={title}
-              menuVariant="dark"
+              menuVariant="white"
             >
               <NavDropdown.Item href="">Mi perfil</NavDropdown.Item>
               <NavDropdown.Item href="/Dashboard/ConfiguracionPerfil">

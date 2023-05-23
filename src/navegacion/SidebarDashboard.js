@@ -9,7 +9,7 @@ const Slidebar = () => {
       <ul>
         <li>
           <NavLink
-            to="/"
+            to="/Crudusuarios"
             className="text-dark rounded py-2 w-100 d-inline-block px-3"
             activeclassname="active"
           >
@@ -18,16 +18,7 @@ const Slidebar = () => {
         </li>
         <li>
           <NavLink
-            to="/dashboard"
-            className="text-dark rounded py-2 w-100 d-inline-block px-3"
-            activeclassname="active"
-          >
-            <FaIcons.FaBookReader className="me-2" /> Roles
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/dashboard"
+            to="/crudboletos"
             className="text-dark rounded py-2 w-100 d-inline-block px-3"
             activeclassname="active"
           >

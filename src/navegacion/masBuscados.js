@@ -37,9 +37,8 @@ const Carousel = () => {
     <div className="proximos-eventos">
       <div className="eventos" style={{ padding: 40 }}>
         <h1 className="text-start ml-5 titulo-eventos text-center text-light">
-          Lo Más Buscado
+          Eventos en Oaxaca
         </h1>
-
         <Slider {...settings}>
           <div>
             <CardComponent

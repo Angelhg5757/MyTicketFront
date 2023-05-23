@@ -26,7 +26,7 @@ const Profile = () => {
 
   const fecha = new Date(fechaNac);
 
-  if (
+  /* if (
     nombre == null ||
     apePat == null ||
     apeMat == null ||
@@ -34,7 +34,7 @@ const Profile = () => {
     fechaNac == null
   ) {
     navigate("*");
-  }
+  } */
 
   return (
     <>

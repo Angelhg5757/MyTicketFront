@@ -9,7 +9,7 @@ const Usuario = () => {
         <div>
             <NavbarDashboard/>
             <Slidebar/>
-            <Usuarios/>
+            {/* <Usuarios/> */}
         </div>
     );
 };
