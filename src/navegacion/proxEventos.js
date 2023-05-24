@@ -66,7 +66,7 @@ const Carousel = () => {
         <Slider {...settings}>
           <div>
             <CardComponent
-              image="https://pbs.twimg.com/media/FcoTMAiXEAEcsgE.jpg:large"
+              image="https://media.ticketmaster.com/tm/en-us/dam/a/5c9/00ac6b3a-b89f-4d83-885e-b194762b65c9_CUSTOM.jpg"
               category={formatDate(event.fecha)}
               title={event.eventos_nombre}
               content={event.inmueble_nombre}
