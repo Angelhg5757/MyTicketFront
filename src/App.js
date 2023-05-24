@@ -6,7 +6,8 @@ import InicioSesion from './navegacion/inicioSesion';
 import Registro from './navegacion/registro';
 //import Dashboard from './navegacion/Dashboard/Dashboard';
 import DashboardUsuarios from './navegacion/Dashboard/UsuariosDash';
-import Usuarios from './navegacion/Dashboard/usuarios';
+import Usuarios from './navegacion/usuariosDashboard';
+import Boletos from './navegacion/ticketsDashboard';
 import Layout from './navegacion/Layout';
 import RutaNoEncontrada from './navegacion/RutaNoEncontrada';
 import UsuarioDetalle from './navegacion/UsuarioDetalle';
@@ -30,7 +31,8 @@ function App() {
           <Route path='/registro' element={<Registro />} />
           {/* <Route path='/admin' element={<Dashboard />} /> */}
           <Route path='/user' element={<Inicio />} />
-          <Route path='/CRUDUsuarios' element={<Usuarios />} />
+          <Route path='/crudusuarios' element={<Usuarios />} />
+          <Route path='/crudboletos' element={<Boletos />} />
           <Route path='/update' element={<Update />} />
           <Route path='/updateUser' element={<UpdateUsuarios />} />
           <Route path='/usuario/:usuarioId' element={<UsuarioDetalle />} />
