@@ -4,73 +4,56 @@ import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardHeader from "@mui/material/CardHeader";
-import Button from "@mui/material/Button";
+import moment from "moment";
 import Typography from "@mui/material/Typography";
 import Sidebar from "./SidebarT";
 import Layout from "./Layout";
 
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+
+// estilos modal
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  borderRadius: "8px",
+  boxShadow: 24,
+  p: 4,
+};
+
 const MisBoletos = () => {
   let navigate = useNavigate();
   const [id, setId] = useState("");
-  const [apiData, setApiData] = useState([]);
+  const [data, setApiData] = useState([]);
+  const idUser = localStorage.getItem("idUsuario");
 
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    // Obtener el idUsuario del localStorage
-    const idUsuario = localStorage.getItem('idUsuario');
-
-    // Verificar si el idUsuario existe antes de hacer la solicitud
-    if (idUsuario) {
-      axios
-        .get(`https://ticketback.herokuapp.com/miseventos/${idUsuario}`)
-        .then((response) => {
-          setApiData(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    getData();
   }, []);
 
-  const events = [
-    {
-      numero: "1",
-      name: "Evento 1",
-      date: "12/05/2023",
-      location: "Ciudad 1",
-      number: "4356",
-      hora: "10:00 p.m.",
-    },
-    {
-      numero: "2",
-      name: "Evento 2",
-      date: "15/06/2023",
-      location: "Ciudad 2",
-      number: "4356",
-      hora: "08:00 p.m.",
-    },
-    {
-      numero: "3",
-      name: "Evento 3",
-      date: "22/07/2023",
-      location: "Ciudad 3",
-      number: "4356",
-      hora: "01:00 p.m.",
-    },
-    {
-      numero: "4",
-      name: "Evento 4",
-      date: "10/08/2023",
-      location: "Ciudad 4",
-      number: "4356",
-      hora: "07:00 p.m.",
-    },
-  ];
+  const getData = () => {
+    axios
+      .get(`http://localhost:4000/boletosUsuario/${idUser}`)
+      .then((response) => {
+        setApiData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching event data:", error);
+      });
+  };
+
+  const formatDate = (date) => {
+    return moment(date).format("DD-MM-YYYY"); // Formatear la fecha usando moment.js
+  };
 
   return (
     <>
@@ -78,57 +61,89 @@ const MisBoletos = () => {
       <Sidebar />
       <Container fluid>
         <Row>
-          <Col sm={2}></Col>
-          <Col sm={9}>
+          <Col sm={3}></Col>
+          <Col sm={7}>
             <br />
             <Typography variant="h3" gutterBottom>
               Mis Boletos
             </Typography>
             <Row>
-              {events.map((event, index) => (
+              {data.map((event, index) => (
                 <div className="ticket">
                   <div className="stub">
                     <div className="top">
                       <span className="admit">Boleto</span>
                       <span className="line"></span>
-                      <span className="num">Num Boleto: {event.number}</span>
+                      <span className="num">
+                        Asiento: {event.numero}
+                        {event.seccion}
+                      </span>
                     </div>
-                    <div className="number">{event.numero}</div>
+                    <div className="number">
+                      <img
+                        src={event.imagen}
+                        width={150}
+                        style={{ borderRadius: 8 }}
+                      />
+                    </div>
                   </div>
                   <div className="check">
-                    <div className="big">{event.name}</div>
+                    <div className="big">{event.eventos_nombre}</div>
                     {/* <div className="number">#1</div> */}
                     <div className="info">
                       <section>
-                        <div className="title">Date</div>
-                        <div>{event.date}</div>
-                      </section>
-                      <section>
-                        <div className="title">Hora:</div>
-                        <div>{event.hora}</div>
+                        <div className="title">Fecha:</div>
+                        <div>{formatDate(event.fecha)}</div>
                       </section>
                       <section>
                         <div className="title">Lugar:</div>
-                        <div>{event.location}</div>
+                        <div>
+                          {event.inmueble_nombre}
+                          {", "}
+                          {event.ciudad}
+                        </div>
+                      </section>
+                      <section>
+                        <div className="title">Precio:</div>
+                        <div>
+                          {"$"}
+                          {event.precio}
+                        </div>
+                      </section>
+                      <section>
+                        <div className="title">
+                          <button className="but" onClick={handleOpen}>
+                            Detalle
+                          </button>
+                        </div>
                       </section>
                     </div>
                   </div>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={style}>
+                      <Typography
+                        id="modal-modal-title"
+                        variant="h4"
+                        component="h2"
+                      >
+                        {event.eventos_nombre}
+                      </Typography>
+                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        {event.descripcion}
+                      </Typography>
+                    </Box>
+                  </Modal>
                 </div>
               ))}
             </Row>
           </Col>
         </Row>
       </Container>
-
-      <div>
-      {/* Renderizar los boletos obtenidos */}
-      {apiData.map((data) => (
-        <div key={data.idBoletos}>
-          <p>Boleto ID: {data.idBoletos}</p>
-          
-        </div>
-      ))}
-    </div>
     </>
   );
 };
