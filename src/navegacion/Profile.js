@@ -3,8 +3,7 @@ import { useNavigate } from "react-router";
 import Layout from "./Layout";
 import "./css/profile.css";
 import Sidebar from "./SidebarT";
-import moment from 'moment';
-
+import moment from "moment";
 
 const Profile = () => {
   const [data, setApiData] = useState([]);
@@ -17,7 +16,7 @@ const Profile = () => {
   const [correo, setCorreo] = useState("");
   const [fechaNac, SetfechaNac] = useState("");
   const formatDate = (date) => {
-    return moment(date).format('DD-MM-YYYY'); 
+    return moment(date).format("DD-MM-YYYY");
   };
   useEffect(() => {
     setId(localStorage.getItem("idUsuario"));
@@ -58,58 +57,48 @@ const Profile = () => {
                   className="rounded-circle"
                   width="150"
                 />
-                <div className="mt-3">
-                  <h4>{nombre}{" "}{apePat}{" "}{apeMat}</h4>
-                  <p className="text-secondary mb-1">{correo}</p>
-                  <p className="text-muted font-size-sm">
-                  {formatDate(fechaNac)}
-                  </p>
-                  <button className="btn btn-primary">Follow</button>
-                  <button className="btn btn-outline-primary">Message</button>
-                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-5"
-          style={{ marginLeft: "800px", height: "500px", marginTop: "-500px" }}
-        >
-          <div className="card mb-3">
-            <div className="card-body text-center">
-              <div className="row">
-                <div className="col-sm-3">
-                  <h6 className="mb-0">Nombre Completo</h6>
-                </div>
-                <div className="col-sm-9 text-secondary">{nombre} {apePat} {apeMat}</div>
-              </div>
-              <hr />
-              <div className="row">
-                <div className="col-sm-3">
-                  <h6 className="mb-0">Correo Electronico</h6>
-                </div>
-                <div className="col-sm-9 text-secondary">{correo}</div>
-              </div>
-              
-              <hr />
-              <div className="row">
-                <div className="col-sm-3">
-                  <h6 className="mb-0">Fecha de Nacimiento</h6>
-                </div>
-                <div className="col-sm-9 text-secondary">{formatDate(fechaNac)}</div>
-              
-              </div>
-              
-              <hr />
-              <div className="row">
-                <div className="col-sm-12">
-                  <a
-                    className="btn btn-danger "
-                    target="__blank"
-                    href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills"
-                  >
-                    Edit
-                  </a>
+
+              <div className="card mb-3">
+                <div className="card-body text-center">
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h6 className="mb-0">Nombre Completo</h6>
+                    </div>
+                    <div className="col-sm-9 text-secondary">
+                      {nombre} {apePat} {apeMat}
+                    </div>
+                  </div>
+                  <hr />
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h6 className="mb-0">Correo Electronico</h6>
+                    </div>
+                    <div className="col-sm-9 text-secondary">{correo}</div>
+                  </div>
+
+                  <hr />
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h6 className="mb-0">Fecha de Nacimiento</h6>
+                    </div>
+                    <div className="col-sm-9 text-secondary">
+                      {formatDate(fechaNac)}
+                    </div>
+                  </div>
+
+                  <hr />
+                  <div className="row">
+                    <div className="col-sm-12">
+                      <a
+                        className="btn btn-danger "
+                        target="__blank"
+                        href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills"
+                      >
+                        Editar
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -104,31 +104,34 @@ const Login = () => {
                 <form method="POST" onSubmit={inSesion} className="form">
                   <MDBInput
                     wrapperClass="w-50 mx-auto mb-4"
-                    label="Email"
+                    label="Correo Eléctronico"
                     id="form3"
                     type="email"
                     onChange={(e) => setCorreo(e.target.value)}
                   />
                   <MDBInput
                     wrapperClass="w-50 mx-auto mb-4"
-                    label="Password"
+                    label="Contraseña"
                     id="form4"
                     type="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
 
-                  <div className="d-flex justify-content-center mb-4">
+                  <MDBBtn
+                    className="w-50 mb-4 btn-danger"
+                    size="md"
+                    type="submit"
+                  >
+                    Ingresar
+                  </MDBBtn>
+                  {/* <div className="d-flex justify-content-center mb-4">
                     <MDBCheckbox
                       name="flexCheck"
                       value=""
                       id="flexCheckDefault"
                       label="Recuérdame!"
                     />
-                  </div>
-
-                  <MDBBtn className="w-50 mb-4 btn-danger" size="md" type="submit">
-                    Ingresar
-                  </MDBBtn>
+                  </div> */}
 
                   <div className="text-center">
                     <p>

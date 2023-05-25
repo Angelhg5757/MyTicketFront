@@ -5,7 +5,7 @@
 }
 .cascading-right {
 	border-radius: 20px;
-	margin-left: -50px;
+	margin-left: 80px;
 	background: hsla(0, 0%, 100%, 0.55);
 	backdrop-filter: blur(30px);
 }

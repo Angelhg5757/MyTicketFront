@@ -20,10 +20,19 @@ const Sidebar = () => {
       }}
     >
       <CDBSidebar textColor="#fff" backgroundColor="#333" className="">
+        
         <CDBSidebarHeader
           prefix={<i className="fa fa-bars fa-large"></i>}
         ></CDBSidebarHeader>
 
+        <CDBSidebarHeader
+          prefix={
+            <React.Fragment>
+              <span style={{ marginRight: "150px" }}>Menú</span>
+              <i className="fa fa-bars fa-large"></i>
+            </React.Fragment>
+          }
+        ></CDBSidebarHeader>
         <CDBSidebarContent className="sidebar-content" style={{ flexGrow: 1 }}>
           <CDBSidebarMenu>
             <NavLink exact to="/misEventos" activeClassName="activeClicked">
