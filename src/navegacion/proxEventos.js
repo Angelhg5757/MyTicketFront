@@ -10,10 +10,10 @@ import "./css/proxEventos.css";
 const settings = {
   centerMode: true,
   dots: true,
-  infinite: false,
+  infinite: true,
   speed: 500,
   slidesToShow: 4,
-  slidesToScroll: 2,
+  slidesToScroll: 1,
   responsive: [
     {
       breakpoint: 1024,
