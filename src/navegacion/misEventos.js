@@ -9,25 +9,29 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Sidebar from "./SidebarT";
 import Layout from "./Layout";
+import moment from 'moment';
 
 const EventsPanel = () => {
   const [data, setApiData] = useState([]);
   const idUser = localStorage.getItem('idUsuario');
 
-  const events = [
-    { name: "Evento 1", date: "12/05/2023", location: "Ciudad 1" },
-    { name: "Evento 2", date: "15/06/2023", location: "Ciudad 2" },
-    { name: "Evento 3", date: "22/07/2023", location: "Ciudad 3" },
-    { name: "Evento 4", date: "10/08/2023", location: "Ciudad 4" },
-    { name: "Evento 5", date: "18/09/2023", location: "Ciudad 5" },
-  ];
+  useEffect(() => {
+    getData();
+  }, []);
 
   const getData = () => {
     axios
-      .get(`https://ticketback.herokuapp.com/eventos/usuario/${idUser}`)
-      .then((getData) => {
-        setApiData(getData.data);
+      .get(`http://localhost:4000/eventos/usuario/${idUser}`)
+      .then((response) => {
+        setApiData(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching event data:', error);
       });
+  };
+
+  const formatDate = (date) => {
+    return moment(date).format('DD-MM-YYYY'); // Formatear la fecha usando moment.js
   };
 
   return (
@@ -43,19 +47,18 @@ const EventsPanel = () => {
               Mis eventos
             </Typography>
             <Row>
-              {/* data.map */}
-              {events.map((event, index) => (
+              {data.map((event, index) => (
                 <Col key={index} lg={4} md={6} sm={12} className="mb-4">
                   <Card>
-                    <CardHeader title={event.name} subheader={event.date} />
+                    <CardHeader title={event.nombre} subheader={formatDate(event.fecha)} />
                     <CardContent>
-                      <Typography variant="body2" component="p">
-                        {event.location}
+                      <Typography variant="body3" component="h6">
+                        {event.ciudad}
                       </Typography>
                     </CardContent>
-                    <CardActions>
+                    {/* <CardActions>
                       <Button size="small">Ver detalles</Button>
-                    </CardActions>
+                    </CardActions> */}
                   </Card>
                 </Col>
               ))}

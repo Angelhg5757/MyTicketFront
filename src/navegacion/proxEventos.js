@@ -1,4 +1,6 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import moment from 'moment';
 import Slider from "react-slick";
 import CardComponent from "./tarjetas";
 import "slick-carousel/slick/slick.css";
@@ -33,19 +35,41 @@ const settings = {
 };
 
 const Carousel = () => {
+  const [data, setApiData] = useState([]);
+  
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    axios
+      .get(`http://localhost:4000/eventos/proximos`)
+      .then((response) => {
+        setApiData(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching event data:', error);
+      });
+  };
+
+  const formatDate = (date) => {
+    return moment(date).format('DD-MM-YYYY'); // Formatear la fecha usando moment.js
+  };
+
   return (
     <div className="proximos-eventos">
       <h1 className="text-start titulo-eventos text-center text-light pt-5">
         Proximos Eventos
       </h1>
       <div className="eventos" style={{ padding: 40 }}>
+      {data.map((event, index) => (
         <Slider {...settings}>
           <div>
             <CardComponent
               image="https://media.ticketmaster.com/tm/en-us/dam/a/5c9/00ac6b3a-b89f-4d83-885e-b194762b65c9_CUSTOM.jpg"
-              category="Música"
-              title="Morat"
-              content="Tour: Si Ayer Fuera Hoy"
+              category={formatDate(event.fecha)}
+              title={event.eventos_nombre}
+              content={event.inmueble_nombre}
             />
           </div>
           <div>
@@ -81,6 +105,7 @@ const Carousel = () => {
             />
           </div>
         </Slider>
+        ))}
       </div>
     </div>
   );

@@ -16,6 +16,7 @@ import UpdateUsuarios from './navegacion/Dashboard/updateUsuarios';
 import Perfil from './navegacion/Profile';
 import MisEventos from './navegacion/misEventos';
 import MisBoletos from './navegacion/misBoletos';
+import DashboardEventos from './navegacion/eventosDashboard';
 
 //José estuvo acá
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path='/misEventos' element={<MisEventos/>} />
           <Route path='/misBoletos' element={<MisBoletos/>} />
           <Route path='*' element={<RutaNoEncontrada />} />
+          <Route path='/eventosDashboard' element={<DashboardEventos />} />
       </Routes>
     </>
   );
