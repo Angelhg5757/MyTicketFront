@@ -8,6 +8,8 @@ function Inicio() {
     <>
       <Layout />
       <Login />
+      <br></br>
+      <Footer />
     </>
   );
 }

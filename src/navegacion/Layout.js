@@ -32,7 +32,8 @@ function CollapsibleExample() {
             <button class="btn btn-outline-danger my-2 my-sm-0 boton-buscar" type="submit">Buscar</button>
         </form>
           <Nav.Link href="/login">
-            <FaTicketAlt /> Iniciar sesión
+            {/* <FaTicketAlt /> Iniciar sesión */}
+            <FontAwesomeIcon icon={faTicket} bounce color="white" className="icono" /> Iniciar sesión
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

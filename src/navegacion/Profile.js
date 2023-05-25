@@ -4,6 +4,7 @@ import Layout from "./Layout";
 import "./css/profile.css";
 import Sidebar from "./SidebarT";
 import moment from "moment";
+import Footer from "./footer";
 
 const Profile = () => {
   const [data, setApiData] = useState([]);
@@ -43,7 +44,7 @@ const Profile = () => {
     <>
       <Layout />
       <Sidebar />
-      <div className="container">
+      <div className="container-perfil">
         <div
           className="col-5 ml-5 mt-5"
           style={{ marginLeft: "180px", height: "500px" }}
@@ -58,6 +59,8 @@ const Profile = () => {
                   width="150"
                 />
               </div>
+
+              <br/><br/>
 
               <div className="card mb-3">
                 <div className="card-body text-center">
@@ -86,25 +89,23 @@ const Profile = () => {
                       {formatDate(fechaNac)}
                     </div>
                   </div>
-
-                  <hr />
-                  <div className="row">
-                    <div className="col-sm-12">
-                      <a
-                        className="btn btn-danger "
-                        target="__blank"
-                        href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills"
-                      >
-                        Editar
-                      </a>
-                    </div>
-                  </div>
                 </div>
+              </div>
+              <div className="col-sm-12">
+                <a
+                  className="btn btn-danger w-100 btn-block"
+                  target="__blank"
+                  href=""
+                >
+                  Editar
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <Footer />
+
     </>
   );
 };

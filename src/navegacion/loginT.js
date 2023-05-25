@@ -91,7 +91,9 @@ const Login = () => {
         <MDBRow className="g-0 align-items-center">
           <MDBCol col="8">
             <img
-              src="https://images.pexels.com/photos/1644616/pexels-photo-1644616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              // src="https://images.pexels.com/photos/1644616/pexels-photo-1644616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              src="https://pbs.twimg.com/media/ESSrixsWAAAvgq7.jpg"
+
               className="w-100 rounded-6 shadow-4 imgLogin"
               alt=""
               fluid
@@ -117,13 +119,25 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
 
-                  <MDBBtn
+                  {/* <MDBBtn
                     className="w-50 mb-4 btn-danger"
                     size="md"
                     type="submit"
                   >
                     Ingresar
-                  </MDBBtn>
+                  </MDBBtn> */}
+
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <MDBBtn
+                      className="w-50 mb-4 btn-danger"
+                      size="md"
+                      type="submit"
+                      style={{ height: "40px" }}
+                    >
+                      Ingresar
+                    </MDBBtn>
+                  </div>
+
                   {/* <div className="d-flex justify-content-center mb-4">
                     <MDBCheckbox
                       name="flexCheck"
