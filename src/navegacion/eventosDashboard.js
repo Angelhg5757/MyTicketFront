@@ -13,14 +13,15 @@ import {
   TableRow,
   TableCell,
 } from "@mui/material";
-
+//import editar from '../Componentes/Imagenes/editar.png';
+//import borrar from '../Componentes/Imagenes/borrar.png';
 import swal from "sweetalert";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import "./css/usuariosT.css";
 
-const Usuarios = () => {
+const DashboardEventos = () => {
   const style = {
     position: "absolute",
     top: "50%",
@@ -39,31 +40,33 @@ const Usuarios = () => {
 
   useEffect(() => {
     axios
-      .get(`https://ticketback.herokuapp.com/boletos/listar`)
+      .get(`http://localhost:9595/administrador/evento/listar`)
       .then((getData) => {
         setApiData(getData.data);
       });
   }, []);
 
   const setData = (
-    idBoleto,
-          idUsuario,
-          idEventos,
-          idAsientos,
-          idPrecio,
-          descripcion,
+    idEventos,
+    descripcion,
+    nombre,
+    fecha,
+    ciudad,
+    idInmueble,
+    rol_id
   ) => {
-    localStorage.setItem("IdUsuario", idUsuario);
-    localStorage.setItem("IdAsientos", idAsientos);
-    localStorage.setItem("idBoleto", idBoleto);
-    localStorage.setItem("idPrecio", idPrecio);
-    localStorage.setItem("descripcion", descripcion);
-    localStorage.setItem("idEventos", idEventos);
+    localStorage.setItem("ID", idEventos);
+    localStorage.setItem("Descripción", descripcion);
+    localStorage.setItem("Nombre", nombre);
+    localStorage.setItem("Fecha", fecha);
+    localStorage.setItem("Ciudad", ciudad);
+    localStorage.setItem("Id Inmueble", idInmueble);
+    localStorage.setItem("rol_id", rol_id);
   };
 
   const getData = () => {
     axios
-      .get(`https://ticketback.herokuapp.com/boletos/listar`)
+      .get(`http://localhost:9595/administrador/evento/listar`)
       .then((getData) => {
         setApiData(getData.data);
       });
@@ -71,53 +74,51 @@ const Usuarios = () => {
 
   const onDelete = (id) => {
     swal({
-      title: "Eliminar boleto",
-      text: "¿Está seguro que desea eliminar el boleto?",
+      title: "Eliminar evento",
+      text: "¿Está seguro que desea eliminar el evento?",
       icon: "warning",
       buttons: ["No", "Si"],
     }).then((elimina) => {
       if (elimina) {
         axios
-          .delete(`https://ticketback.herokuapp.com/boletos/eliminar/${id}`)
+          .delete(`http://localhost:9595/administrador/evento/${id}`)
           .then(() => {
             getData();
           });
         swal({
-          text: "El boleto ha sido eliminado con éxito",
+          text: "El evento se ha sido eliminado con éxito",
           icon: "success",
         });
       }
     });
   };
 
-  const [idUsuario, setidUsuario] = useState();
-  const [idAsientos, setidAsientos] = useState();
-  const [idBoleto, setidBoleto] = useState();
-  const [idEventos, setidEventos] = useState();
-  const [idPrecio, setidPrecio] = useState();
   const [descripcion, setDescripcion] = useState();
+  const [nombre, setNombre] = useState();
+  const [fecha, setFecha] = useState();
+  const [ciudad, setCiudad] = useState();
+  const [idInmueble, setIdInmueble] = useState();
 
   let registerUsu = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch("https://ticketback.herokuapp.com/boletos/crear", {
+      let res = await fetch("http://localhost:9595/administrador/registrar", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "content-type": "application/json",
         },
         body: JSON.stringify({
-          idBoleto: idBoleto,
-          idUsuario: idUsuario,
-          idEventos: idEventos,
-          idAsientos: idAsientos,
-          idprecio: idPrecio,
           descripcion: descripcion,
+          nombre: nombre,
+          fecha: fecha,
+          ciudad: ciudad,
+          idInmuebele: idInmueble,
         }),
       });
       swal({
-        title: "Boleto creado con éxito!",
-        text: "El boleto ha sido guardado",
+        title: "Evento registrado con éxito!",
+        text: "El evento " + nombre + " ha sido guardado",
         icon: "success",
         button: "Aceptar",
       }).then((respuesta) => {
@@ -139,11 +140,11 @@ const Usuarios = () => {
     <>
       <NavbarDashboard/>
       <Slidebar/>
-      <div className="Boletos">
-        <div className="main2" style={{ width: "80%",height:"100vh",marginLeft: "20%" }}>
+      <div className="Usuarios">
+        <div className="main2" style={{ width: "100%",height:"100vh"}}>
           <div id="media">
             <h3 className="head">
-              <FaIcons.FaHouseUser className="me-2" /> Tickets
+              <FaIcons.FaHouseUser className="me-2" /> Eventos
             </h3>
             <div className="container">
               <br></br>
@@ -152,36 +153,38 @@ const Usuarios = () => {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        {/* <TableCell>Id Boleto</TableCell> */}
-                        <TableCell>Id Evento</TableCell>
-                        <TableCell>Id Usuario</TableCell>
-                        <TableCell>Id Asiento</TableCell>
-                        <TableCell>Id Precio</TableCell>
-                        <TableCell>Descripción</TableCell>
+                        <TableCell>ID</TableCell>
+                        <TableCell>Descripcion</TableCell>
+                        <TableCell>Nombre</TableCell>
+                        <TableCell>Fecha</TableCell>
+                        <TableCell>Ciudad</TableCell>
+                        <TableCell>IdInmueble</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {apiData.map((data) => {
                         return (
                           <TableRow>
-                            {/* <TableCell>{data.idBoleto}</TableCell> */}
-                            <TableCell>{data.idEventos}</TableCell>
-                            <TableCell>{data.idUsuario}</TableCell>
-                            <TableCell>{data.idAsientos}</TableCell>
-                            <TableCell>{data.idPrecio}</TableCell>
+                            <TableCell>{data.id}</TableCell>
                             <TableCell>{data.descripcion}</TableCell>
+                            <TableCell>{data.nombre}</TableCell>
+                            <TableCell>{data.fecha}</TableCell>
+                            <TableCell>{data.ciudad}</TableCell>
+                            <TableCell>{data.idInmueble}</TableCell>
+                            <TableCell>{data.rol.nombre}</TableCell>
                             <TableCell>
-                              <Link to="/Dashboard/usuarios/actualizar">
+                              <Link to="/Dashboard/eventos/actualizar">
                                 <Button
                                   className="btn1Usu"
                                   onClick={() =>
                                     setData(
-                                      /* data.idBoleto, */
-                                      data.idEventos,
-                                      data.idUsuario,
-                                      data.idAsientos,
-                                      data.idPrecio,
-                                      data.descripcion
+                                      data.id,
+                                      data.descripcion,
+                                      data.nombre,
+                                      data.fecha,
+                                      data.ciudad,
+                                      data.idInmueble,
+                                      data.rol_id
                                     )
                                   }
                                 >
@@ -232,73 +235,63 @@ const Usuarios = () => {
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h3" component="h2">
-              Nuevo Boleto
+              Nuevo evento
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <form method="POST" className="formula33" onSubmit={registerUsu}>
-                {/* <div className>
-                  <label for="" style={{ fontFamily: "Verdana" }} className="">
-                    id Boleto
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    onChange={(e) => setidBoleto(e.target.value)}
-                    required
-                  />
-                </div> */}
                 <div className>
                   <label for="" style={{ fontFamily: "Verdana" }} className="">
-                    id Evento
+                    Descripcion
                   </label>
                   <input
-                    type="number"
                     className="form-control"
-                    onChange={(e) => setidEventos(e.target.value)}
+                    onChange={(e) => setDescripcion(e.target.value)}
                     required
                   />
                 </div>
+
                 <div className>
-                  <label for="" style={{ fontFamily: "Verdana" }} className="">
-                    id Usuario
+                  <label for="" style={{ fontFamily: "Verdana" }}>
+                    Nombre 
                   </label>
                   <input
-                    type="number"
                     className="form-control"
-                    onChange={(e) => setidUsuario(e.target.value)}
+                    onChange={(e) => setNombre(e.target.value)}
                     required
                   />
                 </div>
+
                 <div className>
-                  <label for="" style={{ fontFamily: "Verdana" }} className="">
-                    id Asiento
+                  <label for="" style={{ fontFamily: "Verdana" }}>
+                    Fecha
                   </label>
                   <input
-                    type="number"
+                    type="date"
                     className="form-control"
-                    onChange={(e) => setidAsientos(e.target.value)}
+                    onChange={(e) => setFecha(e.target.value)}
                     required
                   />
                 </div>
+
                 <div className>
-                  <label for="" style={{ fontFamily: "Verdana" }} className="">
-                    id Precio
+                  <label for="" style={{ fontFamily: "Verdana" }}>
+                    Ciudad
                   </label>
                   <input
-                    type="number"
+                    type="date"
                     className="form-control"
-                    onChange={(e) => setidPrecio(e.target.value)}
+                    onChange={(e) => setCiudad(e.target.value)}
                     required
                   />
                 </div>
                 <div className>
                   <label for="" style={{ fontFamily: "Verdana" }}>
-                    Descripción
+                    IdInmueble
                   </label>
                   <input
-                    type="number"
+                    type="date"
                     className="form-control"
-                    onChange={(e) => setDescripcion(e.target.value)}
+                    onChange={(e) => setIdInmueble(e.target.value)}
                     required
                   />
                 </div>
@@ -317,4 +310,4 @@ const Usuarios = () => {
   );
 };
 
-export default Usuarios;
+export default DashboardEventos;

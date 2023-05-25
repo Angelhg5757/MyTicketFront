@@ -3,6 +3,8 @@ import { useNavigate } from "react-router";
 import Layout from "./Layout";
 import "./css/profile.css";
 import Sidebar from "./SidebarT";
+import moment from 'moment';
+
 
 const Profile = () => {
   const [data, setApiData] = useState([]);
@@ -14,7 +16,9 @@ const Profile = () => {
   const [apeMat, setApeMat] = useState("");
   const [correo, setCorreo] = useState("");
   const [fechaNac, SetfechaNac] = useState("");
-
+  const formatDate = (date) => {
+    return moment(date).format('DD-MM-YYYY'); 
+  };
   useEffect(() => {
     setId(localStorage.getItem("idUsuario"));
     setNombre(localStorage.getItem("nombre"));
@@ -58,7 +62,7 @@ const Profile = () => {
                   <h4>{nombre}{" "}{apePat}{" "}{apeMat}</h4>
                   <p className="text-secondary mb-1">{correo}</p>
                   <p className="text-muted font-size-sm">
-                    {fechaNac}
+                  {formatDate(fechaNac)}
                   </p>
                   <button className="btn btn-primary">Follow</button>
                   <button className="btn btn-outline-primary">Message</button>
@@ -75,40 +79,27 @@ const Profile = () => {
             <div className="card-body text-center">
               <div className="row">
                 <div className="col-sm-3">
-                  <h6 className="mb-0">Full Name</h6>
+                  <h6 className="mb-0">Nombre Completo</h6>
                 </div>
-                <div className="col-sm-9 text-secondary">Kenneth Valdez</div>
+                <div className="col-sm-9 text-secondary">{nombre} {apePat} {apeMat}</div>
               </div>
               <hr />
               <div className="row">
                 <div className="col-sm-3">
-                  <h6 className="mb-0">Email</h6>
+                  <h6 className="mb-0">Correo Electronico</h6>
                 </div>
-                <div className="col-sm-9 text-secondary">fip@jukmuh.al</div>
+                <div className="col-sm-9 text-secondary">{correo}</div>
               </div>
+              
               <hr />
               <div className="row">
                 <div className="col-sm-3">
-                  <h6 className="mb-0">Phone</h6>
+                  <h6 className="mb-0">Fecha de Nacimiento</h6>
                 </div>
-                <div className="col-sm-9 text-secondary">(239) 816-9029</div>
+                <div className="col-sm-9 text-secondary">{formatDate(fechaNac)}</div>
+              
               </div>
-              <hr />
-              <div className="row">
-                <div className="col-sm-3">
-                  <h6 className="mb-0">Mobile</h6>
-                </div>
-                <div className="col-sm-9 text-secondary">(320) 380-4539</div>
-              </div>
-              <hr />
-              <div className="row">
-                <div className="col-sm-3">
-                  <h6 className="mb-0">Address</h6>
-                </div>
-                <div className="col-sm-9 text-secondary">
-                  Bay Area, San Francisco, CA
-                </div>
-              </div>
+              
               <hr />
               <div className="row">
                 <div className="col-sm-12">
