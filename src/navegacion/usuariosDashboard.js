@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import NavbarDashboard from '../navegacion/NavbarDashboard';
 import Slidebar from '../navegacion/SidebarDashboard';
 import axios from "axios";
+import moment from "moment";
 import * as FaIcons from "react-icons/fa";
 import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
@@ -40,7 +41,7 @@ const Usuarios = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:9595/administrador/usuario/listar`)
+      .get(`http://localhost:4000/usuario/listar`)
       .then((getData) => {
         setApiData(getData.data);
       });
@@ -66,11 +67,16 @@ const Usuarios = () => {
 
   const getData = () => {
     axios
-      .get(`http://localhost:9595/administrador/usuario/listar`)
+      .get(`http://localhost:4000/usuario/listar`)
       .then((getData) => {
         setApiData(getData.data);
       });
   };
+
+  const formatDate = (date) => {
+    return moment(date).format("DD-MM-YYYY"); // Formatear la fecha usando moment.js
+  };
+
 
   const onDelete = (id) => {
     swal({
@@ -156,21 +162,28 @@ const Usuarios = () => {
                       <TableRow>
                         <TableCell>ID</TableCell>
                         <TableCell>Correo</TableCell>
-                        <TableCell>Fecha de registro</TableCell>
-                        <TableCell>Fecha de vigencia</TableCell>
+                        {/*<TableCell>Contraseña</TableCell>*/} 
+                        <TableCell>Nombre</TableCell>
+                        <TableCell>Apellido Paterno</TableCell>
+                        <TableCell>Apellido Materno</TableCell>
+                        <TableCell>Telefono</TableCell>
+                        <TableCell>Fecha Nacimiento</TableCell>
                         <TableCell>Rol</TableCell>
-                        <TableCell>Acciones</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {apiData.map((data) => {
                         return (
                           <TableRow>
-                            <TableCell>{data.id}</TableCell>
+                            <TableCell>{data.idUsuario}</TableCell>
                             <TableCell>{data.correo}</TableCell>
-                            <TableCell>{data.fechaRegistro}</TableCell>
-                            <TableCell>{data.fechaVigencia}</TableCell>
-                            <TableCell>{data.rol.nombre}</TableCell>
+                            {/* <TableCell>{data.password}</TableCell> */}
+                            <TableCell>{data.nombre}</TableCell>
+                            <TableCell>{data.apePat} </TableCell>
+                            <TableCell>{data.apeMat} </TableCell>
+                            <TableCell>{data.telefono}</TableCell>
+                            <TableCell>{formatDate(data.fechaNac)} </TableCell>
+                            <TableCell>{data.rol_nombre}</TableCell>
                             <TableCell>
                               <Link to="/Dashboard/usuarios/actualizar">
                                 <Button

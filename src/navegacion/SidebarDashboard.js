@@ -27,7 +27,7 @@ const Slidebar = () => {
         </li>
         <li>
           <NavLink
-            to="/dashboard"
+            to="/crudEventos"
             className="text-dark rounded py-2 w-100 d-inline-block px-3"
             activeclassname="active"
           >

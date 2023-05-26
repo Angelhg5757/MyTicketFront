@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import NavbarDashboard from '../navegacion/NavbarDashboard';
 import Slidebar from '../navegacion/SidebarDashboard';
 import axios from "axios";
+import moment from "moment";
 import * as FaIcons from "react-icons/fa";
 import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
@@ -40,7 +41,7 @@ const DashboardEventos = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:9595/administrador/evento/listar`)
+      .get(`http://localhost:4000/eventos/listar`)
       .then((getData) => {
         setApiData(getData.data);
       });
@@ -66,10 +67,14 @@ const DashboardEventos = () => {
 
   const getData = () => {
     axios
-      .get(`http://localhost:9595/administrador/evento/listar`)
+      .get(`http://localhost:4000/eventos/listar`)
       .then((getData) => {
         setApiData(getData.data);
       });
+  };
+
+  const formatDate = (date) => {
+    return moment(date).format("DD-MM-YYYY"); // Formatear la fecha usando moment.js
   };
 
   const onDelete = (id) => {
@@ -158,20 +163,19 @@ const DashboardEventos = () => {
                         <TableCell>Nombre</TableCell>
                         <TableCell>Fecha</TableCell>
                         <TableCell>Ciudad</TableCell>
-                        <TableCell>IdInmueble</TableCell>
+                        <TableCell>Inmueble</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {apiData.map((data) => {
                         return (
                           <TableRow>
-                            <TableCell>{data.id}</TableCell>
+                            <TableCell>{data.idEventos}</TableCell>
                             <TableCell>{data.descripcion}</TableCell>
-                            <TableCell>{data.nombre}</TableCell>
-                            <TableCell>{data.fecha}</TableCell>
+                            <TableCell>{data.eventos_nombre}</TableCell>
+                            <TableCell>{formatDate(data.fecha)}</TableCell>
                             <TableCell>{data.ciudad}</TableCell>
-                            <TableCell>{data.idInmueble}</TableCell>
-                            <TableCell>{data.rol.nombre}</TableCell>
+                            <TableCell>{data.inmueble_nombre}</TableCell>
                             <TableCell>
                               <Link to="/Dashboard/eventos/actualizar">
                                 <Button

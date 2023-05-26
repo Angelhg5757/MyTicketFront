@@ -40,7 +40,7 @@ function App() {
           <Route path='/misEventos' element={<MisEventos/>} />
           <Route path='/misBoletos' element={<MisBoletos/>} />
           <Route path='*' element={<RutaNoEncontrada />} />
-          <Route path='/eventosDashboard' element={<DashboardEventos />} />
+          <Route path='/crudEventos' element={<DashboardEventos />} />
       </Routes>
     </>
   );

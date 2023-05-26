@@ -41,7 +41,6 @@ const Usuarios = () => {
   useEffect(() => {
     axios
       //.get(`https://ticketback.herokuapp.com/boletos/listar`)
-      //.get(`http://localhost:4000/boletos/listar`)
       .get(`http://localhost:4000/boletoscrud`)
       .then((getData) => {
         setApiData(getData.data);
@@ -67,7 +66,6 @@ const Usuarios = () => {
   const getData = () => {
     axios
       //.get(`https://ticketback.herokuapp.com/boletos/listar`)
-      //.get(`https://localhost:4000/boletos/listar`)
       .get(`https://localhost:4000/crudboletos`)
       .then((getData) => {
         setApiData(getData.data);
