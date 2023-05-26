@@ -40,7 +40,7 @@ const EventsPanel = () => {
       <Sidebar />
       <Container fluid>
         <Row>
-          <Col sm={2}></Col>
+          <Col sm={3}></Col>
           <Col sm={9}>
             <br />
             <Typography variant="h3" gutterBottom>
@@ -53,7 +53,7 @@ const EventsPanel = () => {
                     <CardHeader title={event.nombre} subheader={formatDate(event.fecha)} />
                     <CardContent>
                       <Typography variant="body3" component="h6">
-                        {event.ciudad}
+                        {'Ciudad del evento: '}{event.ciudad}
                       </Typography>
                     </CardContent>
                     {/* <CardActions>
