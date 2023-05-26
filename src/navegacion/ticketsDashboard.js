@@ -32,42 +32,47 @@ const Usuarios = () => {
     boxShadow: 24,
     p: 4,
   };
-  const [apiData, setApiData] = useState([]);
+  const [data, setApiData] = useState([]);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+
   useEffect(() => {
     axios
-      .get(`https://ticketback.herokuapp.com/boletos/listar`)
+      //.get(`https://ticketback.herokuapp.com/boletos/listar`)
+      //.get(`http://localhost:4000/boletos/listar`)
+      .get(`http://localhost:4000/boletoscrud`)
       .then((getData) => {
         setApiData(getData.data);
       });
   }, []);
 
   const setData = (
-    idBoleto,
-          idUsuario,
-          idEventos,
-          idAsientos,
-          idPrecio,
-          descripcion,
+    usuario,
+    evento,
+    numAsiento,
+    seccion,
+    precio,
+    descripcion,
   ) => {
-    localStorage.setItem("IdUsuario", idUsuario);
-    localStorage.setItem("IdAsientos", idAsientos);
-    localStorage.setItem("idBoleto", idBoleto);
-    localStorage.setItem("idPrecio", idPrecio);
+    localStorage.setItem("usuario", usuario);
+    localStorage.setItem("evento", evento);
+    localStorage.setItem("numAsiento", numAsiento);
+    localStorage.setItem("seccion", seccion);
     localStorage.setItem("descripcion", descripcion);
-    localStorage.setItem("idEventos", idEventos);
+    localStorage.setItem("precio", precio);
   };
 
   const getData = () => {
     axios
-      .get(`https://ticketback.herokuapp.com/boletos/listar`)
+      //.get(`https://ticketback.herokuapp.com/boletos/listar`)
+      //.get(`https://localhost:4000/boletos/listar`)
+      .get(`https://localhost:4000/crudboletos`)
       .then((getData) => {
         setApiData(getData.data);
       });
-  };
+  }; 
 
   const onDelete = (id) => {
     swal({
@@ -78,7 +83,8 @@ const Usuarios = () => {
     }).then((elimina) => {
       if (elimina) {
         axios
-          .delete(`https://ticketback.herokuapp.com/boletos/eliminar/${id}`)
+          //.delete(`https://ticketback.herokuapp.com/boletos/eliminar/${id}`)
+          .delete(`https://localhost:4000/boletos/eliminar/${id}`)
           .then(() => {
             getData();
           });
@@ -88,30 +94,32 @@ const Usuarios = () => {
         });
       }
     });
-  };
+  }; 
 
-  const [idUsuario, setidUsuario] = useState();
-  const [idAsientos, setidAsientos] = useState();
-  const [idBoleto, setidBoleto] = useState();
-  const [idEventos, setidEventos] = useState();
-  const [idPrecio, setidPrecio] = useState();
+  const [usuario, setUsuario] = useState();
+  const [evento, setEvento] = useState();
+  const [numAsiento, setNumAsiento] = useState();
+  const [seccion, setSeccion] = useState();
+  const [precio, setPrecio] = useState();
   const [descripcion, setDescripcion] = useState();
+
 
   let registerUsu = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch("https://ticketback.herokuapp.com/boletos/crear", {
+      //let res = await fetch("https://ticketback.herokuapp.com/boletos/crear", {
+        let res = await fetch("http://localhost:4000/boletos/crear", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "content-type": "application/json",
         },
         body: JSON.stringify({
-          idBoleto: idBoleto,
-          idUsuario: idUsuario,
-          idEventos: idEventos,
-          idAsientos: idAsientos,
-          idprecio: idPrecio,
+          usuario: usuario,
+          evento: evento,
+          numAsiento: numAsiento,
+          seccion: seccion,
+          precio: precio,
           descripcion: descripcion,
         }),
       });
@@ -152,49 +160,49 @@ const Usuarios = () => {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        {/* <TableCell>Id Boleto</TableCell> */}
-                        <TableCell>Id Evento</TableCell>
-                        <TableCell>Id Usuario</TableCell>
-                        <TableCell>Id Asiento</TableCell>
-                        <TableCell>Id Precio</TableCell>
+                        <TableCell>Evento</TableCell>
+                        <TableCell>Usuario</TableCell>
+                        <TableCell>Asiento</TableCell>
+                        <TableCell>Seccion</TableCell>
+                        <TableCell>Precio</TableCell>
                         <TableCell>Descripción</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {apiData.map((data) => {
+                      {data.map((boleto) => {
                         return (
                           <TableRow>
-                            {/* <TableCell>{data.idBoleto}</TableCell> */}
-                            <TableCell>{data.idEventos}</TableCell>
-                            <TableCell>{data.idUsuario}</TableCell>
-                            <TableCell>{data.idAsientos}</TableCell>
-                            <TableCell>{data.idPrecio}</TableCell>
-                            <TableCell>{data.descripcion}</TableCell>
+                            <TableCell>{boleto.eventos_nombre}</TableCell>
+                            <TableCell>{boleto.nombre}</TableCell>
+                            <TableCell>{boleto.numero}</TableCell>
+                            <TableCell>{boleto.seccion}</TableCell>
+                            <TableCell>{boleto.precio}</TableCell>
+                            <TableCell>{boleto.descripcion}</TableCell>
                             <TableCell>
                               <Link to="/Dashboard/usuarios/actualizar">
                                 <Button
                                   className="btn1Usu"
                                   onClick={() =>
                                     setData(
-                                      /* data.idBoleto, */
+                                      data.idBoleto, 
                                       data.idEventos,
                                       data.idUsuario,
                                       data.idAsientos,
                                       data.idPrecio,
-                                      data.descripcion
+                                      data.descripcion 
                                     )
                                   }
                                 >
                                   <img />
                                 </Button>
-                              </Link>
+                              </Link> 
                               <Button
                                 className="btn1Usu"
-                                onClick={() => onDelete(data.id)}
+                                onClick={() => onDelete(boleto.id)}
                               >
                                 <img />
                                 &nbsp;
-                              </Button>
+                              </Button> 
                             </TableCell>
                           </TableRow>
                         );
@@ -254,7 +262,7 @@ const Usuarios = () => {
                   <input
                     type="number"
                     className="form-control"
-                    onChange={(e) => setidEventos(e.target.value)}
+                    onChange={(e) => setEvento(e.target.value)}
                     required
                   />
                 </div>
@@ -265,7 +273,7 @@ const Usuarios = () => {
                   <input
                     type="number"
                     className="form-control"
-                    onChange={(e) => setidUsuario(e.target.value)}
+                    onChange={(e) => setUsuario(e.target.value)}
                     required
                   />
                 </div>
@@ -276,7 +284,7 @@ const Usuarios = () => {
                   <input
                     type="number"
                     className="form-control"
-                    onChange={(e) => setidAsientos(e.target.value)}
+                    onChange={(e) => setNumAsiento(e.target.value)}
                     required
                   />
                 </div>
@@ -287,7 +295,7 @@ const Usuarios = () => {
                   <input
                     type="number"
                     className="form-control"
-                    onChange={(e) => setidPrecio(e.target.value)}
+                    onChange={(e) => setPrecio(e.target.value)}
                     required
                   />
                 </div>
