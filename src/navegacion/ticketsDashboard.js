@@ -13,7 +13,8 @@ import {
   TableRow,
   TableCell,
 } from "@mui/material";
-
+import editar from '../assets/img/pencil.png';
+import borrar from '../assets/img/trash.png';
 import swal from "sweetalert";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -66,7 +67,7 @@ const Usuarios = () => {
   const getData = () => {
     axios
       //.get(`https://ticketback.herokuapp.com/boletos/listar`)
-      .get(`https://localhost:4000/crudboletos`)
+      .get(`http://localhost:4000/boletoscrud`)
       .then((getData) => {
         setApiData(getData.data);
       });
@@ -82,7 +83,7 @@ const Usuarios = () => {
       if (elimina) {
         axios
           //.delete(`https://ticketback.herokuapp.com/boletos/eliminar/${id}`)
-          .delete(`https://localhost:4000/boletos/eliminar/${id}`)
+          .delete(`http://localhost:4000/boletos/eliminar/${id}`)
           .then(() => {
             getData();
           });
@@ -164,6 +165,7 @@ const Usuarios = () => {
                         <TableCell>Seccion</TableCell>
                         <TableCell>Precio</TableCell>
                         <TableCell>Descripción</TableCell>
+                        <TableCell>Acciones</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -177,12 +179,12 @@ const Usuarios = () => {
                             <TableCell>{boleto.precio}</TableCell>
                             <TableCell>{boleto.descripcion}</TableCell>
                             <TableCell>
-                              <Link to="/Dashboard/usuarios/actualizar">
-                                <Button
-                                  className="btn1Usu"
+                              <Link to="/Dashboard/usuarios/actualizar"
+                                  //className="btn1Usu"
+                                  style={{paddingRight:'30%'}}
                                   onClick={() =>
                                     setData(
-                                      data.idBoleto, 
+                                      data.idBoletos, 
                                       data.idEventos,
                                       data.idUsuario,
                                       data.idAsientos,
@@ -191,16 +193,16 @@ const Usuarios = () => {
                                     )
                                   }
                                 >
-                                  <img />
-                                </Button>
+                                  <img src={editar}/>
                               </Link> 
-                              <Button
-                                className="btn1Usu"
-                                onClick={() => onDelete(boleto.id)}
+                              <Link
+                                //className="btn1Usu"
+
+                                onClick={() => onDelete(boleto.idBoletos)}
                               >
-                                <img />
+                                <img src={borrar}/>
                                 &nbsp;
-                              </Button> 
+                              </Link> 
                             </TableCell>
                           </TableRow>
                         );

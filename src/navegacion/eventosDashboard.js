@@ -14,8 +14,8 @@ import {
   TableRow,
   TableCell,
 } from "@mui/material";
-//import editar from '../Componentes/Imagenes/editar.png';
-//import borrar from '../Componentes/Imagenes/borrar.png';
+import editar from '../assets/img/pencil.png';
+import borrar from '../assets/img/trash.png';
 import swal from "sweetalert";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -86,7 +86,7 @@ const DashboardEventos = () => {
     }).then((elimina) => {
       if (elimina) {
         axios
-          .delete(`http://localhost:9595/administrador/evento/${id}`)
+          .delete(`http://localhost:4000/eventos/eliminar/${id}`)
           .then(() => {
             getData();
           });
@@ -164,6 +164,7 @@ const DashboardEventos = () => {
                         <TableCell>Fecha</TableCell>
                         <TableCell>Ciudad</TableCell>
                         <TableCell>Inmueble</TableCell>
+                        <TableCell>Acciones</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -177,9 +178,9 @@ const DashboardEventos = () => {
                             <TableCell>{data.ciudad}</TableCell>
                             <TableCell>{data.inmueble_nombre}</TableCell>
                             <TableCell>
-                              <Link to="/Dashboard/eventos/actualizar">
-                                <Button
-                                  className="btn1Usu"
+                              <Link to="/Dashboard/eventos/actualizar"
+                                  //className="btn1Usu"
+                                  style={{paddingRight:'30%'}}
                                   onClick={() =>
                                     setData(
                                       data.id,
@@ -192,16 +193,15 @@ const DashboardEventos = () => {
                                     )
                                   }
                                 >
-                                  <img />
-                                </Button>
+                                  <img src={editar}/>
                               </Link>
-                              <Button
-                                className="btn1Usu"
-                                onClick={() => onDelete(data.id)}
+                              <Link
+                                //className="btn1Usu"
+                                onClick={() => onDelete(data.idEventos)}
                               >
-                                <img />
+                                <img src={borrar}/>
                                 &nbsp;
-                              </Button>
+                              </Link>
                             </TableCell>
                           </TableRow>
                         );

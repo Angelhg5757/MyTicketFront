@@ -14,8 +14,8 @@ import {
   TableRow,
   TableCell,
 } from "@mui/material";
-//import editar from '../Componentes/Imagenes/editar.png';
-//import borrar from '../Componentes/Imagenes/borrar.png';
+import editar from '../assets/img/pencil.png';
+import borrar from '../assets/img/trash.png';
 import swal from "sweetalert";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -87,17 +87,27 @@ const Usuarios = () => {
     }).then((elimina) => {
       if (elimina) {
         axios
-          .delete(`http://localhost:9595/administrador/usuario/${id}`)
+          .delete(`http://localhost:4000/usuario/eliminar/${id}`)
           .then(() => {
             getData();
+            swal({
+              text: "El usuario ha sido eliminado con éxito",
+              icon: "success",
+            });
+          })
+          .catch((error) => {
+            if (error.response && error.response.status === 500) {
+              swal("Error", "El usuario tiene boletos registrados. Primero elimine los boletos asociados al usuario", "error");
+            } else {
+              swal("Error", "Ocurrió un error al eliminar el usuario", "error");
+            }
           });
-        swal({
-          text: "El usuario ha sido eliminado con éxito",
-          icon: "success",
-        });
       }
     });
   };
+  
+  
+  
 
   const [email, setCorreo] = useState();
   const [password, setContrasenia] = useState();
@@ -169,6 +179,7 @@ const Usuarios = () => {
                         <TableCell>Telefono</TableCell>
                         <TableCell>Fecha Nacimiento</TableCell>
                         <TableCell>Rol</TableCell>
+                        <TableCell>Acciones</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -185,30 +196,29 @@ const Usuarios = () => {
                             <TableCell>{formatDate(data.fechaNac)} </TableCell>
                             <TableCell>{data.rol_nombre}</TableCell>
                             <TableCell>
-                              <Link to="/Dashboard/usuarios/actualizar">
-                                <Button
-                                  className="btn1Usu"
+                              <Link to="/Dashboard/usuarios/actualizar"
+                                  // className="btn1Usu"
+                                  style={{paddingRight:'20%'}}
                                   onClick={() =>
                                     setData(
-                                      data.id,
+                                      data.idUsuario,
                                       data.correo,
                                       data.contrasenia,
                                       data.fechaRegistro,
                                       data.fechaVigencia,
                                       data.rol_id
                                     )
-                                  }
-                                >
-                                  <img />
-                                </Button>
+                                  }>
+                                  <img src={editar}/>
                               </Link>
-                              <Button
-                                className="btn1Usu"
-                                onClick={() => onDelete(data.id)}
+                             
+                              <Link
+                                // className="btn1Usu"
+                                onClick={() => onDelete(data.idUsuario)}
                               >
-                                <img />
+                                <img src={borrar} />
                                 &nbsp;
-                              </Button>
+                              </Link>
                             </TableCell>
                           </TableRow>
                         );
