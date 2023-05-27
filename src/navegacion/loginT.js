@@ -31,7 +31,7 @@ const Login = () => {
   let inSesion = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch("https://ticketback.herokuapp.com/usuario/log", {
+      let res = await fetch("http://localhost:4000/usuario/log", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -48,6 +48,7 @@ const Login = () => {
         localStorage.setItem("nombre", data.nombre);
         localStorage.setItem("apePat", data.apePat);
         localStorage.setItem("apeMat", data.apeMat);
+        localStorage.setItem("telefono", data.telefono);
         localStorage.setItem("correo", data.correo);
         localStorage.setItem("fechaNac", data.fechaNac);
 
@@ -60,6 +61,7 @@ const Login = () => {
         localStorage.setItem("nombre", data.nombre);
         localStorage.setItem("apePat", data.apePat);
         localStorage.setItem("apeMat", data.apeMat);
+        localStorage.setItem("telefono", data.telefono);
         localStorage.setItem("correo", data.correo);
         localStorage.setItem("fechaNac", data.fechaNac);
 

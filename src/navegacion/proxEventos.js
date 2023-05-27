@@ -10,7 +10,7 @@ import "./css/proxEventos.css";
 const settings = {
   centerMode: true,
   dots: true,
-  infinite: true,
+  infinite: false, // true by default
   speed: 500,
   slidesToShow: 4,
   slidesToScroll: 1,
