@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import NavbarDashboard from '../navegacion/NavbarDashboard';
-import Slidebar from '../navegacion/SidebarDashboard';
+import NavbarDashboard from "../navegacion/NavbarDashboard";
+import Slidebar from "../navegacion/SidebarDashboard";
 import axios from "axios";
+import moment from "moment";
 import * as FaIcons from "react-icons/fa";
 import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
@@ -12,13 +13,17 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Select,
+  MenuItem,
 } from "@mui/material";
-import editar from '../assets/img/pencil.png';
-import borrar from '../assets/img/trash.png';
+import editarIcon from "../assets/img/pencil.png";
+import borrarIcon from "../assets/img/trash.png";
+import aceptarIcon from "../assets/img/accept.png";
+import cancelarIcon from "../assets/img/cancel.png";
+import Modal from "@mui/material/Modal";
 import swal from "sweetalert";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
 import "./css/usuariosT.css";
 
 const Usuarios = () => {
@@ -33,19 +38,109 @@ const Usuarios = () => {
     boxShadow: 24,
     p: 4,
   };
-  const [data, setApiData] = useState([]);
-  const [open, setOpen] = React.useState(false);
+  const [apiData, setApiData] = useState([]);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const [editMode, setEditMode] = useState(false);
+  const [editUserId, setEditUserId] = useState(null);
+  const [editedData, setEditedData] = useState({});
+  const [secciones, setSecciones] = useState([]);
+  const [seccionSeleccionada, setSeccionSeleccionada] = useState([]);
+  const [asientosDisponibles, setAsientosDisponibles] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
+  const [eventos, setEventos] = useState([]);
+  const [precio, setPrecio] = useState([]);
 
   useEffect(() => {
+    // Obtener las secciones desde la API
     axios
-      //.get(`https://ticketback.herokuapp.com/boletos/listar`)
-      .get(`http://localhost:4000/boletoscrud`)
-      .then((getData) => {
-        setApiData(getData.data);
+      .get("http://localhost:4000/asientos/secciones")
+      .then((response) => {
+        console.log(response.data);
+        setSecciones(response.data.rows);
+        // Llamar a getAsientosDisponibles con la primera sección seleccionada
+        if (response.data.rows.length > 0) {
+          setSeccionSeleccionada(response.data.rows[0].nombre);
+          getAsientosDisponibles(response.data.rows[0].nombre);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
       });
+  }, []);
+
+  const getAsientosDisponibles = (seccion) => {
+    axios
+      .get(`http://localhost:4000/asientosseccion/${seccion}`)
+      .then((response) => {
+        console.log(response.data.rows);
+        setAsientosDisponibles(response.data.rows);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    //obtener los nombres de usuario de la api
+    axios
+      .get(`http://localhost:4000/usuario/todos`)
+      .then((response) => {
+        console.log("Holiwis;",response.data.rows);
+        setUsuarios(response.data.rows);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },[]);
+
+  useEffect(() => {
+    //Obtener los precios de la api
+    axios
+      .get(`http://localhost:4000/precio/todos`)
+      .then((response) => {
+        console.log("Holiwis precio;",response.data.rows);
+        setPrecio(response.data.rows);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },[]);
+
+  useEffect(() => {
+    //Obtener los nombres de los eventos de la api
+    axios
+      .get(`http://localhost:4000/eventos/todos`)
+      .then((response) => {
+        console.log("Entraste",response.data.rows);
+        setEventos(response.data.rows);
+      })
+      .catch((error) => {
+        console.log(error);
+      }
+      )
+  },[]);
+
+  const handleInputChange = (e, id) => {
+    const { name, value } = e.target;
+    setEditedData((prevState) => ({
+      ...prevState,
+      [id]: {
+        ...prevState[id],
+        [name]: value,
+      },
+    }));
+  };
+
+  useEffect(() => {
+    getAsientosDisponibles(seccionSeleccionada);
+  }, [seccionSeleccionada]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:4000/boletoscrud`).then((getData) => {
+      setApiData(getData.data);
+    });
   }, []);
 
   const setData = (
@@ -54,7 +149,7 @@ const Usuarios = () => {
     numAsiento,
     seccion,
     precio,
-    descripcion,
+    descripcion
   ) => {
     localStorage.setItem("usuario", usuario);
     localStorage.setItem("evento", evento);
@@ -65,13 +160,17 @@ const Usuarios = () => {
   };
 
   const getData = () => {
-    axios
-      //.get(`https://ticketback.herokuapp.com/boletos/listar`)
-      .get(`http://localhost:4000/boletoscrud`)
-      .then((getData) => {
-        setApiData(getData.data);
-      });
-  }; 
+    axios.get(`http://localhost:4000/boletoscrud`).then((getData) => {
+      setApiData(getData.data);
+    });
+  };
+
+  const formatDateInput = (date) => {
+    return moment(date).format("YYYY-MM-DD"); // Formatear la fecha usando moment.js
+  };
+  const formatDate = (date) => {
+    return moment(date).format("DD-MM-YYYY");
+  };
 
   const onDelete = (id) => {
     swal({
@@ -82,72 +181,64 @@ const Usuarios = () => {
     }).then((elimina) => {
       if (elimina) {
         axios
-          //.delete(`https://ticketback.herokuapp.com/boletos/eliminar/${id}`)
           .delete(`http://localhost:4000/boletos/eliminar/${id}`)
           .then(() => {
             getData();
+            swal({
+              text: "El usuario ha sido eliminado con éxito",
+              icon: "success",
+            });
+          })
+          .catch((error) => {
+            swal("Error", "Ocurrió un error al eliminar el usuario", "error");
           });
-        swal({
-          text: "El boleto ha sido eliminado con éxito",
-          icon: "success",
-        });
       }
     });
-  }; 
+  };
 
-  const [usuario, setUsuario] = useState();
-  const [evento, setEvento] = useState();
-  const [numAsiento, setNumAsiento] = useState();
-  const [seccion, setSeccion] = useState();
-  const [precio, setPrecio] = useState();
-  const [descripcion, setDescripcion] = useState();
+  const onEdit = (id) => {
+    setEditMode(true);
+    setEditUserId(id);
+    // Realizar cualquier otra acción necesaria para habilitar la edición de campos en la tabla
+  };
 
+  const onCancel = () => {
+    setEditMode(false);
+    setEditUserId(null);
+    // Realizar cualquier otra acción necesaria para cancelar la edición de campos en la tabla
+  };
 
-  let registerUsu = async (e) => {
-    e.preventDefault();
-    try {
-      //let res = await fetch("https://ticketback.herokuapp.com/boletos/crear", {
-        let res = await fetch("http://localhost:4000/boletos/crear", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          usuario: usuario,
-          evento: evento,
-          numAsiento: numAsiento,
-          seccion: seccion,
-          precio: precio,
-          descripcion: descripcion,
-        }),
-      });
-      swal({
-        title: "Boleto creado con éxito!",
-        text: "El boleto ha sido guardado",
-        icon: "success",
-        button: "Aceptar",
-      }).then((respuesta) => {
-        if (respuesta) {
-          window.location.reload();
-        }
-      });
-    } catch (error) {
-      swal({
-        title: "Error",
-        text: "Ocurrio un error al guardar :(",
-        icon: "error",
-        button: "Aceptar",
-      });
+  const onSave = () => {
+    console.log(editUserId);
+    if (editedData[editUserId]) {
+      const newData = {
+        ...apiData.find((data) => data.idBoletos === editUserId),
+        ...editedData[editUserId],
+      };
+      console.log(newData);
+      axios
+        .put(`http://localhost:4000/boletos/actualizando/${editUserId}`, newData)
+        .then(() => {
+          getData();
+          handleClose();
+          setEditMode(false);
+          swal({
+            text: "El boleto ha sido actualizado con éxito",
+            icon: "success",
+          });
+        })
+        .catch((error) => {
+          swal("Error", "Ocurrió un error al actualizar el boleto", "error");
+        });
     }
   };
 
   return (
     <>
-      <NavbarDashboard/>
-      <Slidebar/>
-      <div className="Boletos">
-        <div className="main2" style={{ width: "80%",height:"100vh",marginLeft: "20%" }}>
+      <NavbarDashboard />
+      <Slidebar />
+      <div className="Usuarios">
+        <div className="main2" style={{ width: "100%", height: "100vh" }}>
           <div id="media">
             <h3 className="head">
               <FaIcons.FaHouseUser className="me-2" /> Tickets
@@ -161,48 +252,175 @@ const Usuarios = () => {
                       <TableRow>
                         <TableCell>Evento</TableCell>
                         <TableCell>Usuario</TableCell>
-                        <TableCell>Asiento</TableCell>
                         <TableCell>Seccion</TableCell>
+                        <TableCell>Asiento</TableCell>
                         <TableCell>Precio</TableCell>
                         <TableCell>Descripción</TableCell>
                         <TableCell>Acciones</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {data.map((boleto) => {
+                      {apiData.map((data) => {
                         return (
                           <TableRow>
-                            <TableCell>{boleto.eventos_nombre}</TableCell>
-                            <TableCell>{boleto.nombre}</TableCell>
-                            <TableCell>{boleto.numero}</TableCell>
-                            <TableCell>{boleto.seccion}</TableCell>
-                            <TableCell>{boleto.precio}</TableCell>
-                            <TableCell>{boleto.descripcion}</TableCell>
+                            {/* <TableCell>{data.idUsuario}</TableCell> */}
                             <TableCell>
-                              <Link to="/Dashboard/usuarios/actualizar"
-                                  //className="btn1Usu"
-                                  style={{paddingRight:'30%'}}
-                                  onClick={() =>
-                                    setData(
-                                      data.idBoletos, 
-                                      data.idEventos,
-                                      data.idUsuario,
-                                      data.idAsientos,
-                                      data.idPrecio,
-                                      data.descripcion 
-                                    )
+                            {editMode && editUserId === data.idBoletos ? (
+                                <Select
+                                  type="text"
+                                  name="eventos_nombre"
+                                  value={
+                                    editedData[data.idBoletos]?.eventos_nombre ||
+                                    data.eventos_nombre
+                                  }
+                                  onChange={(e) =>
+                                    handleInputChange(e, data.idBoletos)
                                   }
                                 >
-                                  <img src={editar}/>
-                              </Link> 
-                              <Link
-                                //className="btn1Usu"
-
-                                onClick={() => onDelete(boleto.idBoletos)}
-                              >
-                                <img src={borrar}/>
-                                &nbsp;
-                              </Link> 
+                                  {eventos.map((evento) => (
+                                    <MenuItem value={evento.nombre}>
+                                      {evento.nombre}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              ) : (
+                                data.eventos_nombre
+                              )}
+                            </TableCell>
+                            {/* <TableCell>{data.password}</TableCell> */}
+                            <TableCell>
+                              {editMode && editUserId === data.idBoletos ? (
+                                <Select
+                                  type="text"
+                                  name="nombre"
+                                  value={
+                                    editedData[data.idBoletos]?.nombre ||
+                                    data.nombre
+                                  }
+                                  onChange={(e) =>
+                                    handleInputChange(e, data.idBoletos)
+                                  }
+                                >
+                                  {usuarios.map((usuario) => (
+                                    <MenuItem value={usuario.nombre}>
+                                      {usuario.nombre}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              ) : (
+                                data.nombre
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              {editMode && editUserId === data.idBoletos? (
+                                <Select
+                                  name="seccion"
+                                  value={
+                                    editedData[data.idBoletos]?.seccion ||
+                                    data.seccion
+                                  }
+                                  onChange={(e) =>
+                                    handleInputChange(e, data.idBoletos)
+                                  }
+                                >
+                                  {secciones.map((seccion) => (
+                                    <MenuItem value={seccion.nombre}>
+                                      {seccion.nombre}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              ) : (
+                                data.seccion
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              {editMode && editUserId === data.idBoletos ? (
+                                <Select
+                                  name="numero"
+                                  value={
+                                    editedData[data.idBoletos]?.numero ||
+                                    data.numero
+                                  }
+                                  onChange={(e) =>
+                                    handleInputChange(e, data.idBoletos)
+                                  }
+                                >
+                                  {asientosDisponibles.map((asiento) => (
+                                    <MenuItem value={asiento.numas}>
+                                      {asiento.numas}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              ) : (
+                                data.numero
+                              )}
+                            </TableCell>
+                            <TableCell>
+                            {editMode && editUserId === data.idBoletos ? (
+                                <Select
+                                  type="text"
+                                  name="precio"
+                                  value={
+                                    editedData[data.idBoletos]?.precio ||
+                                    data.precio
+                                  }
+                                  onChange={(e) =>
+                                    handleInputChange(e, data.idBoletos)
+                                  }
+                                >
+                                  {precio.map((precio) => (
+                                    <MenuItem value={precio.precio}>
+                                      {precio.precio}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              ) : (
+                                data.precio
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              {editMode && editUserId === data.idBoletos ? (
+                                <input
+                                  type="text"
+                                  name="descripcion"
+                                  value={
+                                    editedData[data.idBoletos]?.descripcion ||
+                                    data.descripcion
+                                  }
+                                  onChange={(e) =>
+                                    handleInputChange(e, data.idBoletos)
+                                  }
+                                />
+                              ) : (
+                                data.descripcion
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              {editMode && editUserId === data.idBoletos ? (
+                                <>
+                                  <img
+                                    src={aceptarIcon}
+                                    style={{ paddingRight: "30%" }}
+                                    onClick={() => onSave(data.idBoletos)}
+                                  />
+                                  <img
+                                    src={cancelarIcon}
+                                    onClick={() => onCancel()}
+                                  />
+                                </>
+                              ) : (
+                                <>
+                                  <img
+                                    src={editarIcon}
+                                    style={{ paddingRight: "30%" }}
+                                    onClick={() => onEdit(data.idBoletos)}
+                                  />
+                                  <img
+                                    src={borrarIcon}
+                                    onClick={() => onDelete(data.idBoletos)}
+                                  />
+                                </>
+                              )}
                             </TableCell>
                           </TableRow>
                         );
@@ -226,7 +444,7 @@ const Usuarios = () => {
             fontFamily: "Verdana",
             backgroundColor: "#3CB371",
             borderRadius: "5px",
-            marginTop: "-150px"
+            marginTop: "-150px",
           }}
         >
           Agregar
@@ -240,73 +458,69 @@ const Usuarios = () => {
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h3" component="h2">
-              Nuevo Boleto
+              Nuevo usuario
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              <form method="POST" className="formula33" onSubmit={registerUsu}>
-                {/* <div className>
-                  <label for="" style={{ fontFamily: "Verdana" }} className="">
-                    id Boleto
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    onChange={(e) => setidBoleto(e.target.value)}
-                    required
-                  />
-                </div> */}
+              <form
+                method="POST"
+                className="formula33" /* onSubmit={registerUsu} */
+              >
                 <div className>
                   <label for="" style={{ fontFamily: "Verdana" }} className="">
-                    id Evento
+                    Correo electronico
                   </label>
                   <input
-                    type="number"
+                    type="email"
                     className="form-control"
-                    onChange={(e) => setEvento(e.target.value)}
+                    // onChange={(e) => setCorreo(e.target.value)}
                     required
                   />
                 </div>
-                <div className>
-                  <label for="" style={{ fontFamily: "Verdana" }} className="">
-                    id Usuario
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    onChange={(e) => setUsuario(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className>
-                  <label for="" style={{ fontFamily: "Verdana" }} className="">
-                    id Asiento
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    onChange={(e) => setNumAsiento(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className>
-                  <label for="" style={{ fontFamily: "Verdana" }} className="">
-                    id Precio
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    onChange={(e) => setPrecio(e.target.value)}
-                    required
-                  />
-                </div>
+
                 <div className>
                   <label for="" style={{ fontFamily: "Verdana" }}>
-                    Descripción
+                    Contraseña
                   </label>
                   <input
-                    type="number"
+                    type="password"
                     className="form-control"
-                    onChange={(e) => setDescripcion(e.target.value)}
+                    // onChange={(e) => setContrasenia(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className>
+                  <label for="" style={{ fontFamily: "Verdana" }}>
+                    Fecha de registro
+                  </label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    // onChange={(e) => setRegistro(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className>
+                  <label for="" style={{ fontFamily: "Verdana" }}>
+                    Fecha de vigencia
+                  </label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    // onChange={(e) => setVigencia(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className>
+                  <label for="" style={{ fontFamily: "Verdana" }}>
+                    Rol Id
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    // onChange={(e) => setRol(e.target.value)}
                     required
                   />
                 </div>
