@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Layout from "./Layout";
 import "./css/login.css";
+import Footer from "./footer";
 import swal from "sweetalert";
 import {
   MDBBtn,
