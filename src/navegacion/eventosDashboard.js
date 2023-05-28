@@ -14,15 +14,17 @@ import {
   TableRow,
   TableCell,
 } from "@mui/material";
-import editar from '../assets/img/pencil.png';
-import borrar from '../assets/img/trash.png';
+import editarIcon from '../assets/img/pencil.png';
+import borrarIcon from '../assets/img/trash.png';
+import aceptarIcon from '../assets/img/accept.png';
+import cancelarIcon from '../assets/img/cancel.png';
+import Modal from "@mui/material/Modal";
 import swal from "sweetalert";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
 import "./css/usuariosT.css";
 
-const DashboardEventos = () => {
+const Usuarios = () => {
   const style = {
     position: "absolute",
     top: "50%",
@@ -35,9 +37,24 @@ const DashboardEventos = () => {
     p: 4,
   };
   const [apiData, setApiData] = useState([]);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [editMode, setEditMode] = useState(false);
+  const [editUserId, setEditUserId] = useState(null);
+  const [editedData, setEditedData] = useState({});
+
+  const handleInputChange = (e, id) => {
+    const { name, value } = e.target;
+    setEditedData((prevState) => ({
+      ...prevState,
+      [id]: {
+        ...prevState[id],
+        [name]: value,
+      },
+    }));
+  };
+
 
   useEffect(() => {
     axios
@@ -65,6 +82,7 @@ const DashboardEventos = () => {
     localStorage.setItem("rol_id", rol_id);
   };
 
+
   const getData = () => {
     axios
       .get(`http://localhost:4000/eventos/listar`)
@@ -73,9 +91,12 @@ const DashboardEventos = () => {
       });
   };
 
-  const formatDate = (date) => {
-    return moment(date).format("DD-MM-YYYY"); // Formatear la fecha usando moment.js
+  const formatDateInput = (date) => {
+    return moment(date).format("YYYY-MM-DD"); // Formatear la fecha usando moment.js
   };
+  const formatDate = (date) => {
+    return moment(date).format("DD-MM-YYYY"); 
+  }
 
   const onDelete = (id) => {
     swal({
@@ -89,55 +110,62 @@ const DashboardEventos = () => {
           .delete(`http://localhost:4000/eventos/eliminar/${id}`)
           .then(() => {
             getData();
+            swal({
+              text: "El evento ha sido eliminado con éxito",
+              icon: "success",
+            });
+          })
+          .catch((error) => {
+            if (error.response && error.response.status === 500) {
+              swal("Error", "El evento tiene boletos registrados. Primero elimine los boletos asociados al evento", "error");
+            } else {
+              swal("Error", "Ocurrió un error al eliminar el usuario", "error");
+            }
           });
-        swal({
-          text: "El evento se ha sido eliminado con éxito",
-          icon: "success",
-        });
       }
     });
   };
-
   const [descripcion, setDescripcion] = useState();
   const [nombre, setNombre] = useState();
   const [fecha, setFecha] = useState();
   const [ciudad, setCiudad] = useState();
   const [idInmueble, setIdInmueble] = useState();
 
-  let registerUsu = async (e) => {
-    e.preventDefault();
-    try {
-      let res = await fetch("http://localhost:9595/administrador/registrar", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          descripcion: descripcion,
-          nombre: nombre,
-          fecha: fecha,
-          ciudad: ciudad,
-          idInmuebele: idInmueble,
-        }),
-      });
-      swal({
-        title: "Evento registrado con éxito!",
-        text: "El evento " + nombre + " ha sido guardado",
-        icon: "success",
-        button: "Aceptar",
-      }).then((respuesta) => {
-        if (respuesta) {
-          window.location.reload();
-        }
-      });
-    } catch (error) {
-      swal({
-        title: "Error",
-        text: "Ocurrio un error al guardar :(",
-        icon: "error",
-        button: "Aceptar",
-      });
+  const onEdit = (id) => {
+    setEditMode(true);
+    setEditUserId(id);
+    // Realizar cualquier otra acción necesaria para habilitar la edición de campos en la tabla
+  };
+
+  const onCancel = () => {
+    setEditMode(false);
+    setEditUserId(null);
+    // Realizar cualquier otra acción necesaria para cancelar la edición de campos en la tabla
+  };
+
+  const onSave = () => {
+    console.log(editUserId);
+    if (editedData[editUserId]) {
+      const newData = {
+        ...apiData.find((data) => data.idEventos === editUserId),
+        ...editedData[editUserId],
+       
+      };
+      console.log(newData);
+      axios
+        .put(`http://localhost:4000/eventos/actualizar/${editUserId}`, newData)
+        .then(() => {
+          getData();
+          handleClose();
+          setEditMode(false);
+          swal({
+            text: "El evento ha sido actualizado con éxito",
+            icon: "success",
+          });
+        })
+        .catch((error) => {
+          swal("Error", "Ocurrió un error al actualizar el evento", "error");
+        });
     }
   };
 
@@ -158,50 +186,91 @@ const DashboardEventos = () => {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell>ID</TableCell>
                         <TableCell>Descripcion</TableCell>
                         <TableCell>Nombre</TableCell>
                         <TableCell>Fecha</TableCell>
                         <TableCell>Ciudad</TableCell>
                         <TableCell>Inmueble</TableCell>
-                        <TableCell>Acciones</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {apiData.map((data) => {
                         return (
                           <TableRow>
-                            <TableCell>{data.idEventos}</TableCell>
-                            <TableCell>{data.descripcion}</TableCell>
-                            <TableCell>{data.eventos_nombre}</TableCell>
-                            <TableCell>{formatDate(data.fecha)}</TableCell>
-                            <TableCell>{data.ciudad}</TableCell>
-                            <TableCell>{data.inmueble_nombre}</TableCell>
+                            {/* <TableCell>{data.idUsuario}</TableCell> */}
                             <TableCell>
-                              <Link to="/Dashboard/eventos/actualizar"
-                                  //className="btn1Usu"
-                                  style={{paddingRight:'30%'}}
-                                  onClick={() =>
-                                    setData(
-                                      data.id,
-                                      data.descripcion,
-                                      data.nombre,
-                                      data.fecha,
-                                      data.ciudad,
-                                      data.idInmueble,
-                                      data.rol_id
-                                    )
-                                  }
-                                >
-                                  <img src={editar}/>
-                              </Link>
-                              <Link
-                                //className="btn1Usu"
-                                onClick={() => onDelete(data.idEventos)}
-                              >
-                                <img src={borrar}/>
-                                &nbsp;
-                              </Link>
+                            {editMode && editUserId === data.idEventos ? (
+                                <input
+                                  type="text"
+                                  name="descripcion"
+                                  value={editedData[data.idEventos]?.descripcion || data.descripcion}
+                                  onChange={(e) => handleInputChange(e, data.idEventos)}
+                                />
+                              ) : (
+                                data.descripcion
+                              )}
+                            </TableCell>
+                            {/* <TableCell>{data.password}</TableCell> */}
+                            <TableCell>
+                              {editMode && editUserId === data.idEventos ? (
+                                <input
+                                  type="text"
+                                  name="eventos_nombre"
+                                  value={editedData[data.idEventos]?.eventos_nombre || data.eventos_nombre}
+                                  onChange={(e) => handleInputChange(e, data.idEventos)}
+                                />
+                              ) : (
+                                data.eventos_nombre
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              {editMode && editUserId === data.idEventos ? (
+                                <input
+                                  type="date"
+                                  name="fecha"
+                                  value={formatDateInput(editedData[data.idEventos]?.fecha || data.fecha)}
+                                  onChange={(e) => handleInputChange(e, data.idEventos)}
+                                />
+                              ) : (
+                                formatDate(data.fechaNac)
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              {editMode && editUserId === data.idEventos ? (
+                                <input
+                                  type="text"
+                                  name="ciudad"
+                                  value={editedData[data.idEventos]?.ciudad || data.ciudad}
+                                  onChange={(e) => handleInputChange(e, data.idEventos)}
+                                />
+                              ) : (
+                                data.ciudad
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              {editMode && editUserId === data.idEventos ? (
+                                <input
+                                  type="text"
+                                  name="inmueble_nombre"
+                                  value={editedData[data.idEventos]?.inmueble_nombre || data.inmueble_nombre}
+                                  onChange={(e) => handleInputChange(e, data.idEventos)}
+                                />
+                              ) : (
+                                data.inmueble_nombre
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              {editMode && editUserId === data.idEventos ? (
+                                <>
+                                  <img src={aceptarIcon} style={{paddingRight:'30%'}} onClick={()=>onSave(data.idEventos)} />
+                                  <img src={cancelarIcon} onClick={()=>onCancel()} />
+                                </>
+                              ) : (
+                                <>
+                                  <img src={editarIcon} style={{paddingRight:'30%'}} onClick={() => onEdit(data.idEventos)} />
+                                  <img src={borrarIcon} onClick={() => onDelete(data.idEventos)} />
+                                </>
+                              )}
                             </TableCell>
                           </TableRow>
                         );
@@ -239,63 +308,66 @@ const DashboardEventos = () => {
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h3" component="h2">
-              Nuevo evento
+              Nuevo usuario
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              <form method="POST" className="formula33" onSubmit={registerUsu}>
+              <form method="POST" className="formula33" /* onSubmit={registerUsu} */>
                 <div className>
                   <label for="" style={{ fontFamily: "Verdana" }} className="">
-                    Descripcion
+                    Correo electronico
                   </label>
                   <input
+                    type="email"
                     className="form-control"
-                    onChange={(e) => setDescripcion(e.target.value)}
+                    // onChange={(e) => setCorreo(e.target.value)}
                     required
                   />
                 </div>
 
                 <div className>
                   <label for="" style={{ fontFamily: "Verdana" }}>
-                    Nombre 
+                    Contraseña
                   </label>
                   <input
+                    type="password"
                     className="form-control"
-                    onChange={(e) => setNombre(e.target.value)}
+                    // onChange={(e) => setContrasenia(e.target.value)}
                     required
                   />
                 </div>
 
                 <div className>
                   <label for="" style={{ fontFamily: "Verdana" }}>
-                    Fecha
+                    Fecha de registro
                   </label>
                   <input
                     type="date"
                     className="form-control"
-                    onChange={(e) => setFecha(e.target.value)}
+                    // onChange={(e) => setRegistro(e.target.value)}
                     required
                   />
                 </div>
 
                 <div className>
                   <label for="" style={{ fontFamily: "Verdana" }}>
-                    Ciudad
+                    Fecha de vigencia
                   </label>
                   <input
                     type="date"
                     className="form-control"
-                    onChange={(e) => setCiudad(e.target.value)}
+                    // onChange={(e) => setVigencia(e.target.value)}
                     required
                   />
                 </div>
+
                 <div className>
                   <label for="" style={{ fontFamily: "Verdana" }}>
-                    IdInmueble
+                    Rol Id
                   </label>
                   <input
-                    type="date"
+                    type="text"
                     className="form-control"
-                    onChange={(e) => setIdInmueble(e.target.value)}
+                    // onChange={(e) => setRol(e.target.value)}
                     required
                   />
                 </div>
@@ -314,4 +386,4 @@ const DashboardEventos = () => {
   );
 };
 
-export default DashboardEventos;
+export default Usuarios;
