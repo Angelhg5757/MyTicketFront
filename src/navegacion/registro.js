@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import UsuarioServicio from "../servicios/UsuarioServicios";
 import { encryptStorage } from "../utils/Storage";
-
+import Footer from "./footer";
 import Layout from "./Layout";
 import "./css/registro.css";
 import { RadioGroup } from "@mui/material";
@@ -178,6 +178,7 @@ const Registro = () => {
           </div>
         </div>
       </div>
+      <Footer />  
     </>
   );
 };
