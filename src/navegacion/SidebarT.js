@@ -7,9 +7,26 @@ import {
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from "cdbreact";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const id = localStorage.getItem("idUsuario");
+
+  const handleLogout = () => {
+    localStorage.removeItem("idUsuario");
+    localStorage.removeItem("nombre");
+    localStorage.removeItem("apePat");
+    localStorage.removeItem("apeMat");
+    localStorage.removeItem("correo");
+    localStorage.removeItem("fechaNac");
+    localStorage.removeItem("telefono");
+    if (!id) {
+      console.log("Eliminado");
+    }
+    navigate("/inicio", { replace: true });
+  };
+
   return (
     <div
       style={{
@@ -52,7 +69,7 @@ const Sidebar = () => {
             }}
           >
             <NavLink exact to="/" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="power-off" style={{ color: "white" }}>
+              <CDBSidebarMenuItem icon="power-off" style={{ color: "white" }} onClick={handleLogout}>
                 Salir
               </CDBSidebarMenuItem>
             </NavLink>
