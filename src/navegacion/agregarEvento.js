@@ -144,7 +144,7 @@ const AgregarEvento = () => {
         >
           <div id="media">
             <h3 className="head">
-              <FaIcons.FaHouseUser className="me-2" /> Tickets
+              <FaIcons.FaHouseUser className="me-2" /> Eventos
             </h3>
             <div className="container">
               <br></br>

@@ -84,6 +84,10 @@ const Usuarios = () => {
     localStorage.setItem("rol_id", rol_id);
   };
 
+  const agregarBoton = ()=>{
+    window.location.href = "http://localhost:3000/agregarUsuario";
+  }
+
   const getData = () => {
     axios
       .get(`http://localhost:4000/usuario/listar`)
@@ -297,7 +301,7 @@ const Usuarios = () => {
         </div>
         <Button
           className="btnUsu"
-          onClick={handleOpen}
+          onClick={agregarBoton}
           style={{
             float: "right",
             margin: "40px",

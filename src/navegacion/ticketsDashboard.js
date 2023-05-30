@@ -234,6 +234,10 @@ const Usuarios = () => {
     }
   };
 
+  const agregarBoton = ()=>{
+    window.location.href = "http://localhost:3000/agregarTicket";
+  }
+
   return (
     <>
       <NavbarDashboard />
@@ -434,9 +438,9 @@ const Usuarios = () => {
             <br />
           </div>
         </div>
-        <Button
+        <Link
           className="btnUsu"
-          onClick={handleOpen}
+          onClick={agregarBoton}
           style={{
             float: "right",
             margin: "40px",
@@ -449,7 +453,7 @@ const Usuarios = () => {
           }}
         >
           Agregar
-        </Button>
+        </Link>
 
         <Modal
           open={open}
