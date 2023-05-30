@@ -20,6 +20,7 @@ import DashboardEventos from './navegacion/eventosDashboard';
 import AgregarTicket from './navegacion/agregarTicket';
 import AgregarEvento from './navegacion/agregarEvento';
 import AgregarUsuario from './navegacion/agregarUsuario';
+import ComprarBoleto from './navegacion/comprarBoleto';
 
 //José estuvo acá
 function App() {
@@ -47,6 +48,7 @@ function App() {
           <Route path='/agregarTicket' element={<AgregarTicket />} />
           <Route path='/agregarEvento' element={<AgregarEvento />} />
           <Route path='/agregarUsuario' element={<AgregarUsuario />} />
+          <Route path='/comprarBoleto' element={<ComprarBoleto />} />
       </Routes>
     </>
   );
