@@ -15,7 +15,7 @@ const UsuarioDashboard = () => {
   );
   return (
     <div>
-      <Navbar variant="danger" bg="transparent" expand="lg">
+      {/* <Navbar variant="danger" bg="transparent" expand="lg">
         <Navbar.Toggle aria-controls="navbar-dark-example" />
         <Navbar.Collapse id="navbar-dark-example">
           <Nav>
@@ -36,7 +36,7 @@ const UsuarioDashboard = () => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-      </Navbar>
+      </Navbar> */}
     </div>
   );
 };
