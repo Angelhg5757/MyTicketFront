@@ -47,7 +47,7 @@ function Footer() {
             className="footer-link"
             style={{ color: "white", textDecoration: "none" }}
           >
-            Isamayi Meyli Velasco Rodríguez
+            Ing. Isamayi Meyli Velasco Rodríguez
           </a>
             </div>
             <div className="col-lg-6 col-md-12 mb-4 mb-md-0">
@@ -91,7 +91,7 @@ function Footer() {
           &copy; 2023 TicketBook | Creado por los desarrolladores del equipo MAJOFA
         </div>
 
-        <div className="text-center p-3">
+        {/* <div className="text-center p-3">
           <a
             href=" "
             target="_blank"
@@ -121,7 +121,7 @@ function Footer() {
           >
             Términos y Condiciones
           </a>
-        </div>
+        </div> */}
       </footer>
     </>
   );
