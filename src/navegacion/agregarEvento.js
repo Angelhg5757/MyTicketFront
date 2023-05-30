@@ -5,6 +5,7 @@ import axios from "axios";
 import * as FaIcons from "react-icons/fa";
 import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import Footer from "./footer";
 import {
   TableCell,
   MenuItem
@@ -304,6 +305,7 @@ const AgregarEvento = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

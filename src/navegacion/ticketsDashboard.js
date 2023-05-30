@@ -246,7 +246,7 @@ const Usuarios = () => {
         <div className="main2" style={{ width: "100%", height: "100vh" }}>
           <div id="media">
             <h3 className="head">
-              <FaIcons.FaHouseUser className="me-2" /> Tickets
+              <FaIcons.FaHouseUser className="me-2" /> Boletos
             </h3>
             <div className="container">
               <br></br>

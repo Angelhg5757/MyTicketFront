@@ -3,8 +3,10 @@ import NavbarDashboard from '../navegacion/NavbarDashboard';
 import Slidebar from '../navegacion/SidebarDashboard';
 import axios from "axios";
 import * as FaIcons from "react-icons/fa";
+import Footer from "./footer";
 import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+
 import {
   TableCell,
   MenuItem
@@ -309,6 +311,7 @@ const AgregarUsuario = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };
