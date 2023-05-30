@@ -6,6 +6,8 @@ import moment from "moment";
 import * as FaIcons from "react-icons/fa";
 import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import Footer from "./footer";
+
 import {
   TableContainer,
   Table,
@@ -392,7 +394,8 @@ const Usuarios = () => {
           </Box>
         </Modal>
       </div>
-      
+      <Footer />
+
     </>
   );
 };

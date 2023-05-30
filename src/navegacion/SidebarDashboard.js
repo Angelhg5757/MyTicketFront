@@ -68,7 +68,7 @@ const Slidebar = () => {
       style={{
         display: "flex",
         flexDirection: "column",
-        height: "90vh",
+        height: "100vh",
         position: "absolute",
       }}
     >

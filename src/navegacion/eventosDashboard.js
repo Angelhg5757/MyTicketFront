@@ -3,6 +3,7 @@ import NavbarDashboard from '../navegacion/NavbarDashboard';
 import Slidebar from '../navegacion/SidebarDashboard';
 import axios from "axios";
 import moment from "moment";
+import Footer from "./footer";
 import * as FaIcons from "react-icons/fa";
 import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
@@ -186,7 +187,7 @@ const Usuarios = () => {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell>Descripcion</TableCell>
+                        <TableCell>Descripción</TableCell>
                         <TableCell>Nombre</TableCell>
                         <TableCell>Fecha</TableCell>
                         <TableCell>Ciudad</TableCell>
@@ -382,6 +383,8 @@ const Usuarios = () => {
           </Box>
         </Modal>
       </div>
+      <Footer />
+
     </>
   );
 };
