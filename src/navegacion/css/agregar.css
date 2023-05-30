@@ -1,0 +1,71 @@
+.Usuarios{
+    width: calc(100vw - 20rem);
+    float:right;
+    position: relative;
+}
+.btnUsu{
+    position:relative;
+    background: #fff;
+    color: #242424;
+    border: none;
+}
+.btn1Usu{
+    border: none;
+    width: 60px;
+    background-color: transparent;
+}
+.btnUsu:hover, .btn1Usu:hover{
+    border: 3px solid rgb(71, 72, 71);
+    background-color: rgb(204, 212, 204);
+    transition: all 0.3s ease-out;
+}
+.combo-select {
+    position: relative;
+  }
+  
+  .combo-select select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 10px;
+    border: 1px solid #131212;
+    width: 100%;
+    font-family: Verdana;
+  }
+  
+  .combo-select-arrow {
+    position: absolute;
+    top: 40%;
+    right: 3%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: 10px;
+    height: 10px;
+    border-left: 1px solid #3b3a3a;
+    border-bottom: 1px solid #3f3b3b;
+    background-color: transparent;
+    transform: rotate(-45deg);
+  }
+  .combo-select-arrow-1 {
+    position: absolute;
+    top: 40%;
+    right: 3%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    border-left: 1px solid #3b3a3a;
+    border-bottom: 1px solid #3f3b3b;
+  }
+  .combo-select-1 input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 10px;
+    border: 1px solid #131212;
+    width: 100%;
+    font-family: Verdana;
+  }
+  
+  

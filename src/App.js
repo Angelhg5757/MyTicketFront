@@ -17,6 +17,9 @@ import Perfil from './navegacion/Profile';
 import MisEventos from './navegacion/misEventos';
 import MisBoletos from './navegacion/misBoletos';
 import DashboardEventos from './navegacion/eventosDashboard';
+import AgregarTicket from './navegacion/agregarTicket';
+import AgregarEvento from './navegacion/agregarEvento';
+import AgregarUsuario from './navegacion/agregarUsuario';
 
 //José estuvo acá
 function App() {
@@ -41,6 +44,9 @@ function App() {
           <Route path='/misBoletos' element={<MisBoletos/>} />
           <Route path='*' element={<RutaNoEncontrada />} />
           <Route path='/crudEventos' element={<DashboardEventos />} />
+          <Route path='/agregarTicket' element={<AgregarTicket />} />
+          <Route path='/agregarEvento' element={<AgregarEvento />} />
+          <Route path='/agregarUsuario' element={<AgregarUsuario />} />
       </Routes>
     </>
   );
