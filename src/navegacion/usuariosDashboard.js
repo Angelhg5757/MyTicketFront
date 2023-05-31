@@ -301,16 +301,18 @@ const Usuarios = () => {
         </div>
         <Button
           className="btnUsu"
-          onClick={agregarBoton}
+          // onClick={handleOpen}
           style={{
-            float: "right",
+            // "right",
+            position: "absolute",
+            top: "-5%",
+            right: "0",
             margin: "40px",
-            marginTop: "20px",
             fontSize: "20px",
             fontFamily: "Verdana",
             backgroundColor: "#3CB371",
             borderRadius: "5px",
-            marginTop: "-150px"
+            marginTop: "120px",
           }}
         >
           Agregar
