@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import NavbarDashboard from '../navegacion/NavbarDashboard';
 import Slidebar from '../navegacion/SidebarDashboard';
 import axios from "axios";
+import Footer from "./footer";
 import * as FaIcons from "react-icons/fa";
 import { Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
@@ -141,7 +142,7 @@ const AgregarTicket = () => {
         <div className="main2" style={{ width: "80%", height: "100vh", marginLeft: "20%" }}>
           <div id="media">
             <h3 className="head">
-              <FaIcons.FaHouseUser className="me-2" /> Tickets
+              <FaIcons.FaHouseUser className="me-2" /> Boletos
             </h3>
             <div className="container">
               <br></br>
@@ -267,6 +268,7 @@ const AgregarTicket = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

@@ -170,6 +170,10 @@ const Usuarios = () => {
     }
   };
 
+  const agregarBoton = ()=>{
+    window.location.href = "http://localhost:3000/agregarEvento";
+  }
+
   return (
     <>
       <NavbarDashboard/>
@@ -286,7 +290,7 @@ const Usuarios = () => {
         </div>
         <Button
           className="btnUsu"
-          onClick={handleOpen}
+          onClick={agregarBoton}
           style={{
             float: "right",
             margin: "40px",

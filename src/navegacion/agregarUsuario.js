@@ -3,6 +3,7 @@ import NavbarDashboard from '../navegacion/NavbarDashboard';
 import Slidebar from '../navegacion/SidebarDashboard';
 import axios from "axios";
 import * as FaIcons from "react-icons/fa";
+import Footer from "./footer";
 import { Button } from "semantic-ui-react";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
@@ -104,7 +105,7 @@ const AgregarUsuario = () => {
         <div className="main2" style={{ width: "80%", height: "100vh", marginLeft: "20%" }}>
           <div id="media">
             <h3 className="head">
-              <FaIcons.FaHouseUser className="me-2" /> Tickets
+              <FaIcons.FaHouseUser className="me-2" /> Usuarios
             </h3>
             <div className="container">
               <br></br>
@@ -260,6 +261,7 @@ const AgregarUsuario = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };
