@@ -44,30 +44,33 @@ const AgregarTicket = () => {
     precio,
     descripcion
   ) => {
-    localStorage.setItem("usuario", usuario);
-    localStorage.setItem("evento", evento);
-    localStorage.setItem("numAsiento", numAsiento);
-    localStorage.setItem("seccion", seccion);
-    localStorage.setItem("descripcion", descripcion);
-    localStorage.setItem("precio", precio);
+    setUsuarioSeleccionado(usuario);
+    setEventoSeleccionado(evento);
+    setNumAsiento(numAsiento);
+    setSeccionSeleccionada(seccion);
+    setPrecioSeleccionado(precio);
+    setDescripcion(descripcion);
   };
+  
 
   const getData = () => {
     axios
       //.get(`https://ticketback.herokuapp.com/boletos/listar`)
-      .get(`https://localhost:4000/crudboletos`)
+      .get(`https://localhost:4000/boletoscrud`)
       .then((getData) => {
         setApiData(getData.data);
       });
   };
 
-  const [usuario, setUsuarios] = useState();
-  const [evento, setEvento] = useState();
+  const [usuarios, setUsuarios] = useState([]);
+  const [usuarioSeleccionado, setUsuarioSeleccionado] = useState("");
   const [numAsiento, setNumAsiento] = useState();
-  const [precio, setPrecio] = useState();
+  const [listaPrecios, setListaPrecios] = useState([]);
+  const [precioSeleccionado, setPrecioSeleccionado] = useState("");
   const [descripcion, setDescripcion] = useState();
-  const [secciones, setSecciones] = useState([]);
-  const [eventos, setEventos] = useState([]);
+  const [listaSecciones, setListaSecciones] = useState([]);
+  const [listaEventos, setListaEventos] = useState([]);
+  const [eventoSeleccionado, setEventoSeleccionado] = useState("");
   const [seccionSeleccionada, setSeccionSeleccionada] = useState([]);
   const [asientosDisponibles, setAsientosDisponibles] = useState([]);
 
@@ -78,7 +81,7 @@ const AgregarTicket = () => {
       .get("http://localhost:4000/asientos/secciones")
       .then((response) => {
         console.log(response.data);
-        setSecciones(response.data.rows);
+        setListaSecciones(response.data.rows);
         // Llamar a getAsientosDisponibles con la primera sección seleccionada
         if (response.data.rows.length > 0) {
           setSeccionSeleccionada(response.data.rows[0].nombre);
@@ -94,22 +97,21 @@ const AgregarTicket = () => {
       .get(`http://localhost:4000/precio/todos`)
       .then((response) => {
         console.log("Holiwis precio;", response.data.rows);
-        setPrecio(response.data.rows);
+        setListaPrecios(response.data.rows);
       })
       .catch((error) => {
         console.log(error);
       });
 
-      axios
+    axios
       .get(`http://localhost:4000/eventos/todos`)
       .then((response) => {
-        console.log("Entraste",response.data.rows);
-        setEventos(response.data.rows);
+        console.log("Entraste", response.data.rows);
+        setListaEventos(response.data.rows);
       })
       .catch((error) => {
         console.log(error);
-      }
-      );
+      });
 
     //obtener los nombres de usuario de la api
     axios
@@ -135,7 +137,8 @@ const AgregarTicket = () => {
       });
   };
 
-  const onSave = () => {
+  const onSave = (event) => {
+    event.preventDefault();
     console.log("Holisbananis");
     swal({
       title: "Creando boleto",
@@ -145,13 +148,13 @@ const AgregarTicket = () => {
     }).then((elimina) => {
       if (elimina) {
         const newData = {
-          usuario: usuario,
-          evento: evento,
-          numAsiento: numAsiento,
-          seccion: secciones,
-          precio: precio,
-          descripcion: descripcion,
-        };
+          nombre: usuarioSeleccionado,
+          eventos_nombre: eventoSeleccionado,
+          numero: numAsiento,
+          seccion: seccionSeleccionada,
+          precio: precioSeleccionado,
+          descripcion: descripcion
+        };     
         console.log(newData);
         axios
           .post(`http://localhost:4000/boletos/creando`, newData)
@@ -169,7 +172,6 @@ const AgregarTicket = () => {
     });
   };
 
- 
   return (
     <>
       <NavbarDashboard />
@@ -189,7 +191,7 @@ const AgregarTicket = () => {
                 <form
                   //method="POST"
                   className="formula33"
-                  //onSubmit={registerUsu}
+                  onSubmit={onSave}
                 >
                   <div className="row">
                     <div className="col-md-6">
@@ -204,16 +206,15 @@ const AgregarTicket = () => {
                         <div className="combo-select">
                           <select
                             className="form-control"
-                            onChange={(e) => setEvento(e.target.value)}
+                            onChange={(e) =>
+                              setEventoSeleccionado(e.target.value)
+                            }
                             required
                           >
                             <option value="">Selecciona un evento</option>
-                            {eventos &&
-                              eventos.map((item) => (
-                                <option value={item.nombre}>
-                                  {item.nombre}
-                                </option>
-                              ))}
+                            {listaEventos.map((item) => (
+                              <option value={item.nombre}>{item.nombre}</option>
+                            ))}
                           </select>
                           <div className="combo-select-arrow"></div>
                         </div>
@@ -229,16 +230,15 @@ const AgregarTicket = () => {
                         <div className="combo-select">
                           <select
                             className="form-control"
-                            onChange={(e) => setUsuarios(e.target.value)}
+                            onChange={(e) =>
+                              setUsuarioSeleccionado(e.target.value)
+                            }
                             required
                           >
                             <option value="">Selecciona un usuario</option>
-                            {usuario &&
-                              usuario.map((item) => (
-                                <option value={item.nombre}>
-                                  {item.nombre}
-                                </option>
-                              ))}
+                            {usuarios.map((item) => (
+                              <option value={item.nombre}>{item.nombre}</option>
+                            ))}
                           </select>
                           <div className="combo-select-arrow"></div>
                         </div>
@@ -254,11 +254,13 @@ const AgregarTicket = () => {
                         <div className="combo-select">
                           <select
                             className="form-control"
-                            onChange={(e) => setSecciones(e.target.value)}
+                            onChange={(e) =>
+                              setSeccionSeleccionada(e.target.value)
+                            }
                             required
                           >
                             <option value="">Selecciona una sección</option>
-                            {secciones.map((seccion) => (
+                            {listaSecciones.map((seccion) => (
                               <option value={seccion.nombre}>
                                 {seccion.nombre}
                               </option>
@@ -304,16 +306,15 @@ const AgregarTicket = () => {
                         <div className="combo-select">
                           <select
                             className="form-control"
-                            onChange={(e) => setPrecio(e.target.value)}
+                            onChange={(e) =>
+                              setPrecioSeleccionado(e.target.value)
+                            }
                             required
                           >
                             <option value="">Selecciona un precio</option>
-                            {precio &&
-                              precio.map((item) => (
-                                <option value={item.precio}>
-                                  {item.precio}
-                                </option>
-                              ))}
+                            {listaPrecios.map((item) => (
+                              <option value={item.precio}>{item.precio}</option>
+                            ))}
                           </select>
                           <div className="combo-select-arrow"></div>
                         </div>
@@ -333,8 +334,8 @@ const AgregarTicket = () => {
                       </div>
                       <div className="form-group">
                         <Button
+                          type="submit"
                           className="btnUsu"
-                          onClick={onSave}
                           style={{
                             float: "right",
                             margin: "40px",
