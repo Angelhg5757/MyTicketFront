@@ -4,18 +4,13 @@ import Slidebar from '../navegacion/SidebarDashboard';
 import axios from "axios";
 import * as FaIcons from "react-icons/fa";
 import { Button } from "semantic-ui-react";
-import { Link } from "react-router-dom";
-import {
-  TableCell,
-  MenuItem
-} from "@mui/material";
+import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import "./css/agregar.css";
-import { DatePicker } from "@mui/lab";
-import { TextField } from "@mui/material";
 
 
 const AgregarUsuario = () => {
+  let navigate = useNavigate();
   const style = {
     position: "absolute",
     top: "50%",
@@ -29,69 +24,27 @@ const AgregarUsuario = () => {
   };
   const [data, setApiData] = useState([]);
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
+  // const setData = (
+  //   nombre,
+  //   apePat,
+  //   apeMat,
+  //   telefono,
+  //   correo,
+  //   password,
+  //   fechaNac,
+  //   idRol,
+  // ) => {
+  //   localStorage.setItem("nombre", nombre);
+  //   localStorage.setItem("apePat", apePat);
+  //   localStorage.setItem("apeMat", apeMat);
+  //   localStorage.setItem("telefono", telefono);
+  //   localStorage.setItem("correo", correo);
+  //   localStorage.setItem("password", password);
+  //   localStorage.setItem("fechaNac", fechaNac);
+  //   localStorage.setItem("idRol", idRol);
+  // };
 
-  useEffect(() => {
-    axios
-      //.get(`https://ticketback.herokuapp.com/boletos/listar`)
-      .get(`http://localhost:4000/boletoscrud`)
-      .then((getData) => {
-        setApiData(getData.data);
-      });
-  }, []);
-
-  const setData = (
-    nombre,
-    apePat,
-    apeMat,
-    telefono,
-    correo,
-    password,
-    fechaNac,
-    idRol,
-  ) => {
-    localStorage.setItem("nombre", nombre);
-    localStorage.setItem("apePat", apePat);
-    localStorage.setItem("apeMat", apeMat);
-    localStorage.setItem("telefono", telefono);
-    localStorage.setItem("correo", correo);
-    localStorage.setItem("password", password);
-    localStorage.setItem("fechaNac", fechaNac);
-    localStorage.setItem("idRol", idRol);
-  };
-
-  const getData = () => {
-    axios
-      //.get(`https://ticketback.herokuapp.com/boletos/listar`)
-      .get(`https://localhost:4000/crudboletos`)
-      .then((getData) => {
-        setApiData(getData.data);
-      });
-  };
-
-  const onDelete = (id) => {
-    swal({
-      title: "Eliminar boleto",
-      text: "¿Está seguro que desea eliminar el boleto?",
-      icon: "warning",
-      buttons: ["No", "Si"],
-    }).then((elimina) => {
-      if (elimina) {
-        axios
-          //.delete(`https://ticketback.herokuapp.com/boletos/eliminar/${id}`)
-          .delete(`https://localhost:4000/boletos/eliminar/${id}`)
-          .then(() => {
-            getData();
-          });
-        swal({
-          text: "El boleto ha sido eliminado con éxito",
-          icon: "success",
-        });
-      }
-    });
-  };
 
   const [nombre, setNombre] = useState();
   const [apePat, setApePat] = useState();
@@ -106,8 +59,7 @@ const AgregarUsuario = () => {
   let registerUsu = async (e) => {
     e.preventDefault();
     try {
-      //let res = await fetch("https://ticketback.herokuapp.com/boletos/crear", {
-      let res = await fetch("http://localhost:4000/boletos/crear", {
+      let res = await fetch("http://localhost:4000/usuario/crear", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -125,13 +77,13 @@ const AgregarUsuario = () => {
         }),
       });
       swal({
-        title: "Boleto creado con éxito!",
-        text: "El boleto ha sido guardado",
+        title: "Usuario creado con éxito!",
+        text: "El usuario ha sido guardado",
         icon: "success",
         button: "Aceptar",
       }).then((respuesta) => {
         if (respuesta) {
-          window.location.reload();
+          navigate("/CrudUsuarios");
         }
       });
     } catch (error) {
@@ -237,12 +189,11 @@ const AgregarUsuario = () => {
                           </label>
                           <div className="combo-select-1">
                             <input
-                              type="text"
+                              type="password"
                               className="form-control"
                               onChange={(e) => setPassword(e.target.value)}
                               required
                             />
-
                           </div>
                         </div>
                         <div className="form-group">
@@ -275,10 +226,10 @@ const AgregarUsuario = () => {
                             <option selected="true" disabled="disabled">
                               Selecciona rol
                             </option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
+                            <option value="1">Administrador</option>
+                            <option value="2">Usuario</option>
                           </select>
-                          <div className="combo-select-arrow-1"></div>
+                          <div className="combo-select-arrow"></div>
                         </div>
                       </div>
                       </div>
@@ -286,7 +237,7 @@ const AgregarUsuario = () => {
                       <div className="form-group">
                         <Button
                           className="btnUsu"
-                          onClick={handleOpen}
+                          // onClick={handleOpen}
                           style={{
                             float: "right",
                             margin: "40px",
