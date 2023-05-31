@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
-import NavbarDashboard from '../navegacion/NavbarDashboard';
-import Slidebar from '../navegacion/SidebarDashboard';
+import NavbarDashboard from "../navegacion/NavbarDashboard";
+import Slidebar from "../navegacion/SidebarDashboard";
 import axios from "axios";
 import Footer from "./footer";
 import * as FaIcons from "react-icons/fa";
-import { Button } from "semantic-ui-react";
+import { Button, Menu, MenuItem } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import {
-  TableCell,
-  MenuItem
-} from "@mui/material";
+import { TableCell } from "@mui/material";
 import swal from "sweetalert";
 import "./css/agregar.css";
 
@@ -30,7 +27,6 @@ const AgregarTicket = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
   useEffect(() => {
     axios
       //.get(`https://ticketback.herokuapp.com/boletos/listar`)
@@ -46,7 +42,7 @@ const AgregarTicket = () => {
     numAsiento,
     seccion,
     precio,
-    descripcion,
+    descripcion
   ) => {
     localStorage.setItem("usuario", usuario);
     localStorage.setItem("evento", evento);
@@ -65,81 +61,124 @@ const AgregarTicket = () => {
       });
   };
 
-  const onDelete = (id) => {
+  const [usuario, setUsuarios] = useState();
+  const [evento, setEvento] = useState();
+  const [numAsiento, setNumAsiento] = useState();
+  const [precio, setPrecio] = useState();
+  const [descripcion, setDescripcion] = useState();
+  const [secciones, setSecciones] = useState([]);
+  const [eventos, setEventos] = useState([]);
+  const [seccionSeleccionada, setSeccionSeleccionada] = useState([]);
+  const [asientosDisponibles, setAsientosDisponibles] = useState([]);
+
+  // ...
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/asientos/secciones")
+      .then((response) => {
+        console.log(response.data);
+        setSecciones(response.data.rows);
+        // Llamar a getAsientosDisponibles con la primera sección seleccionada
+        if (response.data.rows.length > 0) {
+          setSeccionSeleccionada(response.data.rows[0].nombre);
+          getAsientosDisponibles(response.data.rows[0].nombre);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    //Obtener los precios de la api
+    axios
+      .get(`http://localhost:4000/precio/todos`)
+      .then((response) => {
+        console.log("Holiwis precio;", response.data.rows);
+        setPrecio(response.data.rows);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+      axios
+      .get(`http://localhost:4000/eventos/todos`)
+      .then((response) => {
+        console.log("Entraste",response.data.rows);
+        setEventos(response.data.rows);
+      })
+      .catch((error) => {
+        console.log(error);
+      }
+      );
+
+    //obtener los nombres de usuario de la api
+    axios
+      .get(`http://localhost:4000/usuario/todos`)
+      .then((response) => {
+        console.log("Holiwis;", response.data.rows);
+        setUsuarios(response.data.rows);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const getAsientosDisponibles = (seccion) => {
+    axios
+      .get(`http://localhost:4000/asientosseccion/${seccion}`)
+      .then((response) => {
+        console.log(response.data.rows);
+        setAsientosDisponibles(response.data.rows);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const onSave = () => {
+    console.log("Holisbananis");
     swal({
-      title: "Eliminar boleto",
-      text: "¿Está seguro que desea eliminar el boleto?",
+      title: "Creando boleto",
+      text: "¿Está seguro que desea crear el boleto?",
       icon: "warning",
       buttons: ["No", "Si"],
     }).then((elimina) => {
       if (elimina) {
+        const newData = {
+          usuario: usuario,
+          evento: evento,
+          numAsiento: numAsiento,
+          seccion: secciones,
+          precio: precio,
+          descripcion: descripcion,
+        };
+        console.log(newData);
         axios
-          //.delete(`https://ticketback.herokuapp.com/boletos/eliminar/${id}`)
-          .delete(`https://localhost:4000/boletos/eliminar/${id}`)
+          .post(`http://localhost:4000/boletos/creando`, newData)
           .then(() => {
             getData();
+            swal({
+              text: "El boleto ha sido creado con éxito",
+              icon: "success",
+            });
+          })
+          .catch((error) => {
+            swal("Error", "Ocurrió un error al crear el boleto", "error");
           });
-        swal({
-          text: "El boleto ha sido eliminado con éxito",
-          icon: "success",
-        });
       }
     });
   };
 
-  const [usuario, setUsuario] = useState();
-  const [evento, setEvento] = useState();
-  const [numAsiento, setNumAsiento] = useState();
-  const [seccion, setSeccion] = useState();
-  const [precio, setPrecio] = useState();
-  const [descripcion, setDescripcion] = useState();
-
-
-  let registerUsu = async (e) => {
-    e.preventDefault();
-    try {
-      //let res = await fetch("https://ticketback.herokuapp.com/boletos/crear", {
-      let res = await fetch("http://localhost:4000/boletos/crear", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          usuario: usuario,
-          evento: evento,
-          numAsiento: numAsiento,
-          seccion: seccion,
-          precio: precio,
-          descripcion: descripcion,
-        }),
-      });
-      swal({
-        title: "Boleto creado con éxito!",
-        text: "El boleto ha sido guardado",
-        icon: "success",
-        button: "Aceptar",
-      }).then((respuesta) => {
-        if (respuesta) {
-          window.location.reload();
-        }
-      });
-    } catch (error) {
-      swal({
-        title: "Error",
-        text: "Ocurrio un error al guardar :(",
-        icon: "error",
-        button: "Aceptar",
-      });
-    }
-  };
-
+ 
   return (
     <>
       <NavbarDashboard />
       <Slidebar />
       <div className="Boletos">
-        <div className="main2" style={{ width: "80%", height: "100vh", marginLeft: "20%" }}>
+        <div
+          className="main2"
+          style={{ width: "80%", height: "100vh", marginLeft: "20%" }}
+        >
           <div id="media">
             <h3 className="head">
               <FaIcons.FaHouseUser className="me-2" /> Boletos
@@ -147,11 +186,19 @@ const AgregarTicket = () => {
             <div className="container">
               <br></br>
               <div className="tab2">
-                <form method="POST" className="formula33" onSubmit={registerUsu}>
+                <form
+                  //method="POST"
+                  className="formula33"
+                  //onSubmit={registerUsu}
+                >
                   <div className="row">
                     <div className="col-md-6">
                       <div className="form-group">
-                        <label htmlFor="" style={{ fontFamily: "Verdana" }} className="">
+                        <label
+                          htmlFor=""
+                          style={{ fontFamily: "Verdana" }}
+                          className=""
+                        >
                           Evento
                         </label>
                         <div className="combo-select">
@@ -161,33 +208,73 @@ const AgregarTicket = () => {
                             required
                           >
                             <option value="">Selecciona un evento</option>
-                            <option value="evento1">Evento 1</option>
-                            <option value="evento2">Evento 2</option>
-                            <option value="evento3">Evento 3</option>
+                            {eventos &&
+                              eventos.map((item) => (
+                                <option value={item.nombre}>
+                                  {item.nombre}
+                                </option>
+                              ))}
                           </select>
                           <div className="combo-select-arrow"></div>
                         </div>
                       </div>
                       <div className="form-group">
-                        <label htmlFor="" style={{ fontFamily: "Verdana" }} className="">
+                        <label
+                          htmlFor=""
+                          style={{ fontFamily: "Verdana" }}
+                          className=""
+                        >
                           Usuario
                         </label>
                         <div className="combo-select">
                           <select
                             className="form-control"
-                            onChange={(e) => setUsuario(e.target.value)}
+                            onChange={(e) => setUsuarios(e.target.value)}
                             required
                           >
                             <option value="">Selecciona un usuario</option>
-                            <option value="usuario1">Usuario 1</option>
-                            <option value="usuario2">Usuario 2</option>
-                            <option value="usuario3">Usuario 3</option>
+                            {usuario &&
+                              usuario.map((item) => (
+                                <option value={item.nombre}>
+                                  {item.nombre}
+                                </option>
+                              ))}
                           </select>
                           <div className="combo-select-arrow"></div>
                         </div>
                       </div>
                       <div className="form-group">
-                        <label htmlFor="" style={{ fontFamily: "Verdana" }} className="">
+                        <label
+                          htmlFor=""
+                          style={{ fontFamily: "Verdana" }}
+                          className=""
+                        >
+                          Sección
+                        </label>
+                        <div className="combo-select">
+                          <select
+                            className="form-control"
+                            onChange={(e) => setSecciones(e.target.value)}
+                            required
+                          >
+                            <option value="">Selecciona una sección</option>
+                            {secciones.map((seccion) => (
+                              <option value={seccion.nombre}>
+                                {seccion.nombre}
+                              </option>
+                            ))}
+                          </select>
+                          <div className="combo-select-arrow"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label
+                          htmlFor=""
+                          style={{ fontFamily: "Verdana" }}
+                          className=""
+                        >
                           Asiento
                         </label>
                         <div className="combo-select">
@@ -197,17 +284,21 @@ const AgregarTicket = () => {
                             required
                           >
                             <option value="">Selecciona un asiento</option>
-                            <option value="asiento1">Asiento 1</option>
-                            <option value="asiento2">Asiento 2</option>
-                            <option value="asiento3">Asiento 3</option>
+                            {asientosDisponibles.map((asiento) => (
+                              <option value={asiento.numas}>
+                                {asiento.numas}
+                              </option>
+                            ))}
                           </select>
                           <div className="combo-select-arrow"></div>
                         </div>
                       </div>
-                    </div>
-                    <div className="col-md-6">
                       <div className="form-group">
-                        <label htmlFor="" style={{ fontFamily: "Verdana" }} className="">
+                        <label
+                          htmlFor=""
+                          style={{ fontFamily: "Verdana" }}
+                          className=""
+                        >
                           Precio
                         </label>
                         <div className="combo-select">
@@ -217,9 +308,12 @@ const AgregarTicket = () => {
                             required
                           >
                             <option value="">Selecciona un precio</option>
-                            <option value="precio1">Precio 1</option>
-                            <option value="precio2">Precio 2</option>
-                            <option value="precio3">Precio 3</option>
+                            {precio &&
+                              precio.map((item) => (
+                                <option value={item.precio}>
+                                  {item.precio}
+                                </option>
+                              ))}
                           </select>
                           <div className="combo-select-arrow"></div>
                         </div>
@@ -229,23 +323,18 @@ const AgregarTicket = () => {
                           Descripción
                         </label>
                         <div className="combo-select">
-                          <select
+                          <input
                             className="form-control"
                             onChange={(e) => setDescripcion(e.target.value)}
                             required
-                          >
-                            <option value="">Selecciona una descripción</option>
-                            <option value="descripcion1">Descripción 1</option>
-                            <option value="descripcion2">Descripción 2</option>
-                            <option value="descripcion3">Descripción 3</option>
-                          </select>
-                          <div className="combo-select-arrow"></div>
+                          ></input>
+                          <div className=""></div>
                         </div>
                       </div>
                       <div className="form-group">
                         <Button
                           className="btnUsu"
-                          onClick={handleOpen}
+                          onClick={onSave}
                           style={{
                             float: "right",
                             margin: "40px",
@@ -253,7 +342,7 @@ const AgregarTicket = () => {
                             fontFamily: "Verdana",
                             backgroundColor: "#3CB371",
                             borderRadius: "5px",
-                            marginTop: "120px"
+                            marginTop: "120px",
                           }}
                         >
                           Agregar
@@ -268,7 +357,7 @@ const AgregarTicket = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };
