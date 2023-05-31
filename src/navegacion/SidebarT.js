@@ -53,11 +53,11 @@ const Sidebar = () => {
             <NavLink exact to="/misBoletos" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="money">Mis Boletos</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="user">
-                Configuraciones
-              </CDBSidebarMenuItem>
+
+            <NavLink exact to="/profile" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="user">Perfil</CDBSidebarMenuItem>
             </NavLink>
+
           </CDBSidebarMenu>
         </CDBSidebarContent>
 
