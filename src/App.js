@@ -48,7 +48,7 @@ function App() {
           <Route path='/agregarTicket' element={<AgregarTicket />} />
           <Route path='/agregarEvento' element={<AgregarEvento />} />
           <Route path='/agregarUsuario' element={<AgregarUsuario />} />
-          <Route path='/comprarBoleto' element={<ComprarBoleto />} />
+          <Route path='/comprarBoleto/:eventId' element={<ComprarBoleto />} />
       </Routes>
     </>
   );

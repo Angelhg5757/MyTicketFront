@@ -148,7 +148,7 @@ const AgregarTicket = () => {
     }).then((elimina) => {
       if (elimina) {
         const newData = {
-          nombre: usuarioSeleccionado,
+          usuario: usuarioSeleccionado,
           eventos_nombre: eventoSeleccionado,
           numero: numAsiento,
           seccion: seccionSeleccionada,

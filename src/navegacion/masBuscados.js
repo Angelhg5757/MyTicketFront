@@ -72,6 +72,7 @@ const Carousel = () => {
                 category={formatDate(event.fecha)}
                 title={event.eventos_nombre}
                 content={event.inmueble_nombre}
+                eventId = {event.idEventos}
               />
             </div>
           ))}
