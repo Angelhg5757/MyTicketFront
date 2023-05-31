@@ -108,7 +108,7 @@ const Profile = () => {
 
   // Habilitar para el final
 
-  /* if (
+  if (
     nombre == null ||
     apePat == null ||
     apeMat == null ||
@@ -116,7 +116,7 @@ const Profile = () => {
     fechaNac == null
   ) {
     navigate("*");
-  } */
+  } 
 
   return (
     <>

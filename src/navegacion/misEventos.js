@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -14,6 +15,26 @@ import moment from 'moment';
 const EventsPanel = () => {
   const [data, setApiData] = useState([]);
   const idUser = localStorage.getItem('idUsuario');
+
+
+  const navigate = useNavigate();
+  const [id, setId] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [apePat, setApePat] = useState("");
+  const [apeMat, setApeMat] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [correo, setCorreo] = useState("");
+  const [fechaNac, SetfechaNac] = useState("");
+
+  useEffect(() => {
+    setId(localStorage.getItem("idUsuario"));
+    setNombre(localStorage.getItem("nombre"));
+    setApePat(localStorage.getItem("apePat"));
+    setApeMat(localStorage.getItem("apeMat"));
+    setCorreo(localStorage.getItem("correo"));
+    SetfechaNac(localStorage.getItem("fechaNac"));
+    setTelefono(localStorage.getItem("telefono"));
+  }, []);
 
   useEffect(() => {
     getData();
@@ -33,6 +54,16 @@ const EventsPanel = () => {
   const formatDate = (date) => {
     return moment(date).format('DD-MM-YYYY'); // Formatear la fecha usando moment.js
   };
+
+  if (
+    nombre == null ||
+    apePat == null ||
+    apeMat == null ||
+    correo == null ||
+    fechaNac == null
+  ) {
+    navigate("*");
+  } 
 
   return (
     <>

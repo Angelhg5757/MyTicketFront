@@ -40,6 +40,24 @@ const MisBoletos = () => {
     getData();
   }, []);
 
+  
+  const [nombre, setNombre] = useState("");
+  const [apePat, setApePat] = useState("");
+  const [apeMat, setApeMat] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [correo, setCorreo] = useState("");
+  const [fechaNac, SetfechaNac] = useState("");
+
+  useEffect(() => {
+    setId(localStorage.getItem("idUsuario"));
+    setNombre(localStorage.getItem("nombre"));
+    setApePat(localStorage.getItem("apePat"));
+    setApeMat(localStorage.getItem("apeMat"));
+    setCorreo(localStorage.getItem("correo"));
+    SetfechaNac(localStorage.getItem("fechaNac"));
+    setTelefono(localStorage.getItem("telefono"));
+  }, []);
+
   const getData = () => {
     axios
       .get(`http://localhost:4000/boletosUsuario/${idUser}`)
@@ -54,6 +72,16 @@ const MisBoletos = () => {
   const formatDate = (date) => {
     return moment(date).format("DD-MM-YYYY"); // Formatear la fecha usando moment.js
   };
+
+  if (
+    nombre == null ||
+    apePat == null ||
+    apeMat == null ||
+    correo == null ||
+    fechaNac == null
+  ) {
+    navigate("*");
+  } 
 
   return (
     <>
