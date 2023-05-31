@@ -34,10 +34,13 @@ const ComprarBoleto = () => {
   const [seccionSeleccionada, setSeccionSeleccionada] = useState([]);
   const [asientosDisponibles, setAsientosDisponibles] = useState([]);
   const [imagen, setImagen] = useState([]);
+  const [id, setId] = useState("");
 
   // ...
 
   useEffect(() => {
+    setId(localStorage.getItem("idUsuario"));
+
     axios
       .get("http://localhost:4000/asientos/secciones")
       .then((response) => {
@@ -96,6 +99,10 @@ const ComprarBoleto = () => {
       
   }, [eventId]);
 
+  useEffect(() => {
+    getImagen(eventoSeleccionado);
+  }, [eventoSeleccionado]);
+  
   const getImagen = (event) =>{
     //obtener la imagen del boleto
     axios
@@ -122,14 +129,14 @@ const ComprarBoleto = () => {
   };
 
   const setData = (
-    usuario,
+    id,
     evento,
     numAsiento,
     seccion,
     precio,
     descripcion
   ) => {
-    setUsuarioSeleccionado(usuario);
+    setId();
     setEventoSeleccionado(evento);
     setNumAsiento(numAsiento);
     setSeccionSeleccionada(seccion);
@@ -142,22 +149,21 @@ const ComprarBoleto = () => {
     console.log("Holisbananis");
     swal({
       title: "Creando boleto",
-      text: "¿Está seguro que desea crear el boleto?",
+      text: "¿Está seguro que desea comprar el boleto?",
       icon: "warning",
       buttons: ["No", "Si"],
     }).then((elimina) => {
       if (elimina) {
         const newData = {
-          usuario: usuarioSeleccionado,
+          idUsuario: id,
           eventos_nombre: eventoSeleccionado,
           numero: numAsiento,
           seccion: seccionSeleccionada,
           precio: precioSeleccionado,
-          descripcion: descripcion
         };     
         console.log(newData);
         axios
-          .post(`http://localhost:4000/boletos/creando`, newData)
+          .post(`http://localhost:4000/boletos/compra`, newData)
           .then(() => {
             swal({
               text: "El boleto ha sido creado con éxito",
@@ -178,6 +184,7 @@ const ComprarBoleto = () => {
     console.log("ID del evento:", eventId);
   }, [location.search]);
 
+  
   return (
     <>
       <MDBContainer className="my-4">
