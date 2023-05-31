@@ -333,11 +333,14 @@ const AgregarTicket = () => {
                         </div>
                       </div>
                       <div className="form-group">
-                        <Button
-                          type="submit"
+                      <Button
                           className="btnUsu"
+                          // onClick={handleOpen}
                           style={{
-                            float: "right",
+                           // "right",
+                            position: "absolute",
+                            top: "-5%",
+                            right:"0",
                             margin: "40px",
                             fontSize: "20px",
                             fontFamily: "Verdana",

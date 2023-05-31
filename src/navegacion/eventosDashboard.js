@@ -96,7 +96,7 @@ const Usuarios = () => {
     return moment(date).format("YYYY-MM-DD"); // Formatear la fecha usando moment.js
   };
   const formatDate = (date) => {
-    return moment(date).format("DD-MM-YYYY"); 
+    return moment(date).format("DD-MM-YYYY");
   }
 
   const onDelete = (id) => {
@@ -150,7 +150,7 @@ const Usuarios = () => {
       const newData = {
         ...apiData.find((data) => data.idEventos === editUserId),
         ...editedData[editUserId],
-       
+
       };
       console.log(newData);
       axios
@@ -170,16 +170,16 @@ const Usuarios = () => {
     }
   };
 
-  const agregarBoton = ()=>{
+  const agregarBoton = () => {
     window.location.href = "http://localhost:3000/agregarEvento";
   }
 
   return (
     <>
-      <NavbarDashboard/>
-      <Slidebar/>
+      <NavbarDashboard />
+      <Slidebar />
       <div className="Usuarios">
-        <div className="main2" style={{ width: "100%",height:"100vh"}}>
+        <div className="main2" style={{ width: "100%", height: "100vh" }}>
           <div id="media">
             <h3 className="head">
               <FaIcons.FaHouseUser className="me-2" /> Eventos
@@ -204,7 +204,7 @@ const Usuarios = () => {
                           <TableRow>
                             {/* <TableCell>{data.idUsuario}</TableCell> */}
                             <TableCell>
-                            {editMode && editUserId === data.idEventos ? (
+                              {editMode && editUserId === data.idEventos ? (
                                 <input
                                   type="text"
                                   name="descripcion"
@@ -267,12 +267,12 @@ const Usuarios = () => {
                             <TableCell>
                               {editMode && editUserId === data.idEventos ? (
                                 <>
-                                  <img src={aceptarIcon} style={{paddingRight:'30%'}} onClick={()=>onSave(data.idEventos)} />
-                                  <img src={cancelarIcon} onClick={()=>onCancel()} />
+                                  <img src={aceptarIcon} style={{ paddingRight: '30%' }} onClick={() => onSave(data.idEventos)} />
+                                  <img src={cancelarIcon} onClick={() => onCancel()} />
                                 </>
                               ) : (
                                 <>
-                                  <img src={editarIcon} style={{paddingRight:'30%'}} onClick={() => onEdit(data.idEventos)} />
+                                  <img src={editarIcon} style={{ paddingRight: '30%' }} onClick={() => onEdit(data.idEventos)} />
                                   <img src={borrarIcon} onClick={() => onDelete(data.idEventos)} />
                                 </>
                               )}
@@ -290,21 +290,22 @@ const Usuarios = () => {
         </div>
         <Button
           className="btnUsu"
-          onClick={agregarBoton}
+          // onClick={handleOpen}
           style={{
-            float: "right",
+            // "right",
+            position: "absolute",
+            top: "-5%",
+            right: "0",
             margin: "40px",
-            marginTop: "20px",
             fontSize: "20px",
             fontFamily: "Verdana",
             backgroundColor: "#3CB371",
             borderRadius: "5px",
-            marginTop: "-150px"
+            marginTop: "120px",
           }}
         >
           Agregar
         </Button>
-
         <Modal
           open={open}
           onClose={handleClose}
