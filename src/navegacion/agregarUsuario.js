@@ -82,11 +82,8 @@ const AgregarUsuario = () => {
         text: "El usuario ha sido guardado",
         icon: "success",
         button: "Aceptar",
-      }).then((respuesta) => {
-        if (respuesta) {
-          navigate("/CrudUsuarios");
-        }
-      });
+      })
+      navigate("/CrudUsuarios");
     } catch (error) {
       swal({
         title: "Error",
@@ -157,7 +154,7 @@ const AgregarUsuario = () => {
                       </div>
                       <div className="form-group">
                         <label htmlFor="" style={{ fontFamily: "Verdana" }} className="">
-                          Telefono
+                          Teléfono
                         </label>
                         <div className="combo-select-1">
                           <input
@@ -216,7 +213,7 @@ const AgregarUsuario = () => {
                         </div>
                         <div className="form-group">
                         <label htmlFor="" style={{ fontFamily: "Verdana" }}>
-                          Id Rol
+                          Rol
                         </label>
                         <div className="combo-select">
                           <select
