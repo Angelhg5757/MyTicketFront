@@ -68,22 +68,24 @@ const ComprarBoleto = () => {
       });
 
     axios
-    .get(`http://localhost:4000/eventos/todos`)
-    .then((response) => {
-      console.log("Entraste", response.data.rows);
-      setListaEventos(response.data.rows);
+      .get(`http://localhost:4000/eventos/todos`)
+      .then((response) => {
+        console.log("Entraste", response.data.rows);
+        setListaEventos(response.data.rows);
 
-      // Establecer el evento seleccionado como opción predeterminada
-      const evento = response.data.rows.find((item) => item.nombre === eventId);
-      if (evento) {
-        setEventoSeleccionado(evento.nombre);
-        console.log(evento.nombre);
-        getImagen(evento.nombre);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+        // Establecer el evento seleccionado como opción predeterminada
+        const evento = response.data.rows.find(
+          (item) => item.nombre === eventId
+        );
+        if (evento) {
+          setEventoSeleccionado(evento.nombre);
+          console.log(evento.nombre);
+          getImagen(evento.nombre);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     //obtener los nombres de usuario de la api
     axios
@@ -95,27 +97,25 @@ const ComprarBoleto = () => {
       .catch((error) => {
         console.log(error);
       });
-
-      
   }, [eventId]);
 
   useEffect(() => {
     getImagen(eventoSeleccionado);
   }, [eventoSeleccionado]);
-  
-  const getImagen = (event) =>{
+
+  const getImagen = (event) => {
     //obtener la imagen del boleto
     axios
-    .get(`http://localhost:4000/boletos/imagen/${event}`)
-    .then((response) => {
-      console.log("hola");
-        console.log('Imagen ', response.data[0].imagen);
+      .get(`http://localhost:4000/boletos/imagen/${event}`)
+      .then((response) => {
+        console.log("hola");
+        console.log("Imagen ", response.data[0].imagen);
         setImagen(response.data[0].imagen);
-  })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const getAsientosDisponibles = (seccion) => {
     axios
       .get(`http://localhost:4000/asientosseccion/${seccion}`)
@@ -128,14 +128,7 @@ const ComprarBoleto = () => {
       });
   };
 
-  const setData = (
-    id,
-    evento,
-    numAsiento,
-    seccion,
-    precio,
-    descripcion
-  ) => {
+  const setData = (id, evento, numAsiento, seccion, precio, descripcion) => {
     setId();
     setEventoSeleccionado(evento);
     setNumAsiento(numAsiento);
@@ -160,7 +153,7 @@ const ComprarBoleto = () => {
           numero: numAsiento,
           seccion: seccionSeleccionada,
           precio: precioSeleccionado,
-        };     
+        };
         console.log(newData);
         axios
           .post(`http://localhost:4000/boletos/compra`, newData)
@@ -176,7 +169,7 @@ const ComprarBoleto = () => {
       }
     });
   };
-  
+
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const title = searchParams.get("eventId");
@@ -184,9 +177,10 @@ const ComprarBoleto = () => {
     console.log("ID del evento:", eventId);
   }, [location.search]);
 
-  
   return (
     <>
+          <Layout />
+
       <MDBContainer className="my-4">
         <MDBRow className="g-0 align-items-center">
           <MDBCol col="8">
@@ -207,17 +201,14 @@ const ComprarBoleto = () => {
                 <div className="combo-select">
                   <select
                     className="form-control"
-                    onChange={(e) =>
-                      setEventoSeleccionado(e.target.value)
-                    }
+                    onChange={(e) => setEventoSeleccionado(e.target.value)}
                     required
                     value={eventoSeleccionado}
-                    
                   >
                     <option value=""></option>
-                            {listaEventos.map((item) => (
-                              <option value={item.nombre}>{item.nombre}</option>
-                            ))}
+                    {listaEventos.map((item) => (
+                      <option value={item.nombre}>{item.nombre}</option>
+                    ))}
                   </select>
                   <div className="combo-select-arrow"></div>
                 </div>
@@ -227,17 +218,13 @@ const ComprarBoleto = () => {
                 <div className="combo-select">
                   <select
                     className="form-control"
-                    onChange={(e) =>
-                      setSeccionSeleccionada(e.target.value)
-                    }
+                    onChange={(e) => setSeccionSeleccionada(e.target.value)}
                     required
                   >
                     <option value="">Selecciona una sección</option>
-                            {listaSecciones.map((seccion) => (
-                              <option value={seccion.nombre}>
-                                {seccion.nombre}
-                              </option>
-                            ))}
+                    {listaSecciones.map((seccion) => (
+                      <option value={seccion.nombre}>{seccion.nombre}</option>
+                    ))}
                   </select>
                   <div className="combo-select-arrow"></div>
                 </div>
@@ -251,11 +238,9 @@ const ComprarBoleto = () => {
                     required
                   >
                     <option value="">Selecciona un asiento</option>
-                            {asientosDisponibles.map((asiento) => (
-                              <option value={asiento.numas}>
-                                {asiento.numas}
-                              </option>
-                            ))}
+                    {asientosDisponibles.map((asiento) => (
+                      <option value={asiento.numas}>{asiento.numas}</option>
+                    ))}
                   </select>
                   <div className="combo-select-arrow"></div>
                 </div>
@@ -265,15 +250,13 @@ const ComprarBoleto = () => {
                 <div className="combo-select">
                   <select
                     className="form-control"
-                    onChange={(e) =>
-                      setPrecioSeleccionado(e.target.value)
-                    }
+                    onChange={(e) => setPrecioSeleccionado(e.target.value)}
                     required
                   >
-                     <option value="">Selecciona un precio</option>
-                            {listaPrecios.map((item) => (
-                              <option value={item.precio}>{item.precio}</option>
-                            ))}
+                    <option value="">Selecciona un precio</option>
+                    {listaPrecios.map((item) => (
+                      <option value={item.precio}>{item.precio}</option>
+                    ))}
                   </select>
                   <div className="combo-select-arrow"></div>
                 </div>
@@ -284,27 +267,32 @@ const ComprarBoleto = () => {
                     marginTop: "40px",
                   }}
                 >
-                  <MDBBtn
-                  className="btn-success"
-                  type="submit"
-                  style={{ width: "240px" }}
-                >
-                  Comprar
-                </MDBBtn>
-
-                  <MDBBtn
-                    className="btn-danger"
-                    size="md"
-                    style={{ width: "240px" }}
-                  >
-                    Cancelar
-                  </MDBBtn>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <MDBBtn
+                      className="btn-success"
+                      size="md"
+                      type="submit"
+                      style={{ height: "40px", width: "240px" }}
+                    >
+                      Comprar
+                    </MDBBtn>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <MDBBtn
+                      className="btn-danger"
+                      size="md"
+                      style={{ width: "240px", height: "40px" }}
+                    >
+                      Cancelar
+                    </MDBBtn>
+                  </div>
                 </div>
               </form>
             </MDBCardBody>
           </MDBCol>
         </MDBRow>
       </MDBContainer>
+      <Footer/>
     </>
   );
 };
