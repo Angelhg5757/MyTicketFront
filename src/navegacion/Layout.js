@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTicket, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { CDBSidebarMenuItem } from "cdbreact";
+
 function CollapsibleExample() {
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ function CollapsibleExample() {
     }
     navigate("/inicio", { replace: true });
   };
+
   useEffect(() => {
     const idUsuario = localStorage.getItem("idUsuario");
     const nombre = localStorage.getItem("nombre");
@@ -54,12 +56,18 @@ function CollapsibleExample() {
         </Nav>
 
         <Nav className="inicio-sesion justify-content-between">
-          <Nav.Link href={loggedIn ? "/misEventos" : "/login"}>
+          {/* <Nav.Link href={loggedIn ? "/misEventos" : "/login"}>
             {loggedIn ? <span>Mis Eventos</span> : <span>Iniciar sesión</span>}
           </Nav.Link>
           <Nav.Link href={loggedIn ? "/misBoletos" : "/login"}>
             {loggedIn ? <span>Mis Boletos</span> : <span>Iniciar sesión</span>}
-          </Nav.Link>
+          </Nav.Link> */}
+          {loggedIn ? (
+            <Nav.Link href="/misBoletos">Mis boletos</Nav.Link>
+          ) : null}
+          {loggedIn ? (
+            <Nav.Link href="/misEventos">Mis eventos</Nav.Link>
+          ) : null}
           <Nav.Link href={loggedIn ? "/profile" : "/login"}>
             {loggedIn ? (
               <span>
@@ -83,13 +91,10 @@ function CollapsibleExample() {
               </span>
             )}
           </Nav.Link>
-          <Nav.Link exact to="/" activeClassName="activeClicked">
+          {/* <Nav.Link exact to="/" activeClassName="activeClicked">
             
               <FontAwesomeIcon icon={faPowerOff} bounce className="mr-2" /> Salir
-          </Nav.Link>
-
-              
-
+          </Nav.Link> */}
         </Nav>
       </Navbar.Collapse>
     </Navbar>
