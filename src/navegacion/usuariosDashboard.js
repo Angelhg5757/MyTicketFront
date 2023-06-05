@@ -60,7 +60,7 @@ const Usuarios = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/usuario/listar`)
+      .get(`https://ticketback.herokuapp.com/usuario/listar`)
       .then((getData) => {
         setApiData(getData.data);
       });
@@ -90,7 +90,7 @@ const Usuarios = () => {
 
   const getData = () => {
     axios
-      .get(`http://localhost:4000/usuario/listar`)
+      .get(`https://ticketback.herokuapp.com/usuario/listar`)
       .then((getData) => {
         setApiData(getData.data);
       });
@@ -112,7 +112,7 @@ const Usuarios = () => {
     }).then((elimina) => {
       if (elimina) {
         axios
-          .delete(`http://localhost:4000/usuario/eliminar/${id}`)
+          .delete(`https://ticketback.herokuapp.com/usuario/eliminar/${id}`)
           .then(() => {
             getData();
             swal({
@@ -151,7 +151,7 @@ const Usuarios = () => {
         ...editedData[editUserId],
       };
       axios
-        .put(`http://localhost:4000/usuario/actualizar/${editUserId}`, newData)
+        .put(`https://ticketback.herokuapp.com/usuario/actualizar/${editUserId}`, newData)
         .then(() => {
           getData();
           handleClose();

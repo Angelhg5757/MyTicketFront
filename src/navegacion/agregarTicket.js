@@ -30,7 +30,7 @@ const AgregarTicket = () => {
   useEffect(() => {
     axios
       //.get(`https://ticketback.herokuapp.com/boletos/listar`)
-      .get(`http://localhost:4000/boletoscrud`)
+      .get(`https://ticketback.herokuapp.com/boletoscrud`)
       .then((getData) => {
         setApiData(getData.data);
       });
@@ -78,7 +78,7 @@ const AgregarTicket = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/asientos/secciones")
+      .get("https://ticketback.herokuapp.com/asientos/secciones")
       .then((response) => {
         console.log(response.data);
         setListaSecciones(response.data.rows);
@@ -94,7 +94,7 @@ const AgregarTicket = () => {
 
     //Obtener los precios de la api
     axios
-      .get(`http://localhost:4000/precio/todos`)
+      .get(`https://ticketback.herokuapp.com/precio/todos`)
       .then((response) => {
         console.log("Holiwis precio;", response.data.rows);
         setListaPrecios(response.data.rows);
@@ -104,7 +104,7 @@ const AgregarTicket = () => {
       });
 
     axios
-      .get(`http://localhost:4000/eventos/todos`)
+      .get(`https://ticketback.herokuapp.com/eventos/todos`)
       .then((response) => {
         console.log("Entraste", response.data.rows);
         setListaEventos(response.data.rows);
@@ -115,7 +115,7 @@ const AgregarTicket = () => {
 
     //obtener los nombres de usuario de la api
     axios
-      .get(`http://localhost:4000/usuario/todos`)
+      .get(`https://ticketback.herokuapp.com/usuario/todos`)
       .then((response) => {
         console.log("Holiwis;", response.data.rows);
         setUsuarios(response.data.rows);
@@ -127,7 +127,7 @@ const AgregarTicket = () => {
 
   const getAsientosDisponibles = (seccion) => {
     axios
-      .get(`http://localhost:4000/asientosseccion/${seccion}`)
+      .get(`https://ticketback.herokuapp.com/asientosseccion/${seccion}`)
       .then((response) => {
         console.log(response.data.rows);
         setAsientosDisponibles(response.data.rows);
@@ -157,7 +157,7 @@ const AgregarTicket = () => {
         };     
         console.log(newData);
         axios
-          .post(`http://localhost:4000/boletos/creando`, newData)
+          .post(`https://ticketback.herokuapp.com/boletos/creando`, newData)
           .then(() => {
             getData();
             swal({

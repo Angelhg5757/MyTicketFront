@@ -42,7 +42,7 @@ const EventsPanel = () => {
 
   const getData = () => {
     axios
-      .get(`http://localhost:4000/eventos/usuario/${idUser}`)
+      .get(`https://ticketback.herokuapp.com/eventos/usuario/${idUser}`)
       .then((response) => {
         setApiData(response.data);
       })
