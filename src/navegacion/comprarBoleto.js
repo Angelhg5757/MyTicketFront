@@ -137,6 +137,10 @@ const ComprarBoleto = () => {
     setDescripcion(descripcion);
   };
 
+  const regresar = ()=>{
+    window.location.href = 'http://localhost:3000/';
+  }
+  
   const onSave = (event) => {
     event.preventDefault();
     console.log("Holisbananis");
@@ -159,9 +163,10 @@ const ComprarBoleto = () => {
           .post(`http://localhost:4000/boletos/compra`, newData)
           .then(() => {
             swal({
-              text: "El boleto ha sido creado con éxito",
+              text: "Disfruta tu concierto! ya tienes tu boleto",
               icon: "success",
             });
+            regresar();
           })
           .catch((error) => {
             swal("Error", "Ocurrió un error al crear el boleto", "error");
@@ -189,6 +194,7 @@ const ComprarBoleto = () => {
               className="w-70 rounded-6 shadow-4 imgLogin"
               alt=""
               fluid
+              style={{width:'80vh', height:'80vh'}}
             />
           </MDBCol>
           <MDBCol col="3">
@@ -281,6 +287,7 @@ const ComprarBoleto = () => {
                     <MDBBtn
                       className="btn-danger"
                       size="md"
+                      onClick={regresar}
                       style={{ width: "240px", height: "40px" }}
                     >
                       Cancelar
