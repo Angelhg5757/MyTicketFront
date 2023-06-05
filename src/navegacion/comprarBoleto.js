@@ -42,7 +42,7 @@ const ComprarBoleto = () => {
     setId(localStorage.getItem("idUsuario"));
 
     axios
-      .get("https://ticketback.herokuapp.com/asientos/secciones")
+      .get("https://ticketbookback.herokuapp.com/asientos/secciones")
       .then((response) => {
         console.log(response.data);
         setListaSecciones(response.data.rows);
@@ -58,7 +58,7 @@ const ComprarBoleto = () => {
 
     //Obtener los precios de la api
     axios
-      .get(`https://ticketback.herokuapp.com/precio/todos`)
+      .get(`https://ticketbookback.herokuapp.com/precio/todos`)
       .then((response) => {
         console.log("Holiwis precio;", response.data.rows);
         setListaPrecios(response.data.rows);
@@ -68,7 +68,7 @@ const ComprarBoleto = () => {
       });
 
     axios
-      .get(`https://ticketback.herokuapp.com/eventos/todos`)
+      .get(`https://ticketbookback.herokuapp.com/eventos/todos`)
       .then((response) => {
         console.log("Entraste", response.data.rows);
         setListaEventos(response.data.rows);
@@ -89,7 +89,7 @@ const ComprarBoleto = () => {
 
     //obtener los nombres de usuario de la api
     axios
-      .get(`https://ticketback.herokuapp.com/usuario/todos`)
+      .get(`https://ticketbookback.herokuapp.com/usuario/todos`)
       .then((response) => {
         console.log("Holiwis;", response.data.rows);
         setUsuarios(response.data.rows);
@@ -106,7 +106,7 @@ const ComprarBoleto = () => {
   const getImagen = (event) => {
     //obtener la imagen del boleto
     axios
-      .get(`https://ticketback.herokuapp.com/boletos/imagen/${event}`)
+      .get(`https://ticketbookback.herokuapp.com/boletos/imagen/${event}`)
       .then((response) => {
         console.log("hola");
         console.log("Imagen ", response.data[0].imagen);
@@ -118,7 +118,7 @@ const ComprarBoleto = () => {
   };
   const getAsientosDisponibles = (seccion) => {
     axios
-      .get(`https://ticketback.herokuapp.com/asientosseccion/${seccion}`)
+      .get(`https://ticketbookback.herokuapp.com/asientosseccion/${seccion}`)
       .then((response) => {
         console.log(response.data.rows);
         setAsientosDisponibles(response.data.rows);
@@ -138,7 +138,7 @@ const ComprarBoleto = () => {
   };
 
   const regresar = ()=>{
-    window.location.href = 'http://localhost:3000/';
+    window.location.href = 'https://ticketbook-front.vercel.app/';
   }
   
   const onSave = (event) => {
@@ -160,7 +160,7 @@ const ComprarBoleto = () => {
         };
         console.log(newData);
         axios
-          .post(`https://ticketback.herokuapp.com/boletos/compra`, newData)
+          .post(`https://ticketbookback.herokuapp.com/boletos/compra`, newData)
           .then(() => {
             swal({
               text: "Disfruta tu concierto! ya tienes tu boleto",

@@ -60,7 +60,7 @@ const Usuarios = () => {
 
   useEffect(() => {
     axios
-      .get(`https://ticketback.herokuapp.com/usuario/listar`)
+      .get(`https://ticketbookback.herokuapp.com/usuario/listar`)
       .then((getData) => {
         setApiData(getData.data);
       });
@@ -85,12 +85,12 @@ const Usuarios = () => {
   };
 
   const agregarBoton = ()=>{
-    window.location.href = "http://localhost:3000/agregarUsuario";
+    window.location.href = "https://ticketbook-front.vercel.app/agregarUsuario";
   }
 
   const getData = () => {
     axios
-      .get(`https://ticketback.herokuapp.com/usuario/listar`)
+      .get(`https://ticketbookback.herokuapp.com/usuario/listar`)
       .then((getData) => {
         setApiData(getData.data);
       });
@@ -112,7 +112,7 @@ const Usuarios = () => {
     }).then((elimina) => {
       if (elimina) {
         axios
-          .delete(`https://ticketback.herokuapp.com/usuario/eliminar/${id}`)
+          .delete(`https://ticketbookback.herokuapp.com/usuario/eliminar/${id}`)
           .then(() => {
             getData();
             swal({
@@ -151,7 +151,7 @@ const Usuarios = () => {
         ...editedData[editUserId],
       };
       axios
-        .put(`https://ticketback.herokuapp.com/usuario/actualizar/${editUserId}`, newData)
+        .put(`https://ticketbookback.herokuapp.com/usuario/actualizar/${editUserId}`, newData)
         .then(() => {
           getData();
           handleClose();

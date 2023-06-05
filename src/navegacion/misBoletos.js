@@ -60,7 +60,7 @@ const MisBoletos = () => {
 
   const getData = () => {
     axios
-      .get(`https://ticketback.herokuapp.com/boletosUsuario/${idUser}`)
+      .get(`https://ticketbookback.herokuapp.com/boletosUsuario/${idUser}`)
       .then((response) => {
         setApiData(response.data);
       })

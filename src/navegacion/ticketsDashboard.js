@@ -56,7 +56,7 @@ const Usuarios = () => {
   useEffect(() => {
     // Obtener las secciones desde la API
     axios
-      .get("https://ticketback.herokuapp.com/asientos/secciones")
+      .get("https://ticketbookback.herokuapp.com/asientos/secciones")
       .then((response) => {
         console.log(response.data);
         setSecciones(response.data.rows);
@@ -73,7 +73,7 @@ const Usuarios = () => {
 
   const getAsientosDisponibles = (seccion) => {
     axios
-      .get(`https://ticketback.herokuapp.com/asientosseccion/${seccion}`)
+      .get(`https://ticketbookback.herokuapp.com/asientosseccion/${seccion}`)
       .then((response) => {
         console.log(response.data.rows);
         setAsientosDisponibles(response.data.rows);
@@ -86,7 +86,7 @@ const Usuarios = () => {
   useEffect(() => {
     //obtener los nombres de usuario de la api
     axios
-      .get(`https://ticketback.herokuapp.com/usuario/todos`)
+      .get(`https://ticketbookback.herokuapp.com/usuario/todos`)
       .then((response) => {
         console.log("Holiwis;",response.data.rows);
         setUsuarios(response.data.rows);
@@ -99,7 +99,7 @@ const Usuarios = () => {
   useEffect(() => {
     //Obtener los precios de la api
     axios
-      .get(`https://ticketback.herokuapp.com/precio/todos`)
+      .get(`https://ticketbookback.herokuapp.com/precio/todos`)
       .then((response) => {
         console.log("Holiwis precio;",response.data.rows);
         setPrecio(response.data.rows);
@@ -112,7 +112,7 @@ const Usuarios = () => {
   useEffect(() => {
     //Obtener los nombres de los eventos de la api
     axios
-      .get(`https://ticketback.herokuapp.com/eventos/todos`)
+      .get(`https://ticketbookback.herokuapp.com/eventos/todos`)
       .then((response) => {
         console.log("Entraste",response.data.rows);
         setEventos(response.data.rows);
@@ -139,7 +139,7 @@ const Usuarios = () => {
   }, [seccionSeleccionada]);
 
   useEffect(() => {
-    axios.get(`https://ticketback.herokuapp.com/boletoscrud`).then((getData) => {
+    axios.get(`https://ticketbookback.herokuapp.com/boletoscrud`).then((getData) => {
       setApiData(getData.data);
     });
   }, []);
@@ -161,7 +161,7 @@ const Usuarios = () => {
   };
 
   const getData = () => {
-    axios.get(`https://ticketback.herokuapp.com/boletoscrud`).then((getData) => {
+    axios.get(`https://ticketbookback.herokuapp.com/boletoscrud`).then((getData) => {
       setApiData(getData.data);
     });
   };
@@ -182,7 +182,7 @@ const Usuarios = () => {
     }).then((elimina) => {
       if (elimina) {
         axios
-          .delete(`https://ticketback.herokuapp.com/boletos/eliminar/${id}`)
+          .delete(`https://ticketbookback.herokuapp.com/boletos/eliminar/${id}`)
           .then(() => {
             getData();
             swal({
@@ -218,7 +218,7 @@ const Usuarios = () => {
       };
       console.log(newData);
       axios
-        .put(`https://ticketback.herokuapp.com/boletos/actualizando/${editUserId}`, newData)
+        .put(`https://ticketbookback.herokuapp.com/boletos/actualizando/${editUserId}`, newData)
         .then(() => {
           getData();
           handleClose();
@@ -235,7 +235,7 @@ const Usuarios = () => {
   };
 
   const agregarBoton = ()=>{
-    window.location.href = "http://localhost:3000/agregarTicket";
+    window.location.href = "https://ticketbook-front.vercel.app/agregarTicket";
   }
 
   return (

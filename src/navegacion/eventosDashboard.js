@@ -59,7 +59,7 @@ const Usuarios = () => {
 
   useEffect(() => {
     axios
-      .get(`https://ticketback.herokuapp.com/eventos/listar`)
+      .get(`https://ticketbookback.herokuapp.com/eventos/listar`)
       .then((getData) => {
         setApiData(getData.data);
       });
@@ -86,7 +86,7 @@ const Usuarios = () => {
 
   const getData = () => {
     axios
-      .get(`https://ticketback.herokuapp.com/eventos/listar`)
+      .get(`https://ticketbookback.herokuapp.com/eventos/listar`)
       .then((getData) => {
         setApiData(getData.data);
       });
@@ -108,7 +108,7 @@ const Usuarios = () => {
     }).then((elimina) => {
       if (elimina) {
         axios
-          .delete(`https://ticketback.herokuapp.com/eventos/eliminar/${id}`)
+          .delete(`https://ticketbookback.herokuapp.com/eventos/eliminar/${id}`)
           .then(() => {
             getData();
             swal({
@@ -154,7 +154,7 @@ const Usuarios = () => {
       };
       console.log(newData);
       axios
-        .put(`https://ticketback.herokuapp.com/eventos/actualizar/${editUserId}`, newData)
+        .put(`https://ticketbookback.herokuapp.com/eventos/actualizar/${editUserId}`, newData)
         .then(() => {
           getData();
           handleClose();
@@ -171,7 +171,7 @@ const Usuarios = () => {
   };
 
   const agregarBoton = () => {
-    window.location.href = "http://localhost:3000/agregarEvento";
+    window.location.href = "https://ticketbook-front.vercel.app//agregarEvento";
   }
 
   return (

@@ -20,7 +20,7 @@ const Login = () => {
   let inSesion = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch("http://localhost:4000/usuario/log", {
+      let res = await fetch("https://ticketbook-front.vercel.app/usuario/log", {
         method: "POST",
         headers: {
           Accept: "application/json",

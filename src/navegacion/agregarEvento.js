@@ -22,7 +22,7 @@ const AgregarEvento = () => {
 
   useEffect(() => {
     axios
-      .get("https://ticketback.herokuapp.com/inmuebles/listar")
+      .get("https://ticketbookback.herokuapp.com/inmuebles/listar")
       .then((response) => {
         setInmuebles(response.data);
       })
@@ -34,7 +34,7 @@ const AgregarEvento = () => {
   let registerUsu = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch("https://ticketback.herokuapp.com/eventos/crear", {
+      let res = await fetch("https://ticketbookback.herokuapp.com/eventos/crear", {
         method: "POST",
         headers: {
           Accept: "application/json",

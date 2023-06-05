@@ -29,8 +29,8 @@ const AgregarTicket = () => {
 
   useEffect(() => {
     axios
-      //.get(`https://ticketback.herokuapp.com/boletos/listar`)
-      .get(`https://ticketback.herokuapp.com/boletoscrud`)
+      //.get(`https://ticketbookback.herokuapp.com/boletos/listar`)
+      .get(`https://ticketbookback.herokuapp.com/boletoscrud`)
       .then((getData) => {
         setApiData(getData.data);
       });
@@ -55,8 +55,8 @@ const AgregarTicket = () => {
 
   const getData = () => {
     axios
-      //.get(`https://ticketback.herokuapp.com/boletos/listar`)
-      .get(`https://localhost:4000/boletoscrud`)
+      .get(`https://ticketbookback.herokuapp.com/boletos/listar`)
+      //.get(`https://localhost:4000/boletoscrud`)
       .then((getData) => {
         setApiData(getData.data);
       });
@@ -78,7 +78,7 @@ const AgregarTicket = () => {
 
   useEffect(() => {
     axios
-      .get("https://ticketback.herokuapp.com/asientos/secciones")
+      .get("https://ticketbookback.herokuapp.com/asientos/secciones")
       .then((response) => {
         console.log(response.data);
         setListaSecciones(response.data.rows);
@@ -94,7 +94,7 @@ const AgregarTicket = () => {
 
     //Obtener los precios de la api
     axios
-      .get(`https://ticketback.herokuapp.com/precio/todos`)
+      .get(`https://ticketbookback.herokuapp.com/precio/todos`)
       .then((response) => {
         console.log("Holiwis precio;", response.data.rows);
         setListaPrecios(response.data.rows);
@@ -104,7 +104,7 @@ const AgregarTicket = () => {
       });
 
     axios
-      .get(`https://ticketback.herokuapp.com/eventos/todos`)
+      .get(`https://ticketbookback.herokuapp.com/eventos/todos`)
       .then((response) => {
         console.log("Entraste", response.data.rows);
         setListaEventos(response.data.rows);
@@ -115,7 +115,7 @@ const AgregarTicket = () => {
 
     //obtener los nombres de usuario de la api
     axios
-      .get(`https://ticketback.herokuapp.com/usuario/todos`)
+      .get(`https://ticketbookback.herokuapp.com/usuario/todos`)
       .then((response) => {
         console.log("Holiwis;", response.data.rows);
         setUsuarios(response.data.rows);
@@ -127,7 +127,7 @@ const AgregarTicket = () => {
 
   const getAsientosDisponibles = (seccion) => {
     axios
-      .get(`https://ticketback.herokuapp.com/asientosseccion/${seccion}`)
+      .get(`https://ticketbookback.herokuapp.com/asientosseccion/${seccion}`)
       .then((response) => {
         console.log(response.data.rows);
         setAsientosDisponibles(response.data.rows);
@@ -157,7 +157,7 @@ const AgregarTicket = () => {
         };     
         console.log(newData);
         axios
-          .post(`https://ticketback.herokuapp.com/boletos/creando`, newData)
+          .post(`https://ticketbookback.herokuapp.com/boletos/creando`, newData)
           .then(() => {
             getData();
             swal({

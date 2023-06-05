@@ -60,7 +60,7 @@ const AgregarUsuario = () => {
   let registerUsu = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch("https://ticketback.herokuapp.com/usuario/crear", {
+      let res = await fetch("https://ticketbookback.herokuapp.com/usuario/crear", {
         method: "POST",
         headers: {
           Accept: "application/json",

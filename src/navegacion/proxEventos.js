@@ -43,7 +43,7 @@ const Carousel = () => {
 
   const getData = () => {
     axios
-      .get(`https://ticketback.herokuapp.com/eventos/proximos`)
+      .get(`https://ticketbookback.herokuapp.com/eventos/proximos`)
       .then((response) => {
         setApiData(response.data);
       })

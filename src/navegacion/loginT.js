@@ -32,7 +32,7 @@ const Login = () => {
   let inSesion = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch("https://ticketback.herokuapp.com/usuario/log", {
+      let res = await fetch("https://ticketbookback.herokuapp.com/usuario/log", {
         method: "POST",
         headers: {
           Accept: "application/json",

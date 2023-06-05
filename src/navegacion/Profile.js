@@ -64,7 +64,7 @@ const Profile = () => {
       updatedData.password = password;
     }
 
-    fetch(`https://ticketback.herokuapp.com/usuario/actualizarPerfil/${idUser}`, {
+    fetch(`https://ticketbookback.herokuapp.com/usuario/actualizarPerfil/${idUser}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
