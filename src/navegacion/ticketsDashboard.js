@@ -56,7 +56,7 @@ const Usuarios = () => {
   useEffect(() => {
     // Obtener las secciones desde la API
     axios
-      .get("http://localhost:4000/asientos/secciones")
+      .get("https://ticketback.herokuapp.com/asientos/secciones")
       .then((response) => {
         console.log(response.data);
         setSecciones(response.data.rows);
@@ -73,7 +73,7 @@ const Usuarios = () => {
 
   const getAsientosDisponibles = (seccion) => {
     axios
-      .get(`http://localhost:4000/asientosseccion/${seccion}`)
+      .get(`https://ticketback.herokuapp.com/asientosseccion/${seccion}`)
       .then((response) => {
         console.log(response.data.rows);
         setAsientosDisponibles(response.data.rows);
@@ -86,7 +86,7 @@ const Usuarios = () => {
   useEffect(() => {
     //obtener los nombres de usuario de la api
     axios
-      .get(`http://localhost:4000/usuario/todos`)
+      .get(`https://ticketback.herokuapp.com/usuario/todos`)
       .then((response) => {
         console.log("Holiwis;",response.data.rows);
         setUsuarios(response.data.rows);
@@ -99,7 +99,7 @@ const Usuarios = () => {
   useEffect(() => {
     //Obtener los precios de la api
     axios
-      .get(`http://localhost:4000/precio/todos`)
+      .get(`https://ticketback.herokuapp.com/precio/todos`)
       .then((response) => {
         console.log("Holiwis precio;",response.data.rows);
         setPrecio(response.data.rows);
@@ -112,7 +112,7 @@ const Usuarios = () => {
   useEffect(() => {
     //Obtener los nombres de los eventos de la api
     axios
-      .get(`http://localhost:4000/eventos/todos`)
+      .get(`https://ticketback.herokuapp.com/eventos/todos`)
       .then((response) => {
         console.log("Entraste",response.data.rows);
         setEventos(response.data.rows);
@@ -139,7 +139,7 @@ const Usuarios = () => {
   }, [seccionSeleccionada]);
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/boletoscrud`).then((getData) => {
+    axios.get(`https://ticketback.herokuapp.com/boletoscrud`).then((getData) => {
       setApiData(getData.data);
     });
   }, []);
@@ -161,7 +161,7 @@ const Usuarios = () => {
   };
 
   const getData = () => {
-    axios.get(`http://localhost:4000/boletoscrud`).then((getData) => {
+    axios.get(`https://ticketback.herokuapp.com/boletoscrud`).then((getData) => {
       setApiData(getData.data);
     });
   };
@@ -182,7 +182,7 @@ const Usuarios = () => {
     }).then((elimina) => {
       if (elimina) {
         axios
-          .delete(`http://localhost:4000/boletos/eliminar/${id}`)
+          .delete(`https://ticketback.herokuapp.com/boletos/eliminar/${id}`)
           .then(() => {
             getData();
             swal({
@@ -218,7 +218,7 @@ const Usuarios = () => {
       };
       console.log(newData);
       axios
-        .put(`http://localhost:4000/boletos/actualizando/${editUserId}`, newData)
+        .put(`https://ticketback.herokuapp.com/boletos/actualizando/${editUserId}`, newData)
         .then(() => {
           getData();
           handleClose();
