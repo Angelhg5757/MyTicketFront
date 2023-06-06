@@ -146,7 +146,7 @@ const ComprarBoleto = () => {
   };
 
   const regresar = ()=>{
-    window.location.href = 'https://ticket-book-front.vercel.app/misBoletos';
+    window.location.href = '/misBoletos';
   }
   
   const onSave = (event) => {
