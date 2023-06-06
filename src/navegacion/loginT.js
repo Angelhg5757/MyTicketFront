@@ -96,7 +96,7 @@ const Login = () => {
             <img
               // src="https://images.pexels.com/photos/1644616/pexels-photo-1644616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               //src="https://pbs.twimg.com/media/ESSrixsWAAAvgq7.jpg"
-              src="https://unsplash.com/es/fotos/hzgs56Ze49s"
+              src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80 "
               className="w-100 rounded-6 shadow-4 imgLogin"
               alt=""
               fluid

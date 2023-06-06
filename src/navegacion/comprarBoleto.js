@@ -35,6 +35,8 @@ const ComprarBoleto = () => {
   const [asientosDisponibles, setAsientosDisponibles] = useState([]);
   const [imagen, setImagen] = useState([]);
   const [id, setId] = useState("");
+  const [hovered, setHovered] = useState(false);
+
 
   // ...
 
@@ -190,11 +192,14 @@ const ComprarBoleto = () => {
         <MDBRow className="g-0 align-items-center">
           <MDBCol col="8">
             <img
-              src={imagen}
+              //src={imagen}
+              src={hovered ? 'https://mcdn.ticketseating.com/450w/29450-palacio-de-los-deportes-mexico-fobia.jpg' : imagen}
               className="w-70 rounded-6 shadow-4 imgLogin"
               alt=""
               fluid
               style={{width:'80vh', height:'80vh'}}
+              onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
             />
           </MDBCol>
           <MDBCol col="3">
