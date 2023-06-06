@@ -114,7 +114,6 @@ const Registro = () => {
                   <span className="details">Apellido Materno</span>
                   <input
                     type="text"
-                    required
                     onChange={(e) => setApemat(e.target.value)}
                   />
                 </div>
