@@ -85,7 +85,7 @@ const Usuarios = () => {
   };
 
   const agregarBoton = ()=>{
-    window.location.href = "https://ticketbook-front.vercel.app/agregarUsuario";
+    window.location.href = "https://ticket-book-front.vercel.app/agregarUsuario";
   }
 
   const getData = () => {

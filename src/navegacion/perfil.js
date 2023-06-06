@@ -47,7 +47,7 @@ const Perfil = () => {
       return;
     }
     try {
-      let res = await fetch("https://ticketbook-front.vercel.app/contacto/crear", {
+      let res = await fetch("https://ticket-book-front.vercel.app/contacto/crear", {
         method: "POST",
         headers: {
           Accept: "application/json",

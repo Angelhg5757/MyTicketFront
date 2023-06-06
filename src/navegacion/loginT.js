@@ -95,8 +95,8 @@ const Login = () => {
           <MDBCol col="8">
             <img
               // src="https://images.pexels.com/photos/1644616/pexels-photo-1644616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              src="https://pbs.twimg.com/media/ESSrixsWAAAvgq7.jpg"
-
+              //src="https://pbs.twimg.com/media/ESSrixsWAAAvgq7.jpg"
+              src="https://unsplash.com/es/fotos/hzgs56Ze49s"
               className="w-100 rounded-6 shadow-4 imgLogin"
               alt=""
               fluid

@@ -235,7 +235,7 @@ const Usuarios = () => {
   };
 
   const agregarBoton = ()=>{
-    window.location.href = "https://ticketbook-front.vercel.app/agregarTicket";
+    window.location.href = "https://ticket-book-front.vercel.app/agregarTicket";
   }
 
   return (
