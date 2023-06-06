@@ -12,8 +12,8 @@ function Carrusel() {
               alt="First slide"
             />
             <Carousel.Caption>
-              <h3>First slide label</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              <h3>La puerta al espectáculo</h3>
+              <p>Encuentra tus entradas perfectas en un solo clic.</p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
@@ -24,8 +24,8 @@ function Carrusel() {
             />
     
             <Carousel.Caption>
-              <h3>Second slide label</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h3>Tu pasaporte a la música en vivo</h3>
+              <p>Descubre, reserva y vive los mejores conciertos con nosotros.</p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
@@ -36,9 +36,9 @@ function Carrusel() {
             />
     
             <Carousel.Caption>
-              <h3>Third slide label</h3>
+              <h3>La emoción empieza aquí</h3>
               <p>
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+              Consigue tus entradas para los conciertos más esperados, sin complicaciones.
               </p>
             </Carousel.Caption>
           </Carousel.Item>
