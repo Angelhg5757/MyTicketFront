@@ -60,25 +60,25 @@ const Carousel = () => {
 
   return (
     <div className="proximos-eventos">
-      <h1 className="text-start titulo-eventos text-center text-light pt-5">
-        Todos los eventos
-      </h1>
-      <div className="eventos" style={{ padding: 40 }}>
-        <Slider {...settings}>
-          {data.map((event, index) => (
-            <div key={index}>
-              <CardComponent
-                image={event.imagen}
-                category={formatDate(event.fecha)}
-                title={event.eventos_nombre}
-                content={event.inmueble_nombre}
-                eventId = {event.idEventos}
-              />
-            </div>
-          ))}
-        </Slider>
-      </div>
+    <h1 className="text-start titulo-eventos text-center text-light pt-5">
+      Todos los Eventos
+    </h1>
+    <div className="eventos" style={{ padding: 40 }}>
+      <Slider {...settings}>
+        {data.map((event, index) => (
+          <div key={index}>
+            <CardComponent
+              image={event.imagen}
+              category={formatDate(event.fecha)}
+              title={event.nombre}
+              content={event.inmueble_nombre}
+              eventId = {event.idEventos}
+            />
+          </div>
+        ))}
+      </Slider>
     </div>
+  </div>
   );
 }  
 
